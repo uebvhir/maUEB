@@ -1,0 +1,35 @@
+# Parameters required to run 03-MC.R
+# Directories
+dataDirN <- "dades" #name of data directory
+resultsDirN <- "results" #name of results directory
+
+# Resultsfile
+resultsSummFN <- "ResultsSummary_MC.txt" #A summary of results obtained in each step will be saved in a text file
+
+# Input data
+inputMCRda <- "afterTopTabs.Rda" #Rda object to load 
+
+# Venn
+venn_comparNames <- c("EffectTreatment") #name of set of comparisons (without spaces/dots/_)
+venn_compar <- list(1:3) #list with set of comparisons to do the Venn, positions of each set (or names) according to 'listofcoef' or 'listofTopNames'
+venn_pval <- c("adj.P.Val") #"P.Value" or "adj.P.Val" (for each set of comparisons)
+venn_pval.thr <- c(0.05) #pvalue threshold  (for each set of comparisons)
+venn_logFC <- c(1) #logFC threshold (for each set of comparisons)
+venn_include <- list("") #list with the venns to do for each set of comparisons (can be "" for both altogether up and down regulated genes, and/or "Up" for only up-reg genes, and/or "Down" for only down-reg genes)
+venn_pos = list(c(0, 0, 180)) #label positions (in grades) for venn plot according to number of comparisons to plot (max 5)
+                                                                                        #eg. of venn positions (from 2 to 5 circles):  list(c(-20,20), c(0,0,180), c(0,0,0,0), c(0, -20, -220, 150, 10))
+
+# Heatmap
+hm_comparNames <- c("EffectTreatment", "EffectPD1") #name of set of comparisons (without spaces/dots/_). Usually the same as used for Venn (eg. venn_comparNames)
+hm_compar <-  list(1:3, 1) #list with set of comparisons to select genes to do the Heatmap, positions (or names) according to 'listofcoef' or 'listofTopNames'. Usually the same as used for Venn (eg. venn_compar)
+hm_groupexclude <- list(c(), c("CMP")) #samples to exclude in each set of comparisons for Heatmap (length must be equal to number of comparisons). If no sample is to be excluded put c().
+hm_pval <- c("adj.P.Val", "P.Value") #"P.Value" or "adj.P.Val" (for each set of comparisons)
+hm_pval.thr <- c(0.05, 0.05) #pvalue threshold  (for each set of comparisons)
+hm_logFC <- c(1, 0.7) #logFC threshold (for each set of comparisons)
+hm_palette <- colorRampPalette(c("blue", "white", "red"))(n = 199) #si valor alto no colores en la key
+hm_clustCol <- TRUE #whether to perform hierarchical clustering of samples in  heatmap (column dendogram) (eg. TRUE/FALSE)
+hm_clustCol.dist <- "euclidian" #required if hm_clustCol=TRUE: method for distance calculation in hierarchical clustering of samples (default in heatmap.2 is "euclidian")
+hm_clustCol.method <- "complete" #required if hm_clustCol=TRUE: method for hierarchical clustering (default in heatmap.2 is "complete", other good may be "average")
+hm_clustRow.cor <- TRUE #whether to cluster gene expression based on distance correlation (otherwise distance matrix is calcluated based on euclidian distance (default in heatmap.2 function))
+batcheffect <- FALSE #whether to correct expression values for batch effect (eg. TRUE/FALSE)
+batchcolName <- "Batch" #column name in 'targets' file containing Batch (eg. 'Batch')

@@ -1,0 +1,46 @@
+# Parameters required to run 01-Load-QC-Norm-Filt.R
+# Directories
+dataDirN <- "dades" #name of data directory
+celDirN <-  "celfiles" #name of celfiles directory
+resultsDirN <- "results" #name of results directory
+
+# Resultsfile
+resultsSummFN <- "ResultsSummary_Load-QC-Norm-Filt.txt" #A summary of results obtained in each step will be saved in a text file
+
+# Targets
+targetsFN <- "targets.RSRCHR.STUDY.csv" #Name of 'targets' file (csv),  previously created with Build_targets.R
+targets.fact <- c("Group") #Columns of 'targets' to be treated as factors (eg. "Group", "Batch"). First must be the Group.
+batchcolName <- NULL #Name of variable corresponding to batch in targets file (eg. NULL if no batch effect considered or "Batch")
+colorlist <- c("firebrick1", "blue", "darkgoldenrod1", "darkorchid1", "lightblue", "orange4", "seagreen", "aquamarine3", "red4", "chartreuse2", "plum", "darkcyan", "darkolivegreen3", "forestgreen", "gold","khaki1", "lightgreen", "gray67", "deeppink") #list of colors for some plots, alternative to "Colors" column
+
+#Annotation package
+##For Clariom D Human, transcript level: "clariomdhumantranscriptcluster.db"
+##For Clariom S Human: "clariomshumantranscriptcluster.db"
+##For Clariom D Mouse, transcript level: "mta10transcriptcluster.db"
+##For Clariom S Mouse: "clariomsmousetranscriptcluster.db"
+annotPackage <- "clariomsmousetranscriptcluster.db"  
+
+#Normalization
+normalize.method <- "oligo::rma" # Specify normalization method and from which package (eg. "oligo::rma")
+
+#Filtering by variance parameters
+filterByVar.fun <- "IQR" # (eg. "IQR" or "sd") Function used to rank genes by variance. Default is "IQR" (interquartile range between all samples). For designs with many groups where number samples/group is <25% of total number of samples "SD" may be more appropiate.
+filterByVar.thr <- 0.65 # Threshold for variance filtering according to the ranking performed with the filterByVar.fun (percentage of genes with lower variance that will be excluded)
+#faltaria: a basicpipe fa algo especial en el filtrat si les mostres estan aparellades tot i q no ho entenc gaire. incorporar-ho?
+
+#PCA
+pcaRawData.fact <- targets.fact # Variables to color PCA plot (eg. "Group", "Batch", or the same as targets.fact)
+pcaRawData.scale <- FALSE # If values need to be scaled for PCA (TRUE/FALSE)
+pcaNormData.fact <- targets.fact # Variables to color PCA plot (eg. "Group", "Batch", or the same as targets.fact)
+pcaNormData.scale <- FALSE  # If values need to be scaled for PCA (TRUE/FALSE)
+
+#PVCA
+pct_threshold <- 0.6
+pvcaNormData.fact <- targets.fact # Variables (min 2) for PVCA calculation (eg. c("Group", "Batch"), or the same as targets.fact)
+## Note: # For each variable num of levels must be < num of samples/level, if not it gives an error
+## To overcome this issue you can create a simplified version of targets file with less levels just to create the pvca
+targets.pvcaFN <- targetsFN #Name of 'targets' file (csv2) for pvca (usually is targetsFN)
+
+#Hierarchical clustering
+hclustRawData.method <- "average" # Hierarchical clustering method (eg. "average")
+hclustNormData.method <- "average" # Hierarchical clustering method (eg. "average")

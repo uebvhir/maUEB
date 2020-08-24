@@ -1,0 +1,4 @@
+# Which analyses to do in script 02-DEA.R
+
+ReportHTMLTopTab <- TRUE #if we want to perform the HTML report of topTables
+Volcanos <- TRUE #if we want to plot the Volcanoplots

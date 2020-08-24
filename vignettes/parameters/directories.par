@@ -1,0 +1,4 @@
+# Directories
+dataDirN <- "dades" #name of data directory
+celDirN <-  "celfiles" #name of celfiles directory
+resultsDirN <- "results" #name of results directory

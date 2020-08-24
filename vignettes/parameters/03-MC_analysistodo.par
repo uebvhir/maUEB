@@ -1,0 +1,6 @@
+# Which analyses to do in script 03-MC.R
+
+Venn_plots <- TRUE #whether to create Venn plots for multiple comparisons
+Venn_sharedElems_extended <- TRUE #whether to store a dataframe of shared elements in Venn comparison containing logFC and adj.pval for each of the comparisons involved
+Heatmap_plots <- TRUE #whether to create heatmap plots for multiple comparisons
+hm_plots_interactive <- TRUE #whether to create interactive heatmap plots (as html)

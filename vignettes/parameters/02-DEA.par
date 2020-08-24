@@ -1,0 +1,45 @@
+# Parameters required to run 02-DEA.R
+# Directories
+dataDirN <- "dades" #name of data directory
+resultsDirN <- "results" #name of results directory
+
+# Resultsfile
+resultsSummFN <- "ResultsSummary_DEA.txt" #A summary of results obtained in each step will be saved in a text file
+
+#Input data
+inputDEARda <- "normData.Rda" #Rda object to load 
+##From 'normData.Rda' object created in script 01-microarrayAnalysis-Load-QC-Norm-Filt.R, which contains also 'rawData', 'eset_filtered', 'eset_norm' and 'targets' objects)
+##If only Volcano Plots are to be performed, data can be loaded from 'afterTopTabs.Rda' object
+
+#Expression set to use for analysis
+eset_analysis <- "eset_filtered" # (eg. eset_filtered (filtered dataset) or eset_norm (all genes))
+
+#Annotation package
+##For Clariom D Human, transcript level: "clariomdhumantranscriptcluster.db"
+##For Clariom S Human: "clariomshumantranscriptcluster.db"
+##For Clariom D Mouse, transcript level: "mta10transcriptcluster.db"
+##For Clariom S Mouse: "clariomsmousetranscriptcluster.db"
+annotPackage <- "clariomsmousetranscriptcluster.db"  
+
+#Design matrix
+design.fact <- c("Group") # Variables to include in Design matrix (eg. Group, Batch, Mouse/Patient). Group must be the first.
+blocking.fact <- NULL # Variables to block as random effect (via calculation of duplicateCorrelation) for fitting the model. eg. "PatientID". If not to consider any variable, set NULL. 
+
+#Contrasts matrix
+contrastsv <- c("PD1vsCTL = PD1 - CTL",
+               "CMPvsCTL = CMP - CTL",
+               "PD1vsCMP = PD1 - CMP") # Comparisons to be performed
+
+ncomp <- length(contrastsv)
+
+#TopTable
+toptable_padjust_method <- c("none", "BH", "BH") # p-value adjust method for HTML top table (eg. "BH", "none") for each coefficient. Select "none" if you want to show the raw pvalue in html table
+
+#Volcano plots
+volc_logFC <- c(0.5, 1, 1) #abs(logFC) threshold (genes above this threshold will be colored on plot) for each comparison
+volc_pval <- c("P.Value", "adj.P.Val", "adj.P.Val") #which pvalue to take for thresholding: "P.Value" or "adj.P.Val" for each comparison
+volc_pval.thr <- rep(0.05, 3) #p-value threshold for each comparison
+volc_x0 <- rep(-3, ncomp) #edge x inferior limit for each comparison
+volc_x1 <- rep(+3, ncomp) #edge x superior limit for each comparison
+volc_y0 <- rep(0, ncomp) #edge y inferior limit for each comparison
+volc_y1 <- rep(5, ncomp) #edge y superior limit for each comparison

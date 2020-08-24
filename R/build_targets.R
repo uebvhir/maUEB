@@ -6,14 +6,14 @@
 #' @param client Initials of client
 #' @param ID Study UEB id
 #' @param descriptors Variable names to include in dataframe (eg. "FileName","Group", "ShortName", "Colors", "Batch")
-#' @export buildTargets
+#' @export build_targets
 #' @author Mireia Ferrer \email{mireia.ferrer.vhir@@gmail.com}
 #' @examples
 #' @return targets A dataframe listing the CEL file names and the covariables
 #' @keywords celfiles targets
 #' @references
 
-buildTargets <- function(celFilesDir, dataDir, client, ID, descriptors){
+build_targets <- function(celFilesDir, dataDir, client, ID, descriptors){
     #List files contained in celDir
     FileName <- list.files(celDir, pattern=NULL, all.files=FALSE, recursive = FALSE,
                            full.names=FALSE, include.dirs = TRUE, no..=FALSE)

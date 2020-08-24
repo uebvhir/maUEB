@@ -1,0 +1,6 @@
+#Parameters required to run 00-BuildTargets.R
+dataDirN <- "dades" #name of data directory
+celDirN <-  "celfiles" #name of celfiles directory
+client <- "RSRCHR" #acronym of principal investigator (eg. "TS" for Tomas Sanchez)
+ID <- "STUDY" #study UEB ID (eg. "D2400")
+descriptors <- c("FileName","Group", "ShortName", "Colors", "Batch") #variable names to include in dataframe (eg. "FileName","Group", "ShortName", "Colors", "Batch")

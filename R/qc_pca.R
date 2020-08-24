@@ -13,7 +13,7 @@
 #' @param size Size of labels
 #' @param glineas Width of lines rising from labels
 #' @import ggplot2 ggrepel
-#' @export createPCAplot
+#' @export qc_pca
 #' @return Creates a PCA plot into the graphical device and returns a list with the loads of PCA.
 #' @author Mireia Ferrer Almirall \email{mireia.ferrer.vhir@@gmail.com}
 #' @seealso \link[stats]{prcomp}, \link[ggplot2]{ggplot}
@@ -21,7 +21,7 @@
 #' @keywords PCA
 #' @references
 
-createPCAplot <- function(data, scale, factors, targets, col.group="Colors", colorlist=NULL, names, resultsDir, label, size = 1.5, glineas = 0.25){
+qc_pca <- function(data, scale, factors, targets, col.group="Colors", colorlist=NULL, names, resultsDir, label, size = 1.5, glineas = 0.25){
     if (is.null(colorlist)){colorlist <- rainbow(ncol(data))}
     #compute PCA
     data.pca <- prcomp(t(data), scale=scale)

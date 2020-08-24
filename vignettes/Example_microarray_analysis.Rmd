@@ -1,0 +1,138 @@
+---
+title: "Example of workflow for microarray analysis using maUEB package"
+author: "Mireia Ferrer, Ricardo Gonzalo and Alex Sanchez"
+date: '`r Sys.Date()`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Example_microarray_analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,  comment = "#>")
+# knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load packages
+
+```{r}
+if (!require(maUEB)){
+    require(devtools)
+    install_github("uebvhir/maUEB")
+}
+```
+
+# Set directories
+
+```{r}
+# Set working directory (it paths to vignette directory)
+workingDir  <- getwd()
+# Parameters directory
+paramDir <- file.path(workingDir, "parameters")
+```
+
+# Load global parameters
+
+```{r}
+source(file.path(paramDir, "global_parameters.par"))
+```
+
+# Set directories from parameters
+
+```{r}
+dataDir <- file.path(workingDir, dataDirN)
+celDir <-  file.path(workingDir, celDirN)
+resultsDir <- file.path(workingDir, resultsDirN)
+```
+
+# Build Targets
+
+Builds the targets template dataframe (csv file: _targets.RSRCHR.STUDY.template.csv_) with the cel file names and the descriptors specified in global parameters. Then, we need to fill the information for each descriptor manually in excel/libreoffice and save as csv file (_targets.RSRCHR.STUDY.csv_).
+
+```{r}
+build_targets(celDir, dataDir, client, ID, descriptors)
+```
+
+# Load-QC-Norm-Filt
+
+## Load the parameters required for this block
+
+```{r}
+#Parameters
+source(file.path(paramDir, "01-Load-QC-Norm-Filt.par"))
+#Execution parameters
+source(file.path(paramDir, "01-Load-QC-Norm-Filt_analysistodo.par"))
+```
+
+## Load the targets file saved in dataDir
+
+```{r}
+targets <- read_targets(dataDir, targetsFN, targets.fact)
+```
+
+```{r}
+head(targets)
+dim(targets)
+summary(targets)
+```
+
+## Load raw data
+
+Read the cel files according to targets rownames (and in the same order) and create an ExpressionSet of raw data
+
+```{r message=FALSE}
+if (readcelFiles){
+    rawData <- read_celfiles(celDir, targets)
+    } else {if (loadRawData) {load(file.path(dataDir, "rawData.Rda"))}}
+```
+
+```{r}
+rawData
+dim(rawData)
+```
+
+## Quality control (QC) of raw data
+
+Performs different exploratory analyses (Boxplot, PCA, Heatmap of sample distances and hierarchical clustering) to inspect graphically the quality of samples from raw data. As well, a report of QC is generated using the array quality metrics package.
+
+### Boxplot of raw data
+
+Creates a boxplot of log2-transformed intensity values from raw data and saves it as pdf into the results directory.
+
+```{r}
+if (boxplotRawData){
+   qc_boxplot(data=rawData, group=targets$Group, col=targets$Colors, names=targets$ShortName, resultsDir, label="RawData")
+}
+```
+
+### PCA of raw data
+
+Performs a principal component analysis of raw data and creates different PCA plots with samples colored for each factor variable specified in 'pcaRawData.fact' from parameters. 
+
+```{r}
+if (pcaRawData){
+    loadsPCAraw <- qc_pca(data=exprs(rawData), scale=pcaRawData.scale, factors=pcaRawData.fact, targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, resultsDir=resultsDir, label="RawData")
+}
+```
+
+### Heatmap of sample distances and hierarchical clustering of raw data
+
+```{r}
+if (heatmapRawData){
+    qc_hc(data=exprs(rawData), hclust.method=hclustRawData.method, names=targets$ShortName, cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=2, resultsDir=resultsDir, label="RawData")
+}
+```
+
+### ArrayQualityMetrics of raw data
+
+```{r}
+#Note: Set 'intgroup' according to factors to be colored in heatmap. Other plots will be colored according to only the first factor
+require(arrayQualityMetrics) #required for Affymetrix QC
+if (arrayQMRawData) arrayQualityMetrics(rawData, outdir = file.path(resultsDir, "QCDir.Raw"), force=TRUE, intgroup=targets.fact)
+```
+
+## Normalization
+
+Normalization of raw data and annotation of summarized probes. Alternatively, normData can be directly loaded.
+

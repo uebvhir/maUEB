@@ -11,7 +11,7 @@
 #' @param numClusters Number of main clusters to highlight by rect
 #' @param resultsDir Name of the directory where the plot will be saved
 #' @param label A string to be included in the file name to be saved
-#' @export createHC
+#' @export qc_hc
 #' @return Creates a heatmap of sample distances and a dendogram of the hierarchical clustering into the graphical device.
 #' @author Mireia Ferrer Almirall \email{mireia.ferrer.vhir@@gmail.com}
 #' @seealso \link[stats]{hclust}, \link[stats]{dist}, \link[stats]{heatmap}
@@ -19,7 +19,7 @@
 #' @keywords hierarchical clustering heatmap samples
 #' @references
 
-createHC <- function(data, dist.method="euclidean", hclust.method="average", names, cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=2, resultsDir, label){
+qc_hc <- function(data, dist.method="euclidean", hclust.method="average", names, cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=2, resultsDir, label){
     manDist <-  dist(t(data), method=dist.method)
     hc <- hclust(manDist, method=hclust.method)
     #fem els grafics

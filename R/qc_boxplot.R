@@ -17,7 +17,7 @@
 #' @param ... other arguments to be passed to boxplot function from oligo package, such as graphical parameters
 #' @note The boxplot methods for FeatureSet and Expression use a sample (via sample) of the probes/probesets to produce the plot. Therefore, the user interested in reproducibility is advised to use set.seed.
 #' @importFrom oligo boxplot
-#' @export createBoxplot
+#' @export qc_boxplot
 #' @author Mireia Ferrer Almirall \email{mireia.ferrer.vhir@@gmail.com}
 #' @seealso \link[oligo]{boxplot}
 #' @examples
@@ -25,7 +25,7 @@
 #' @keywords boxplot ExpressionSet FEatureSet
 #' @references
 
-createBoxplot <- function(data, group, col, names, resultsDir, label, cex.axis=0.5, cex.lab=0.7, las=2, plotlegend=TRUE, legend.posx=10, legend.posy=13, legend.cex=0.6, ...){
+qc_boxplot <- function(data, group, col, names, resultsDir, label, cex.axis=0.5, cex.lab=0.7, las=2, plotlegend=TRUE, legend.posx=10, legend.posy=13, legend.cex=0.6, ...){
     ###Note: takes 'boxplot' function from package 'oligo'. For raw data (ExpressionSet), it transforms intensities to log2-scale (default: transfo=log2)
     ###Note: The boxplot methods for FeatureSet and Expression use a sample (via sample) of the probes/probesets to produce the plot. Therefore, the user interested in reproducibility is advised to use set.seed.
     set.seed(123)

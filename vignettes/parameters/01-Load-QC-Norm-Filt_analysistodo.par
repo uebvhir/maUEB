@@ -1,0 +1,37 @@
+# Which analyses to do in script 01-Load-QC-Norm-Filt.R
+
+## Read/Load Data
+readcelFiles <- TRUE # Whether to read raw data from celfiles (TRUE/FALSE)
+loadRawData <- FALSE # Whether to load raw data expression set (rawData) previously created with this script (TRUE/FALSE)
+loadNormData <- FALSE # Whether to load normalized data expression set (eset_norm) previously created with this script (TRUE/FALSE)
+
+## Normalize data
+normalize <- TRUE # Whether to normalize raw data (TRUE/FALSE)
+
+## QC RawData
+QCraw <- TRUE # Whether to perform quality control of raw data (TRUE/FALSE)
+boxplotRawData <- QCraw # Boxplot of raw data (TRUE/FALSE)
+pcaRawData <- QCraw # Calculate PCA and do PCA plot (TRUE/FALSE)
+heatmapRawData <- QCraw # Heatmap/Hierarchical clustering samples-samples (TRUE/FALSE)
+arrayQMRawData <- QCraw # ArrayQualityMetrics Report (TRUE/FALSE)
+
+## QC NormData
+QCnorm <- TRUE # Whether to perform quality control of raw data (TRUE/FALSE)
+boxplotNormData <- QCnorm # Boxplot of normalized data (TRUE/FALSE)
+pcaNormData <- QCnorm # Calculate PCA and do PCA plot (TRUE/FALSE)
+pcaNormData.corrbatch <- FALSE # Calculate PCA with expression values corrected for batch effect (TRUE/FALSE)
+heatmapNormData <- QCnorm # Heatmap/Hierarchical clustering samples-samples (TRUE/FALSE)
+arrayQMNormData <- QCnorm # ArrayQualityMetrics Report (TRUE/FALSE)
+pvcaNormData <- FALSE # Calculate PVCA and do PVCA plot (TRUE/FALSE)
+
+## SD plot
+SDplot <- TRUE # Plot SD vs nº features
+
+## Filtering
+filterByAnnot <- TRUE # If features are filtered by annotation (entrezID) in function 'nsFilter'
+filterByVar <- TRUE # If features are filtered by variance in function 'nsFilter'
+##a millorar: controls a excloure (nomes treu els d'Affymetrix si no filtres per anotacio)
+
+## Save annotation of genes
+save_annot_all <- TRUE #Whether to save annotation for all genes as html and csv files (TRUE/FALSE)
+save_annot_filt <- TRUE #Whether to save annotation for filtered genes as html and csv files (TRUE/FALSE)

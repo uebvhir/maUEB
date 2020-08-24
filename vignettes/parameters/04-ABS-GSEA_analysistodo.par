@@ -1,0 +1,15 @@
+# Which analyses to do in script 04-ABS-GSEA.R
+
+#GO
+GOAnalysis <- TRUE #whether to perform GO Analysis
+GOAnalysis.unfilt <- GOAnalysis #whether to perform GO Analysis from top tables and generate lists of unfiltered GO results
+GOAnalysis.filt <- GOAnalysis #whether to filter GO results by pvalue (to be run after GOAnalysis.unfilt or from loaded GO lists of unfiltered results)
+GOPlots <- TRUE #whether to generate GO plots
+GO_categories <- list("BP","CC","MF") #list of GO categories to analyse
+#a valorar per incorporar: eliminar redundancia (hi ha una funcio al github del Guanchuang)
+
+#Reactome
+ReactomeAnalysis <- TRUE
+ReactomeAnalysis.unfilt <- ReactomeAnalysis #whether to perform Reactome Analysis from top tables and generate lists of unfiltered Reactome results
+ReactomeAnalysis.filt <- ReactomeAnalysis #whether to filter Reactome results by pvalue (to be run after ReactomeAnalysis.unfilt or from loaded Reactome lists of unfiltered results)
+ReactomePlots <- TRUE
