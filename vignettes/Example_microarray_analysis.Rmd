@@ -46,9 +46,9 @@ celDir <-  file.path(workingDir, celDirN)
 resultsDir <- file.path(workingDir, resultsDirN)
 ```
 
-# Build Targets
+# Build Targets {#buildTargets}
 
-Builds the targets template dataframe (csv file: _targets.RSRCHR.STUDY.template.csv_) with the cel file names and the descriptors specified in global parameters. Then, we need to fill the information for each descriptor manually in excel/libreoffice and save as csv file (_targets.RSRCHR.STUDY.csv_).
+Builds a targets template dataframe and saves it into a ;-separated file (csv file: _targets.RSRCHR.STUDY.template.csv_). First column (`FileName`) contains the names of the cel files contained in the celfiles directory specified in parameters. The remaining columns correspond to the descriptors specified in global parameters, among which there will be the following: `Group`,  `ShortName`, and `Colors`. Other variables may be `Batch`, `PatientID`, or other variables of interest. Then, the information for each descriptor needs to be filled manually in excel/libreoffice and saved as csv file using ; separator (file: _targets.RSRCHR.STUDY.csv_).
 
 ```{r}
 build_targets(celDir, dataDir, client, ID, descriptors)
@@ -65,7 +65,9 @@ source(file.path(paramDir, "01-Load-QC-Norm-Filt.par"))
 source(file.path(paramDir, "01-Load-QC-Norm-Filt_analysistodo.par"))
 ```
 
-## Load the targets file saved in dataDir
+## Load the targets file
+
+This function reads the targets file (_targets.RSRCHR.STUDY.csv_) generated in section \@ref(buildTargets). The cel file names will be set as rownames.
 
 ```{r}
 targets <- read_targets(dataDir, targetsFN, targets.fact)
@@ -79,7 +81,7 @@ summary(targets)
 
 ## Load raw data
 
-Read the cel files according to targets rownames (and in the same order) and create an ExpressionSet of raw data
+Read the cel files listed in targets rownames (and in the same order) and create an ExpressionSet of raw data.
 
 ```{r message=FALSE}
 if (readcelFiles){
@@ -108,7 +110,7 @@ if (boxplotRawData){
 
 ### PCA of raw data
 
-Performs a principal component analysis of raw data and creates different PCA plots with samples colored for each factor variable specified in 'pcaRawData.fact' from parameters. 
+Performs a principal component analysis of raw data and creates different PCA plots with samples colored for each factor variable specified in 'pcaRawData.fact' from parameters.
 
 ```{r}
 if (pcaRawData){

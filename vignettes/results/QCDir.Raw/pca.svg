@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="337.88px" height="381.08px" viewBox="0 0 337.88 381.08" version="1.1" id="Fig:pca">
   <metadata xmlns:gridsvg="http://www.stat.auckland.ac.nz/~paul/R/gridSVG/">
-    <gridsvg:generator name="gridSVG" version="1.7-0" time="2020-08-24 13:30:50"/>
+    <gridsvg:generator name="gridSVG" version="1.7-0" time="2020-08-25 07:25:54"/>
     <gridsvg:argument name="name" value="/media/mferrer/Datos/Mireia/Scripts/Paquets_mireia/maUEB/vignettes/results/QCDir.Raw/pca.svg"/>
     <gridsvg:argument name="exportCoords" value="none"/>
     <gridsvg:argument name="exportMappings" value="none"/>
