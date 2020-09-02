@@ -13,7 +13,7 @@ qc_hc(
   cexCol = 0.6,
   rect = TRUE,
   numclusters = 2,
-  resultsDir,
+  outputDir,
   label
 )
 }
@@ -32,7 +32,7 @@ qc_hc(
 
 \item{rect}{Whether a rectangle is to be plot on hierarchical tree to highlight main clusters}
 
-\item{resultsDir}{Name of the directory where the plot will be saved}
+\item{outputDir}{Name of the directory where the plot will be saved}
 
 \item{label}{A string to be included in the file name to be saved}
 

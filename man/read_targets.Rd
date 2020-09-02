@@ -4,10 +4,10 @@
 \alias{read_targets}
 \title{A function to read targets file and convert categorical variables to factors}
 \usage{
-read_targets(dataDir, targetsFN, targets.fact)
+read_targets(inputDir, targetsFN, targets.fact)
 }
 \arguments{
-\item{dataDir}{Name of the directory containing the targets file to read.}
+\item{inputDir}{Name of the directory containing the targets file to read.}
 
 \item{targetsFN}{Name of the targets file}
 

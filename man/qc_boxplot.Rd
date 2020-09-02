@@ -9,7 +9,7 @@ qc_boxplot(
   group,
   col,
   names,
-  resultsDir,
+  outputDir,
   label,
   cex.axis = 0.5,
   cex.lab = 0.7,
@@ -30,7 +30,7 @@ qc_boxplot(
 
 \item{names}{A vector of sample names which will be printed under each boxplot}
 
-\item{resultsDir}{Name of the directory where the plot will be saved}
+\item{outputDir}{Name of the directory where the plot will be saved}
 
 \item{label}{A string to be included in the file name to be saved}
 
@@ -57,7 +57,7 @@ Uses the boxplot function from package oligo to create a boxplot of raw or norma
 The boxplot methods for FeatureSet and Expression use a sample (via sample) of the probes/probesets to produce the plot. Therefore, the user interested in reproducibility is advised to use set.seed.
 }
 \examples{
-createBoxplot(data=rawData, group=targets$Group, col=targets$Colors, names=targets$ShortName, resultsDir, label="RawData")
+createBoxplot(data=rawData, group=targets$Group, col=targets$Colors, names=targets$ShortName, outputDir, label="RawData")
 }
 \references{
 

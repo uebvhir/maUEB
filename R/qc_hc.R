@@ -9,7 +9,7 @@
 #' @param cexCol Size of labels in columns
 #' @param rect Whether a rectangle is to be plot on hierarchical tree to highlight main clusters
 #' @param numClusters Number of main clusters to highlight by rect
-#' @param resultsDir Name of the directory where the plot will be saved
+#' @param outputDir Name of the directory where the plot will be saved
 #' @param label A string to be included in the file name to be saved
 #' @export qc_hc
 #' @return Creates a heatmap of sample distances and a dendogram of the hierarchical clustering into the graphical device.
@@ -19,7 +19,7 @@
 #' @keywords hierarchical clustering heatmap samples
 #' @references
 
-qc_hc <- function(data, dist.method="euclidean", hclust.method="average", names, cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=2, resultsDir, label){
+qc_hc <- function(data, dist.method="euclidean", hclust.method="average", names, cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=2, outputDir, label){
     manDist <-  dist(t(data), method=dist.method)
     hc <- hclust(manDist, method=hclust.method)
     #fem els grafics
@@ -29,7 +29,7 @@ qc_hc <- function(data, dist.method="euclidean", hclust.method="average", names,
          main="Hierarchical clustering of samples",  hang=-1, cex = 0.5)
     if (rect) {rect.hclust(hc, k = numclusters, border = "red")}
     #salvem els grafics en un pdf
-    pdf(file.path(resultsDir, paste0("QC", label, ".pdf")))
+    pdf(file.path(outputDir, paste0("QC", label, ".pdf")))
     heatmap(as.matrix(manDist),  col=heat.colors(16),labCol = names,
              labRow = names, cexRow = cexRow, cexCol = cexCol)
     plot(hc, labels=names,

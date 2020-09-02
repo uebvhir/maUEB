@@ -12,7 +12,7 @@ qc_pca(
   col.group = "Colors",
   colorlist = NULL,
   names,
-  resultsDir,
+  outputDir,
   label,
   size = 1.5,
   glineas = 0.25
@@ -33,7 +33,7 @@ qc_pca(
 
 \item{names}{A vector with sample names corresponding to columns of the data matrix (in the same order)}
 
-\item{resultsDir}{Name of the directory where the plot will be saved}
+\item{outputDir}{Name of the directory where the plot will be saved}
 
 \item{label}{A string to be included in the file name to be saved}
 

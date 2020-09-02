@@ -8,7 +8,7 @@
 #' @param col.group Name of variable in targets containing the colors for Group
 #' @param colorlist Vector of RGB colors to be used for factor variables specified in 'factors' other than Group. If is NULL (default), a default colorlist will be used.
 #' @param names A vector with sample names corresponding to columns of the data matrix (in the same order)
-#' @param resultsDir Name of the directory where the plot will be saved
+#' @param outputDir Name of the directory where the plot will be saved
 #' @param label A string to be included in the file name to be saved
 #' @param size Size of labels
 #' @param glineas Width of lines rising from labels
@@ -21,7 +21,7 @@
 #' @keywords PCA
 #' @references
 
-qc_pca <- function(data, scale, factors, targets, col.group="Colors", colorlist=NULL, names, resultsDir, label, size = 1.5, glineas = 0.25){
+qc_pca <- function(data, scale, factors, targets, col.group="Colors", colorlist=NULL, names, outputDir, label, size = 1.5, glineas = 0.25){
     if (is.null(colorlist)){colorlist <- rainbow(ncol(data))}
     #compute PCA
     data.pca <- prcomp(t(data), scale=scale)
@@ -49,7 +49,7 @@ qc_pca <- function(data, scale, factors, targets, col.group="Colors", colorlist=
         listplots[[i]] <- pcaplot
     }
     #save as pdf
-    pdf(file.path(resultsDir, paste0("PCA", label, ".pdf")))
+    pdf(file.path(outputDir, paste0("PCA", label, ".pdf")))
     for (j in listplots) {print(j)}
     dev.off()
     #print plot in device

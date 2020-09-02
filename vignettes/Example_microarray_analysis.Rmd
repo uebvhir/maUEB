@@ -2,7 +2,11 @@
 title: "Example of workflow for microarray analysis using maUEB package"
 author: "Mireia Ferrer, Ricardo Gonzalo and Alex Sanchez"
 date: '`r Sys.Date()`'
-output: rmarkdown::html_vignette
+output: 
+    BiocStyle::html_document:
+        toc_float:
+            collapsed: true
+            smooth_scroll: false
 vignette: >
   %\VignetteIndexEntry{Example_microarray_analysis}
   %\VignetteEngine{knitr::rmarkdown}
@@ -19,7 +23,7 @@ knitr::opts_chunk$set(collapse = TRUE,  comment = "#>")
 ```{r}
 if (!require(maUEB)){
     require(devtools)
-    install_github("uebvhir/maUEB")
+    install_github("uebvhir/maUEB", build_vignettes = TRUE)
 }
 ```
 
@@ -38,6 +42,12 @@ paramDir <- file.path(workingDir, "parameters")
 source(file.path(paramDir, "global_parameters.par"))
 ```
 
+For this example study, global parameters were set as follows:
+
+```{r}
+(global_parameters <- read.table(file.path(paramDir, "global_parameters.par"), header = FALSE, sep=";", as.is=TRUE))
+```
+
 # Set directories from parameters
 
 ```{r}
@@ -48,10 +58,16 @@ resultsDir <- file.path(workingDir, resultsDirN)
 
 # Build Targets {#buildTargets}
 
-Builds a targets template dataframe and saves it into a ;-separated file (csv file: _targets.RSRCHR.STUDY.template.csv_). First column (`FileName`) contains the names of the cel files contained in the celfiles directory specified in parameters. The remaining columns correspond to the descriptors specified in global parameters, among which there will be the following: `Group`,  `ShortName`, and `Colors`. Other variables may be `Batch`, `PatientID`, or other variables of interest. Then, the information for each descriptor needs to be filled manually in excel/libreoffice and saved as csv file using ; separator (file: _targets.RSRCHR.STUDY.csv_).
+Builds a targets template dataframe and saves it into a semicolon-separated file named _targets.RSRCHR.STUDY.template.csv_, where `RSRCHR` refers to client acronym and `STUDY` refers to the study UEB id. The targets template built contains five columns. First column (`FileName`) contains the names of the cel files contained in the celfiles directory specified in parameters. The remaining columns correspond to the descriptors specified in global parameters, among which there will be the following: `Group`,  `ShortName`, and `Colors`. Other variables may be `Batch`, `PatientID`, or other variables of interest that may be added by the user. Then, the information for each descriptor needs to be filled manually in excel/libreoffice, saved as csv file using `;` separator and renamed as: _targets.RSRCHR.STUDY.csv_.
 
 ```{r}
-build_targets(celDir, dataDir, client, ID, descriptors)
+build_targets(inputDir=celDir, outputDir=dataDir, client=client, ID=ID, descriptors=descriptors)
+```
+
+An example of the targets template generated for this study is shown below:
+
+```{r}
+(targets_template <- read.table(file.path(dataDir, "targets.RSRCHR.STUDY.template.csv"), header = TRUE, sep = ";", as.is=TRUE))
 ```
 
 # Load-QC-Norm-Filt
@@ -65,34 +81,54 @@ source(file.path(paramDir, "01-Load-QC-Norm-Filt.par"))
 source(file.path(paramDir, "01-Load-QC-Norm-Filt_analysistodo.par"))
 ```
 
-## Load the targets file
-
-This function reads the targets file (_targets.RSRCHR.STUDY.csv_) generated in section \@ref(buildTargets). The cel file names will be set as rownames.
+For this example study, parameters were set as follows:
 
 ```{r}
-targets <- read_targets(dataDir, targetsFN, targets.fact)
+(loadQCNormfilt_parameters <- read.table(file.path(paramDir, "01-Load-QC-Norm-Filt.par"), header = FALSE, sep=";", as.is=TRUE))
 ```
 
+The execution parameters were set as follows:
+
 ```{r}
-head(targets)
-dim(targets)
+(loadQCNormfilt_todoparameters <- read.table(file.path(paramDir, "01-Load-QC-Norm-Filt_analysistodo.par"), header = FALSE, sep=";", as.is=TRUE))
+```
+## Load the targets file
+
+Function `read_targets` reads the targets file specified in `targetsFN` (here _targets.RSRCHR.STUDY.csv_) that was generated in section \@ref(buildTargets). The cel file names contained in column `FileName` are set as rownames and factor variables specified by parameter `targets.fact` are converted to factors.
+
+```{r}
+(targets <- read_targets(inputDir=dataDir, targetsFN=targetsFN, targets.fact=targets.fact))
+```
+
+The targets contains `r nrow(targets)` rows and `r ncol(targets)` columns. A summary of the variables is shown below:
+
+```{r}
 summary(targets)
 ```
 
 ## Load raw data
 
-Read the cel files listed in targets rownames (and in the same order) and create an ExpressionSet of raw data.
+Raw data can be read from the cel files or directly loaded from an existing Rda object ("rawData.Rda"). Function `read_celfiles()` reads the cel files listed in targets rownames (and in the same order) that are contained in the `celDir` directory and returns an object of class `ExpressionSet`.
 
-```{r message=FALSE}
+```{r echo=FALSE, message=FALSE}
 if (readcelFiles){
-    rawData <- read_celfiles(celDir, targets)
+    rawData <- read_celfiles(inputDir=celDir, targets)
     } else {if (loadRawData) {load(file.path(dataDir, "rawData.Rda"))}}
 ```
 
+The `ExpressionSet` of rawData contains the following fields:
+
+* `assayData`: A matrix of expression values, where the rows represent probe sets (_features_) and columns represent samples. Row and column names must be unique, and consistent with row names of featureData and phenoData, respectively. The assay data can be retrieved with `exprs()`.
+
+* `phenoData`: An AnnotatedDataFrame containing information about each sample as defined in the targets file. The number of rows in phenoData must match the number of columns in assayData. Row names of phenoData must match column names of the matrix in assayData. The phenoData can be retrieved or assigned with `pData()`.
+
+* `annotation`: A character describing the platform on which the samples were assayed. This is often the name of a Bioconductor chip annotation package. Can be retrieved or assigned with `annotation()`.
+
 ```{r}
 rawData
-dim(rawData)
 ```
+
+In this example study, the expression matrix of raw data contains `r nrow(exprs(rawData))` rows (features) and `r ncol(exprs(rawData))` columns (samples).
 
 ## Quality control (QC) of raw data
 
@@ -104,17 +140,17 @@ Creates a boxplot of log2-transformed intensity values from raw data and saves i
 
 ```{r}
 if (boxplotRawData){
-   qc_boxplot(data=rawData, group=targets$Group, col=targets$Colors, names=targets$ShortName, resultsDir, label="RawData")
+   qc_boxplot(data=rawData, group=targets$Group, col=targets$Colors, names=targets$ShortName, outputDir=resultsDir, label="RawData")
 }
 ```
 
 ### PCA of raw data
 
-Performs a principal component analysis of raw data and creates different PCA plots with samples colored for each factor variable specified in 'pcaRawData.fact' from parameters.
+Performs a principal component analysis of raw data and creates different PCA plots with samples colored for each factor variable specified in 'pcaRawData.fact' from parameters. The loads (percentage of variance) cumulated for each of the principal components are returned.
 
 ```{r}
 if (pcaRawData){
-    loadsPCAraw <- qc_pca(data=exprs(rawData), scale=pcaRawData.scale, factors=pcaRawData.fact, targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, resultsDir=resultsDir, label="RawData")
+    loadsPCAraw <- qc_pca(data=exprs(rawData), scale=pcaRawData.scale, factors=pcaRawData.fact, targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, outputDir=resultsDir, label="RawData")
 }
 ```
 
@@ -122,13 +158,13 @@ if (pcaRawData){
 
 ```{r}
 if (heatmapRawData){
-    qc_hc(data=exprs(rawData), hclust.method=hclustRawData.method, names=targets$ShortName, cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=2, resultsDir=resultsDir, label="RawData")
+    qc_hc(data=exprs(rawData), hclust.method=hclustRawData.method, names=targets$ShortName, cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=2, outputDir=resultsDir, label="RawData")
 }
 ```
 
 ### ArrayQualityMetrics of raw data
 
-```{r}
+```{r eval=FALSE}
 #Note: Set 'intgroup' according to factors to be colored in heatmap. Other plots will be colored according to only the first factor
 require(arrayQualityMetrics) #required for Affymetrix QC
 if (arrayQMRawData) arrayQualityMetrics(rawData, outdir = file.path(resultsDir, "QCDir.Raw"), force=TRUE, intgroup=targets.fact)
@@ -136,5 +172,87 @@ if (arrayQMRawData) arrayQualityMetrics(rawData, outdir = file.path(resultsDir, 
 
 ## Normalization
 
-Normalization of raw data and annotation of summarized probes. Alternatively, normData can be directly loaded.
+Data can be normalized using `normalization()` function or directly loaded from an Rda object (`normData.Rda`) previously generated. The `normalization()` function normalizes raw data using one of the available methods (currently: rma method from oligo package). The RMA method allows background subtraction, quantile normalization and summarization (via median-polish) (ref). It returns a `FeatureSet` of normalized data and saves the normalized expression values in a datasheet (csv and/or xls file format) in the results folder. 
+
+```{r}
+if (loadNormData) {
+    load(file.path(dataDir, "normData.Rda"))
+} else if (normalize) {
+    eset_norm <- normalization(data=rawData, norm.method="rma", annotPkg=annotPackage, outputFN="Normalized.All", outputDir=resultsDir)
+}
+```
+
+## Save annotations of summarized probes
+
+Constructs an aafTable object given a set of probe ids using `aafTableAnn` function from `annaffy` package. The dataframe with annotations is returned as an `aafTable` object and it also saves the annotation for all summarized probes as csv and html files. Note: in Exon studies, where probes are summarized at the probeset level but not transcript level, the probe annotations cannot be recovered using this function.
+
+```{r eval=FALSE}
+if (save_annot_all){normData_annot <- save_annotations(data=rownames(eset_norm), annotPkg=annotPackage, outputFN="Annotations.AllGenes", saveHTML=TRUE, title="Annotations for all genes", outputDir=resultsDir)}
+```
+
+## Quality control of normalized data
+
+Performs different exploratory analyses (Boxplot, PCA, Heatmap of sample distances and hierarchical clustering) to inspect graphically the quality of samples from raw data. As well, a report of QC is generated using the array quality metrics package.
+
+### Boxplot of normalized data
+
+Creates a boxplot of the normalized data (already in log2 scale) and saves it as pdf into the results directory.
+
+```{r}
+if (boxplotNormData){
+   qc_boxplot(data=eset_norm, group=targets$Group, col=targets$Colors, names=targets$ShortName, outputDir=resultsDir, label="NormData")
+}
+```
+
+### PCA of normalized data
+
+Performs a principal component analysis of normalized data and creates different PCA plots with samples colored for each factor variable specified in 'pcaNormData.fact' from parameters. The loads (percentage of variance) cumulated for each of the principal components are returned.
+
+```{r}
+if (pcaNormData){
+    loadsPCAnorm <- qc_pca(data=exprs(eset_norm), scale=pcaNormData.scale, factors=pcaNormData.fact, targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, outputDir=resultsDir, label="NormData")
+}
+```
+
+If there are batch effects, the PCA can be repeated removing the batch effects using the `removeBatchEffect` function from `limma` package:
+
+```{r}
+if (pcaNormData.corrbatch){
+    require(limma)
+    #apply correction for batch effect to normalized data
+    batch <- as.factor(targets[,batchcolName])
+    normData.corrbatch <- removeBatchEffect(normData, batch=batch) #function from limma package
+    loadsPCAnorm.corrbatch <- qc_pca(data=normData.corrbatch, scale=pcaNormData.scale, factors=pcaNormData.fact, targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, outputDir=resultsDir, label="NormData-corrbatch")
+}
+```
+
+### Heatmap of sample distances and hierarchical clustering of normalized data
+
+```{r}
+if (heatmapNormData){
+    qc_hc(data=exprs(eset_norm), hclust.method=hclustNormData.method, names=targets$ShortName, cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=2, outputDir=resultsDir, label="NormData")
+}
+```
+
+### ArrayQualityMetrics of normalized data
+
+```{r eval=FALSE}
+#Note: Set 'intgroup' according to factors to be colored in heatmap. Other plots will be colored according to only the first factor
+require(arrayQualityMetrics) #required for Affymetrix QC
+if (arrayQMNormData) arrayQualityMetrics(eset_norm, outdir = file.path(resultsDir, "QCDir.Norm"), force=TRUE, intgroup=targets.fact)
+```
+
+### PVCA of normalized data 
+
+## Filtering
+
+### SD plot
+### Filter normalized data
+### Save annotations of filtered data
+
+## Save data from this block (normData.Rda object)
+
+# Differential Expression Analysis
+# Multiple Comparisons
+# Analysis of Biological Significance
 

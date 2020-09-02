@@ -4,10 +4,10 @@
 \alias{read_celfiles}
 \title{A function to read cel files and create an ExpressionSet of raw data}
 \usage{
-read_celfiles(celFilesDir, targets)
+read_celfiles(inputDir, targets)
 }
 \arguments{
-\item{celFilesDir}{Name of the directory containing the .CEL files to read.}
+\item{inputDir}{Name of the directory containing the .CEL files to read.}
 
 \item{targets}{Targets object containing the filename of the celfiles to read and phenotypic data}
 }

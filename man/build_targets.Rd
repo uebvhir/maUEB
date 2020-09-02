@@ -4,12 +4,12 @@
 \alias{build_targets}
 \title{A function to create a Targets file template}
 \usage{
-build_targets(celFilesDir, dataDir, client, ID, descriptors)
+build_targets(inputDir, outputDir, client, ID, descriptors)
 }
 \arguments{
-\item{celFilesDir}{Name of the directory containing the .CEL files.}
+\item{inputDir}{Name of the directory containing the .CEL files.}
 
-\item{dataDir}{Name of the data directory where the targets file will be saved.}
+\item{outputDir}{Name of the directory where the targets file will be saved.}
 
 \item{client}{Initials of client}
 
