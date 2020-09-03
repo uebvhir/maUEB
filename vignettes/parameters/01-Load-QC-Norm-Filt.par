@@ -9,8 +9,8 @@ resultsSummFN <- "ResultsSummary_Load-QC-Norm-Filt.txt" #A summary of results ob
 
 # Targets
 targetsFN <- "targets.RSRCHR.STUDY.csv" #Name of 'targets' file (csv),  previously created with Build_targets.R
-targets.fact <- c("Group") #Columns of 'targets' to be treated as factors (eg. "Group", "Batch"). First must be the Group.
-batchcolName <- NULL #Name of variable corresponding to batch in targets file (eg. NULL if no batch effect considered or "Batch")
+targets.fact <- c("Group", "Batch") #Columns of 'targets' to be treated as factors (eg. "Group", "Batch"). First must be the Group.
+batchcolName <- "Batch" #Name of variable corresponding to batch in targets file (eg. NULL if no batch effect considered or "Batch")
 colorlist <- c("firebrick1", "blue", "darkgoldenrod1", "darkorchid1", "lightblue", "orange4", "seagreen", "aquamarine3", "red4", "chartreuse2", "plum", "darkcyan", "darkolivegreen3", "forestgreen", "gold","khaki1", "lightgreen", "gray67", "deeppink") #list of colors for some plots, alternative to "Colors" column
 
 #Annotation package

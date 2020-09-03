@@ -1,0 +1,66 @@
+
+PVCA:
+[1] "Error in vsn2(abatch, verbose = FALSE) : object 'data.pvca' not found\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in vsn2(abatch, verbose = FALSE): object 'data.pvca' not found>
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757024 0.2911711 0.01818874 0.6430699
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757024 0.2911711 0.01818874 0.6430699
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+[1] "Error in vsn2(abatch, verbose = FALSE) : object 'data.pvca' not found\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in vsn2(abatch, verbose = FALSE): object 'data.pvca' not found>
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757024 0.2911711 0.01818874 0.6430699
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757024 0.2911711 0.01818874 0.6430699
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757024 0.2911711 0.01818874 0.6430699
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+

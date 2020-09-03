@@ -19,10 +19,10 @@ arrayQMRawData <- QCraw # ArrayQualityMetrics Report (TRUE/FALSE)
 QCnorm <- TRUE # Whether to perform quality control of raw data (TRUE/FALSE)
 boxplotNormData <- QCnorm # Boxplot of normalized data (TRUE/FALSE)
 pcaNormData <- QCnorm # Calculate PCA and do PCA plot (TRUE/FALSE)
-pcaNormData.corrbatch <- FALSE # Calculate PCA with expression values corrected for batch effect (TRUE/FALSE)
+pcaNormData.corrbatch <- TRUE # Calculate PCA with expression values corrected for batch effect (TRUE/FALSE)
 heatmapNormData <- QCnorm # Heatmap/Hierarchical clustering samples-samples (TRUE/FALSE)
 arrayQMNormData <- QCnorm # ArrayQualityMetrics Report (TRUE/FALSE)
-pvcaNormData <- FALSE # Calculate PVCA and do PVCA plot (TRUE/FALSE)
+pvcaNormData <- TRUE # Calculate PVCA and do PVCA plot (TRUE/FALSE)
 
 ## SD plot
 SDplot <- TRUE # Plot SD vs nº features
