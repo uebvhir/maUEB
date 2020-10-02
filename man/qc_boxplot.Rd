@@ -2,62 +2,71 @@
 % Please edit documentation in R/qc_boxplot.R
 \name{qc_boxplot}
 \alias{qc_boxplot}
-\title{A function to create a boxplot from raw or normalized data}
+\title{Boxplot of raw or normalized expression data}
 \usage{
 qc_boxplot(
   data,
-  group,
-  col,
-  names,
+  group = "Group",
+  group.color = "Colors",
+  samplenames = "ShortName",
   outputDir,
+  bp.main = "Boxplot for array intensity",
   label,
   cex.axis = 0.5,
+  bp.ylab = "log2 intensity",
   cex.lab = 0.7,
   las = 2,
-  plotlegend = TRUE,
-  legend.posx = 10,
-  legend.posy = 13,
-  legend.cex = 0.6,
+  bp.legend = TRUE,
+  bp.legend.posx = 10,
+  bp.legend.posy = 13,
+  bp.legend.cex = 0.6,
   ...
 )
 }
 \arguments{
 \item{data}{A FeatureSet-like object or ExpressionSet object.}
 
-\item{group}{A vector or factor specifying the grouping variable to color samples}
+\item{group}{Name of the targets variable specifying the group to color samples. Defaults to "Group".}
 
-\item{col}{A vector of colors to be used to colour the bodies of the box plots (for each group)}
+\item{group.color}{A vector of group colors to be used to colour the bodies of the box plots. Defaults to "Colors".}
 
-\item{names}{A vector of sample names which will be printed under each boxplot}
+\item{samplenames}{Name of the targets variable specifying the sample names which will be printed under each boxplot. Defaults to "ShortName".}
 
-\item{outputDir}{Name of the directory where the plot will be saved}
+\item{outputDir}{Name of the directory where the plot will be saved.}
 
-\item{label}{A string to be included in the file name to be saved}
+\item{bp.main}{General title of the plot. Defaults to "Boxplot for array intensity".}
 
-\item{cex.axis}{Numeric expansion factor for axis tick labels}
+\item{label}{A label to be included in the title and/or file name to be saved.}
 
-\item{cex.lab}{Numeric expansion factor for axis labels}
+\item{cex.axis}{Numeric expansion factor for axis tick labels. Defaults to 0.5.}
 
-\item{las}{Direction of axis tick labels}
+\item{bp.ylab}{Title of y axis. Defaults to "log2 intensity".}
 
-\item{plotlegend}{Whether to insert legend into plot (TRUE/FALSE)}
+\item{cex.lab}{Numeric expansion factor for axis labels. Defaults to 0.7.}
 
-\item{legend.posx}{X coordinate of legend position}
+\item{las}{Direction of axis tick labels. Defaults to 2.}
 
-\item{legend.posy}{Y coordinate of legend position}
+\item{bp.legend}{boolean indicating whether to insert legend into plot (TRUE/FALSE). Defaults to TRUE.}
 
-\item{legend.cex}{Numeric expansion factor for legend text}
+\item{bp.legend.posx}{X coordinate of legend position. Defaults to 10.}
 
-\item{...}{other arguments to be passed to boxplot function from oligo package, such as graphical parameters}
+\item{bp.legend.posy}{Y coordinate of legend position. Defaults to 13.}
+
+\item{bp.legend.cex}{Numeric expansion factor for legend text. Defaults to 0.6.}
+
+\item{...}{other arguments to be passed to boxplot function from oligo package, such as graphical parameters.}
 }
 \description{
-Uses the boxplot function from package oligo to create a boxplot of raw or normalized data and saves it into a pdf file. For raw data, expression values are transformed to log2 scale. For normalized data, no transformation is applied since they are already in log2 scale.
+Creates a boxplot from raw or normalized expression data in log2 scale and saves it into a pdf file. See 'Details' for transformations performed on data.
+}
+\details{
+This function uses the 'boxplot' function from 'oligo' package, which takes as input an ExpressionSet. For raw data, expression values are transformed to log2 scale. For normalized data, no transformation is applied since they are already in log2 scale.
 }
 \note{
 The boxplot methods for FeatureSet and Expression use a sample (via sample) of the probes/probesets to produce the plot. Therefore, the user interested in reproducibility is advised to use set.seed.
 }
 \examples{
-createBoxplot(data=rawData, group=targets$Group, col=targets$Colors, names=targets$ShortName, outputDir, label="RawData")
+qc_boxplot(data=eset_raw, outputDir=resultsDir, label="RawData")
 }
 \references{
 
@@ -69,5 +78,5 @@ createBoxplot(data=rawData, group=targets$Group, col=targets$Colors, names=targe
 Mireia Ferrer Almirall \email{mireia.ferrer.vhir@gmail.com}
 }
 \keyword{ExpressionSet}
-\keyword{FEatureSet}
+\keyword{FeatureSet}
 \keyword{boxplot}

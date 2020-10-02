@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_celfiles.R
 \name{read_celfiles}
 \alias{read_celfiles}
-\title{A function to read cel files and create an ExpressionSet of raw data}
+\title{Read cel files and create an ExpressionSet of raw data}
 \usage{
 read_celfiles(inputDir, targets)
 }
@@ -12,10 +12,10 @@ read_celfiles(inputDir, targets)
 \item{targets}{Targets object containing the filename of the celfiles to read and phenotypic data}
 }
 \value{
-rawData An ExpressionSet containing raw data
+Returns an ExpressionSet containing raw data
 }
 \description{
-Reads the cel files specified in targets and creates an ExpressionSet
+Reads the cel files specified in FileName column of targets dataframe and creates an ExpressionSet
 }
 \references{
 

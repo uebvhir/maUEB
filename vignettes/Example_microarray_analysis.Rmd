@@ -158,29 +158,31 @@ The targets contains `r nrow(targets)` rows and `r ncol(targets)` columns. A sum
 summary(targets)
 ```
 
-### Load raw data
+### Load raw data and create ExpressionSet object
 
 Raw data can be read from the cel files or directly loaded from an existing Rda object ("rawData.Rda"). Function `read_celfiles()` reads the cel files listed in targets rownames (and in the same order) that are contained in the `celDir` directory and returns an object of class `ExpressionSet`.
 
 ```{r echo=FALSE, message=FALSE}
 if (readcelFiles){
-    rawData <- read_celfiles(inputDir=celDir, targets)
+    eset_raw <- read_celfiles(inputDir=celDir, targets=targets)
     } else {if (loadRawData) {load(file.path(dataDir, "rawData.Rda"))}}
 ```
 
-The `ExpressionSet` of rawData contains the following fields:
+The `ExpressionSet` object contains the following fields:
 
-* `assayData`: A matrix of expression values, where the rows represent probe sets (_features_) and columns represent samples. Row and column names must be unique, and consistent with row names of featureData and phenoData, respectively. The assay data can be retrieved with `exprs()`.
+* `assayData`: A matrix of expression values, where the rows represent probe sets (_features_) and columns represent samples. Row and column names must be unique, and consistent with row names of featureData and phenoData, respectively. The assay data can be retrieved with `exprs()`. Note that it can be subsetted though not reassigned. To reassign a new expression matrix one must create a new ExpressionSet.
 
 * `phenoData`: An AnnotatedDataFrame containing information about each sample as defined in the targets file. The number of rows in phenoData must match the number of columns in assayData. Row names of phenoData must match column names of the matrix in assayData. The phenoData can be retrieved or assigned with `pData()`.
 
-* `annotation`: A character describing the platform on which the samples were assayed. This is often the name of a Bioconductor chip annotation package. Can be retrieved or assigned with `annotation()`.
+* `annotation`: A character describing the platform on which the samples were assayed. This is often the name of a Bioconductor chip annotation package. Can be retrieved or assigned with `annotation()`. For ClariomS/D it is automatically filled by the platform chip annotation.
 
 ```{r}
-rawData
+eset_raw
 ```
 
-In this example study, the expression matrix of raw data contains `r nrow(exprs(rawData))` rows (features) and `r ncol(exprs(rawData))` columns (samples).
+In this example study, the expression matrix of raw data contains `r nrow(exprs(eset_raw))` rows (features) and `r ncol(exprs(eset_raw))` columns (samples).
+
+From now on, we will work with the `ExpressionSet` object `eset_raw`. This means that the phenotypic, annotation and expression data will be accessed from that object.
 
 ### Quality control (QC) of raw data
 
@@ -192,17 +194,23 @@ Creates a boxplot of log2-transformed intensity values from raw data and saves i
 
 ```{r}
 if (boxplotRawData){
-   qc_boxplot(data=rawData, group=targets$Group, col=targets$Colors, names=targets$ShortName, outputDir=resultsDir, label="RawData")
+   qc_boxplot(data=eset_raw, group="Group", group.color="Colors", samplenames="ShortName", outputDir=resultsDir, label="RawData")
 }
 ```
 
 #### PCA of raw data
 
-Performs a principal component analysis of raw data and creates different PCA plots with samples colored for each factor variable specified in 'pcaRawData.fact' from parameters. The loads (percentage of variance) cumulated for each of the principal components are returned.
+Performs a principal component analysis of raw data and creates different PCA plots with samples colored for each factor variable specified in 'pcaRawData.fact' from parameters. The PCA plot can be performed in 2 and/or 3 dimensions (representing the first 2 or 3 principal components) by setting the `dim` parameter. The loads (percentage of variance) cumulated for each of the principal components are returned.
 
 ```{r}
 if (pcaRawData){
-    loadsPCAraw <- qc_pca(data=exprs(rawData), scale=pcaRawData.scale, factors=pcaRawData.fact, targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, outputDir=resultsDir, label="RawData")
+    loadsPCAraw <- qc_pca1(data=exprs(eset_raw), scale=pcaRawData.scale, pca2D_factors=pcaRawData.fact, targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, outputDir=resultsDir, label="RawData")
+}
+```
+```{r}
+#si el volem en 3 dimensions:
+if (pcaRawData){
+    loadsPCAraw <- qc_pca1(data=exprs(eset_raw), scale=pcaRawData.scale, dim=3, pca3D_factors="Group", targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, outputDir=resultsDir, label="RawData")
 }
 ```
 
@@ -210,7 +218,7 @@ if (pcaRawData){
 
 ```{r}
 if (heatmapRawData){
-    qc_hc(data=exprs(rawData), hclust.method=hclustRawData.method, names=targets$ShortName, cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=2, outputDir=resultsDir, label="RawData")
+    qc_hc(data=exprs(eset_raw), hclust.method=hclustRawData.method, names=targets$ShortName, cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=2, outputDir=resultsDir, label="RawData")
 }
 ```
 
@@ -218,8 +226,19 @@ if (heatmapRawData){
 
 ```{r eval=FALSE}
 #Note: Set 'intgroup' according to factors to be colored in heatmap. Other plots will be colored according to only the first factor
-require(arrayQualityMetrics) #required for Affymetrix QC
-if (arrayQMRawData) arrayQualityMetrics(rawData, outdir = file.path(resultsDir, "QCDir.Raw"), force=TRUE, intgroup=targets.fact)
+#required for Affymetrix QC
+if (arrayQMRawData) {
+    require(arrayQualityMetrics) 
+    arrayQualityMetrics(eset_raw, outdir = file.path(resultsDir, "QCDir.Raw"), force=TRUE, intgroup=targets.fact)
+}
+```
+
+### QC of raw data in one step
+
+All the QC plots performed above can be performed in one step with function `qc_all`:
+
+```{r}
+qc_all(data=eset_raw, group="Group", group.color="Colors", samplenames="ShortName", factors=pcaRawData.fact, pca_scale=pcaRawData.scale, colorlist=colorlist, hc.method=hclustRawData.method, label="RawData", outputDir=resultsDir, summaryFN=resultsSummFN, doboxplot=TRUE, dopca=TRUE, dopvca=FALSE, dohc=TRUE, doarrayQMreport=FALSE)
 ```
 
 ### Normalization
@@ -230,7 +249,7 @@ Data can be normalized using `normalization()` function or directly loaded from 
 if (loadNormData) {
     load(file.path(dataDir, "normData.Rda"))
 } else if (normalize) {
-    eset_norm <- normalization(data=rawData, norm.method="rma", annotPkg=annotPackage, outputFN="Normalized.All", outputDir=resultsDir)
+    eset_norm <- normalization(data=eset_raw, norm.method="rma", annotPkg=annotPackage, outputFN="Normalized.All", outputDir=resultsDir)
 }
 ```
 
@@ -239,12 +258,13 @@ if (loadNormData) {
 Constructs an aafTable object given a set of probe ids using `aafTableAnn` function from `annaffy` package. The dataframe with annotations is returned as an `aafTable` object and it also saves the annotation for all summarized probes as csv and html files. Note: in Exon studies, where probes are summarized at the probeset level but not transcript level, the probe annotations cannot be recovered using this function.
 
 ```{r eval=FALSE}
+#no se pq dona error, nomes passa quan s'executa com a funcio sense haver previament carregat els paquets (?)
 if (save_annot_all){normData_annot <- save_annotations(data=rownames(eset_norm), annotPkg=annotPackage, outputFN="Annotations.AllGenes", saveHTML=TRUE, title="Annotations for all genes", outputDir=resultsDir)}
 ```
 
 ### Quality control of normalized data
 
-Performs different exploratory analyses (Boxplot, PCA, Heatmap of sample distances and hierarchical clustering) to inspect graphically the quality of samples from raw data. As well, a report of QC is generated using the array quality metrics package.
+Here, the same functions used for quality control of raw data can be used to assess the quality of data after normalization. As an extra analysis, a PVCA (principal variance component analysis) can also be performed to further assess the source of batch effects in normalize data.
 
 #### Boxplot of normalized data
 
@@ -252,7 +272,7 @@ Creates a boxplot of the normalized data (already in log2 scale) and saves it as
 
 ```{r}
 if (boxplotNormData){
-   qc_boxplot(data=eset_norm, group=targets$Group, col=targets$Colors, names=targets$ShortName, outputDir=resultsDir, label="NormData")
+   qc_boxplot(data=eset_norm, group="Group", col="Colors", names="ShortName", outputDir=resultsDir, label="NormData")
 }
 ```
 
@@ -262,19 +282,15 @@ Performs a principal component analysis of normalized data and creates different
 
 ```{r}
 if (pcaNormData){
-    loadsPCAnorm <- qc_pca(data=exprs(eset_norm), scale=pcaNormData.scale, factors=pcaNormData.fact, targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, outputDir=resultsDir, label="NormData")
+    loadsPCAnorm <- qc_pca1(data=exprs(eset_norm), scale=pcaNormData.scale, pca2D_factors=pcaNormData.fact, targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, outputDir=resultsDir, label="NormData")
 }
 ```
 
-If there are batch effects, the PCA can be repeated removing the batch effects using the `removeBatchEffect` function from `limma` package. Here this step is performed only for illustration purposes:
+If there are batch effects, the PCA can be repeated removing the batch effects using the `removeBatchEffect` function from `limma` package. Here this step is performed only for illustration purposes, since the `Batch` variable is artificial. We use the same function as for the PCA but specify `batchRemove=TRUE` and the name of `Batch` variable in `batchFactors` parameter.
 
 ```{r}
 if (pcaNormData.corrbatch){
-    require(limma)
-    #apply correction for batch effect to normalized data
-    batch <- as.factor(targets[,batchcolName])
-    normData.corrbatch <- removeBatchEffect(exprs(eset_norm), batch=batch) #function from limma package
-    loadsPCAnorm.corrbatch <- qc_pca(data=normData.corrbatch, scale=pcaNormData.scale, factors=pcaNormData.fact, targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, outputDir=resultsDir, label="NormData-corrbatch")
+    loadsPCAnorm.corrbatch <- qc_pca1(exprs(eset_norm), scale=pcaNormData.scale, pca2D_factors=pcaNormData.fact, targets=targets, col.group="Colors", colorlist=colorlist, names=targets$ShortName, outputDir=resultsDir, label="NormData", batchRemove=TRUE, batchFactors="Batch", size = 1.5, glineas = 0.25)
 }
 ```
 
@@ -304,7 +320,55 @@ if (pvcaNormData){
 }
 ```
 
+### QC of normalized data in one step
+
+All the QC plots performed above can be performed in one step with function `qc_all`:
+
+```{r}
+qc_all(data=eset_norm, group="Group", group.color="Colors", samplenames="ShortName", factors=pcaNormData.fact, pca_scale=pcaNormData.scale, colorlist=colorlist, hc.method=hclustNormData.method, label="NormData", outputDir=resultsDir, summaryFN=resultsSummFN, doboxplot=TRUE, dopca=TRUE, dopvca=TRUE, dohc=TRUE, doarrayQMreport=FALSE)
+```
+
+### Sample exclusion
+
+The Quality Control may reveal some outlier samples that should be removed before proceeding with the differential expression analysis. Here, sample `CMP.2` appears as a putative outlier both in the hierarchical clustering and PCA analysis. Therefore, this sample will be discarded from the analysis. 
+
+To remove samples, the whole ExpressionSet object can be subsetted as follows:
+
+```{r}
+samplestoremove <- "CMP.2"
+eset_raw.f <- eset_raw[,-which(colnames(eset_raw)%in%samplestoremove)]
+dim(eset_raw)
+dim(eset_raw.f)
+```
+Note that the phenoData contained in that object has also been subsetted:
+
+```{r}
+pData(eset_raw.f)
+targets.f <- pData(eset_raw.f)
+```
+
+After sample removal, the whole QC and normalization process should be repeated without those samples.
+
+Hence, data is normalized with the new dataset (here we don't change the `outputFN` parameter so that files _Normalized.All.xls_ and _Normalized.All.csv_ are overwritten):
+
+```{r}
+eset_norm.f <- normalization(data=eset_raw.f, norm.method="rma", annotPkg=annotPackage, outputFN="Normalized.All", outputDir=resultsDir)
+```
+
+The QC is performed again with the normalized data after sample exclusion. We will indicate that the plots correspond to the dataset after sample exclusion by adding `.f` in `label` parameter:
+
+```{r}
+qc_all(data=eset_norm.f, group="Group", group.color="Colors", samplenames="ShortName", factors=pcaNormData.fact, pca_scale=pcaNormData.scale, colorlist=colorlist, hc.method=hclustNormData.method, label="NormData.f", outputDir=resultsDir, summaryFN=resultsSummFN, doboxplot=TRUE, dopca=TRUE, dopvca=FALSE, dohc=TRUE, doarrayQMreport=FALSE)
+```
+
+If there were batch effects, we should also repeat the PCA removing batch effects with the new dataset:
+
+```{r}
+loadsPCAnorm.f.corrbatch <- qc_pca1(exprs(eset_norm.f), scale=pcaNormData.scale, pca2D_factors=pcaNormData.fact, targets=targets.f, col.group="Colors", colorlist=colorlist, names=targets.f$ShortName, outputDir=resultsDir, label="NormData.f", batchRemove=TRUE, batchFactors="Batch", size = 1.5, glineas = 0.25)
+```
+
 ### Filtering
+
 
 #### SD plot
 #### Filter normalized data

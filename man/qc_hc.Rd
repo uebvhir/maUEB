@@ -2,7 +2,7 @@
 % Please edit documentation in R/qc_hc.R
 \name{qc_hc}
 \alias{qc_hc}
-\title{A function to create a Heatmap and a dendogram of sample distances}
+\title{Heatmap and a dendogram of sample distances}
 \usage{
 qc_hc(
   data,

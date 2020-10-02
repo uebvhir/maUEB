@@ -12,6 +12,8 @@ qc_pca(
   col.group = "Colors",
   colorlist = NULL,
   names,
+  batchRemove = FALSE,
+  batchFactors = NULL,
   outputDir,
   label,
   size = 1.5,
@@ -33,6 +35,10 @@ qc_pca(
 
 \item{names}{A vector with sample names corresponding to columns of the data matrix (in the same order)}
 
+\item{batchRemove}{a logical value indicating whether batch/covariate effects should be removed from the data prior to PCA}
+
+\item{batchFactors}{Vector with the name of variable(s) from targets dataframe indicating the batches/covariates to be adjusted for}
+
 \item{outputDir}{Name of the directory where the plot will be saved}
 
 \item{label}{A string to be included in the file name to be saved}
@@ -42,7 +48,7 @@ qc_pca(
 \item{glineas}{Width of lines rising from labels}
 }
 \value{
-Creates a PCA plot into the graphical device and returns a list with the loads of PCA.
+Creates a PCA plot into the graphical device, saves it as pdf and returns a list with the loads of PCA.
 }
 \description{
 Performs a principal components analysis on the given data matrix and creates a plot of the data projected onto the 2-3 first principal components. The plot is saved into a pdf file.

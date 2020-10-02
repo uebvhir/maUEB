@@ -2,22 +2,22 @@
 % Please edit documentation in R/read_targets.R
 \name{read_targets}
 \alias{read_targets}
-\title{A function to read targets file and convert categorical variables to factors}
+\title{Read targets file and convert categorical variables to factors}
 \usage{
 read_targets(inputDir, targetsFN, targets.fact)
 }
 \arguments{
 \item{inputDir}{Name of the directory containing the targets file to read.}
 
-\item{targetsFN}{Name of the targets file}
+\item{targetsFN}{Name of the targets file to read (csv file with ; as field separator)}
 
 \item{targets.fact}{Covariables in targets file to be treated as factors}
 }
 \value{
-targets An R object containing the targets file with categorical variables set as factors
+Returns a targets dataframe with the ShortName set as rownames and the categorical variables specified by targets.fact set as factors
 }
 \description{
-Reads a targets file in csv2 format and converts categorical variables to factors
+Reads a targets file in csv2 format and converts the categorical variables defined in parameter targets.fact to factors
 }
 \references{
 

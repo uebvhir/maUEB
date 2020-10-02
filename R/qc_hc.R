@@ -1,4 +1,4 @@
-#' A function to create a Heatmap and a dendogram of sample distances
+#' Heatmap and a dendogram of sample distances
 #'
 #' Computes sample distances from a matrix of expression values and creates a heatmap of sample distances and a dendogram of the hierarchical clustering. The plots are saved into a pdf file.
 #' @param data A matrix of expression values, with samples in columns and probes in rows.

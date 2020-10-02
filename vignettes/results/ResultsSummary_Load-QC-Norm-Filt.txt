@@ -64,3 +64,83 @@ $label
 [1] "Group:Batch" "Group"       "Batch"       "resid"      
 
 
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757024 0.2911711 0.01818874 0.6430699
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757024 0.2911711 0.01818874 0.6430699
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757024 0.2911711 0.01818874 0.6430699
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+            [,1]      [,2]       [,3]      [,4]
+[1,] 0.005269153 0.2986882 0.07270681 0.6233358
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+            [,1]      [,2]       [,3]      [,4]
+[1,] 0.005269153 0.2986882 0.07270681 0.6233358
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+            [,1]      [,2]       [,3]      [,4]
+[1,] 0.005269153 0.2986882 0.07270681 0.6233358
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757024 0.2911711 0.01818874 0.6430699
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757024 0.2911711 0.01818874 0.6430699
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
