@@ -1,4 +1,4 @@
-#' A function to perform different Quality Control plots and report generation for raw or normalized expression data
+#' Quality Control plots and report generation for raw or normalized expression data
 #'
 #' Performs different Quality Control plots and report generation on the given data matrix.
 #' @param data An ExpressionSet object containing expression data, and the targets as phenotypic data.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/removebatch.R
 \name{removebatch}
 \alias{removebatch}
-\title{A function to remove batch effects from expression data}
+\title{Remove batch effects from expression data}
 \usage{
 removebatch(data, targets, batchFactors = NULL)
 }

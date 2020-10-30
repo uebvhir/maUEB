@@ -13,8 +13,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+<!-- Perque compili necessita la versio antiga de knitr, sino el BiocStyle no funciona -->
+
 ```{r, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE,  comment = "#>")
+# knitr::opts_chunk$set(collapse = TRUE,  comment = "#>")
 # knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -72,7 +74,7 @@ The following group of comparisons will be performed to determine the effects of
 ```{r}
 if (!require(maUEB)){
     require(devtools)
-    install_github("uebvhir/maUEB", build_vignettes = TRUE)
+    install_github("uebvhir/maUEB", build_vignettes = FALSE)
 }
 ```
 
@@ -248,7 +250,7 @@ Data can be normalized using `normalization()` function or directly loaded from 
 ```{r}
 if (loadNormData) {
     load(file.path(dataDir, "normData.Rda"))
-} else if (normalize) {
+} else if (normalizedata) {
     eset_norm <- normalization(data=eset_raw, norm.method="rma", annotPkg=annotPackage, outputFN="Normalized.All", outputDir=resultsDir)
 }
 ```
@@ -316,7 +318,7 @@ The PVCA approach can be used as a screening tool to determine which sources of 
 
 ```{r message=FALSE}
 if (pvcaNormData){
-    qc_pvca(data=eset_norm, factors=pvcaNormData.fact, targets=targets.pvcaFN, pct_threshold=pct_threshold, label=".NormData", outputDir=resultsDir, summaryFN=resultsSummFN)
+    qc_pvca(data=eset_norm, factors=pvcaNormData.fact, targets=targets.pvcaFN, pct_threshold=pct_threshold, label="NormData", outputDir=resultsDir, summaryFN=resultsSummFN)
 }
 ```
 
@@ -369,14 +371,260 @@ loadsPCAnorm.f.corrbatch <- qc_pca1(exprs(eset_norm.f), scale=pcaNormData.scale,
 
 ### Filtering
 
+A revisar. 
+
+Some filtering can be performed prior to differential expression analysis to remove the affymetrix control probes, as well as probesets with missing or duplicate _EntrezID_ (annotation-based filtering); and/or to remove probesets with low variance (variance-based filtering). These options are specified in the following parameters: `filtByAnnot` and `filtByVar`, respectively. The resulting object is named `eset_filt`.
 
 #### SD plot
-#### Filter normalized data
+
+Function `sdplot()` can be used to plot the standard deviations of all probesets in the array.
+
+```{r}
+if (SDplot){
+    sdplot(data=exprs(eset_norm.f), var_thr=filterByVar.thr, label="NormData", outputDir=resultsDir)
+}
+```
+
+#### Filtering of normalized data
+
+```{r}
+eset_filtered <- filtering(data=eset_norm.f, outputFN="Normalized.Filtered", outputDir=resultsDir, summaryFN=resultsSummFN,
+                           feature.exclude="^AFFX",require.entrez=filterByAnnot, remove.dupEntrez = filterByAnnot,
+                           var.filter=filterByVar, var.func = filterByVar.fun, var.cutoff = filterByVar.thr, filterByQuantile=TRUE,
+                           require.GOBP = FALSE, require.GOCC = FALSE, require.GOMF = FALSE)
+dim(eset_filtered)
+```
+
+<!-- ```{r} -->
+<!-- #Save the annotation for filtered genes -->
+<!--     if (save_annot_filt){ -->
+<!--         at <- aafTableAnn(rownames(eset_filtered), annotPackage) -->
+<!--         saveHTML (at, file.path(resultsDir, "Annotations.Filtered.html"), -->
+<!--                   "Annotations for filtered genes") -->
+<!--         saveText (at, file.path(resultsDir, "Annotations.Filtered.csv"), header=TRUE) -->
+<!--     } -->
+<!-- ``` -->
+
+
 #### Save annotations of filtered data
+
+```{r eval=TRUE}
+#no se pq dona error, (Error: no such table: go.go_term) nomes passa quan s'executa com a funcio sense haver previament carregat els paquets (?)
+require(annotPackage, character.only=TRUE)
+require(annaffy)
+if (save_annot_filt){normData.filt_annot <- save_annotations(data=rownames(eset_filtered), annotPkg=annotPackage, outputFN="Annotations.Filtered", saveHTML=TRUE, title="Annotations for filtered genes", outputDir=resultsDir)}
+```
 
 ### Save data from this block (normData.Rda object)
 
-## Differential Expression Analysis
+```{r}
+# When you save your data, use save(MyObject, file = "MyObject.RData", version = 2) to maintain back-compatibility and avoid the warning. (otherwise, others using R < 3.5.0 won't be able to load your saved files.)
+
+if (!is.null(samplestoremove)){
+    if (normalizedata) {
+            save(eset_raw, eset_norm, eset_raw.f, eset_norm.f, eset_filtered, targets, targets.f, file=file.path(dataDir,"normData.Rda"), version=2)
+        } else {
+            save(eset_raw, eset_raw.f, targets, targets.f, file=file.path(dataDir,"rawData.Rda"), version=2)
+        }} else {
+          if (normalizedata) {
+            save(eset_raw, eset_norm, eset_filtered, targets, file=file.path(dataDir,"normData.Rda"), version=2)
+        } else {
+            save(eset_raw, targets, file=file.path(dataDir,"rawData.Rda"), version=2)
+        }}
+```
+
+## Block 02-Differential Expression Analysis (DEA)
+
+### Background
+
+The analysis to select differentially expressed genes will be based on adjusting a linear model with empirical Bayes moderation of the variance. This is a technique specifically developed for microarray data analysis by Gordon K Smyth @smyth2004. Linear modeling is the same as ordinary analysis of variance or multiple regression except that a model is fitted for every gene. Of note, limma estimates the gene-specific variance using information from all samples in all groups, even if not all groups participate in the pairwise comparisons. This is necessary in 'omics studies with limited replication, and outweighs any supposed disadvantage of differences in variances between groups. For statistical analysis and assessing differential expression, limma uses an empirical Bayes method to moderate the standard errors of the estimated log-fold changes. This results in more stable inference and improved power, especially for experiments with small numbers of arrays.
+
+The main purpose of fitting a linear model to the data is to estimate the variability in the data, hence the _systematic_ part needs to be modelled so it can be distinguished from _random_ variation. The model is specified by the _design matrix_. Each row of the design matrix corresponds to an array in your experiment and each column corresponds to a coefficient that is used to describe the RNA sources in your experiment. Then, a contrasts step is performed so that you can take the initial coefficients and compare them in as many ways as you want to answer any questions you might have, regardless of how many or how few these might be. (ref: limma user's guide)
+
+General recommendations:
+
+*  Since limma estimates the gene-specific variance using information from all samples in all groups, the design matrix should be constructed with all the samples (arrays) of the experiment, even if not all groups participate in the pairwise comparisons. However, some exceptions where subsetting could be reasonable could be when two groups are very different (eg. different tissues)
+* The covariates included in the linear model should not be correlated (eg. if the `Group` variable already integrates the information of `Sex`, no additional `Sex` covariate should be added to the model). Adding correlated variables may cause the design matrix to be unranked.
+* If batch effects were detected during Quality Control, the `Batch` variable should be added to the model as a systematic blocking factor
+* When samples are derived from the same Subject, this could be taken into account as a random or systematic effect. In general, with well balanced designs, including the Subject as a systematic blocking factor is recommended (paired analysis). For unbalanced designs or to make comparisons both within and between subjects, it is necessary to treat Subject as a random effect. This can be done in limma using the duplicateCorrelation function. (ref. limma user's guide chapter 9.7)
+
+### Load the parameters for this block and set directories
+
+```{r}
+#Parameters
+source(file.path(paramDir, "02-DEA.par"))
+#Execution parameters
+source(file.path(paramDir, "02-DEA_analysistodo.par"))
+```
+
+For this example study, parameters were set as follows:
+
+```{r}
+(loadDEA_parameters <- read.table(file.path(paramDir, "02-DEA.par"), header = FALSE, sep=";", as.is=TRUE))
+```
+
+The execution parameters were set as follows:
+
+```{r}
+(loadDEA_todoparameters <- read.table(file.path(paramDir, "02-DEA_analysistodo.par"), header = FALSE, sep=";", as.is=TRUE))
+```
+
+Since directories could change from block to block, we set them again for this block:
+
+```{r}
+dataDir <- file.path(workingDir, dataDirN)
+resultsDir <- file.path(workingDir, resultsDirN)
+```
+
+### Data for DEA
+
+The Rda file generated in _Block 01-Load-QC-Norm-Filt_ will be used as input for DEA:
+
+```{r}
+load(file.path(dataDir, inputDEARda)) 
+```
+
+We assign the `ExpressionSet` object to be used for the analysis to an R object (it is specified in the `eset_analysis` parameter as a string)
+
+```{r}
+eset_analysis <- eval(parse(text=eset_analysis))
+```
+
+### Building the linear model
+
+#### Design matrix
+
+The design matrix is created from the phenotypic data, which can be retrieved from the `ExpressionSet` object using `pData(eset_analysis)` or from the `targets` object. The safer way is to work with the `ExpressionSet` object, instead of using the expression data and targets file separately. Note that it constructs the design matrix based only on targets sample name and then the fit is done based on the indexed positions.
+
+Function `dea_lmdesign()` can be used to construct a design matrix. The main factor representing the _Group_ of treatment should be provided in `group` parameter, and the covariates or systematic effects to take into account will be introduced in the `covariates` parameter. The design matrix will be constructed according to the formula `~ 0 + group + covariates`. This design is the most optimal and flexible to enable different comparisons specified by the contrasts matrix. However, alternative designs can also be created by providing a formula to the `fmla` parameter. 
+
+In addition, if random effects are to be taken into account, this will be specified in `blocking.fact` parameter and taken into account via `duplicateCorrelation()` function during the model fit (see next section). 
+
+In this example, the artificially created `Batch` factor will be added to the model for illustration purposes only. 
+
+```{r}
+#parameters specified in file 02-DEA.par:
+design.mainfact
+design.cofact
+blocking.fact
+```
+
+```{r}
+(design <- dea_lmdesign(targets=pData(eset_analysis), sampleNames="ShortName", data=eset_analysis,
+                     group=design.mainfact, covariates=design.cofact, fmla=NULL, 
+                     summaryFN=resultsSummFN, outputDir=resultsDir))
+```
+
+#### Linear model fit
+
+Function `dea_lmfit()` can be used to fit the linear model to the data, as specified by the design matrix. It uses `lmFit` function from `limma` package. If random effects are to be taken into account, this should be specified in the `block.cor` parameter  (i.e. `blocking.fact` parameter is not null), the correlation between measurements made on the same block will be estimated using `duplicateCorrelation` function from `limma` package and used to fit to the model. The calculated correlation consensus can be accessed from the object `fit` returned (`fit$correlation`).
+
+```{r}
+fit <- dea_lmfit(data=eset_analysis, targets=pData(eset_analysis), design=design, block.cor=NULL, summaryFN=resultsSummFN, outputDir=resultsDir)
+```
+
+### Compute the contrasts and moderated t-tests
+
+The contrasts to be computed are defined in `contrastsv` parameter of `02-DEA.par` file, where the contrasts names will be the coefficients to be extracted from the `fit` object. Function `dea_compare()` allows to construct the contrast matrix and compute estimated coefficients and standard errors for the given set of contrasts. In addition, it performs an empirical Bayes moderation of the standard errors. In the case where no moderation of the standard errors is to be performed (not recommended), this can be achieved by specifying `moderated=FALSE` parameter. The object returned `fit.main`.
+
+```{r}
+fit.main <- dea_compare(fit=fit, contrasts=contrastsv, design=design, moderated=TRUE, summaryFN=resultsSummFN, outputDir=resultsDir)
+```
+
+```{r}
+names(fit.main)
+```
+
+
+### TopTables
+
+Assign name of comparisons (contrasts) to `listofcoef` variable:
+
+```{r}
+(listofcoef <- colnames(fit.main))
+```
+
+Function `dea_toptab` allows to obtain the toptables for the comparisons analyzed. To create html tables use `html_report`=TRUE (ojo q triga molt).
+
+```{r}
+#versio amb les html tables modificades pq mostriin tots els estadistics
+listofcsv <- dea_toptab(listofcoef=listofcoef, fit.main=fit.main, eset=eset_analysis, padjust.method="fdr", 
+                        html_report=FALSE, #ReportHTMLTopTab, 
+                        html_ntop=500, html_group="Group", 
+                        outputDir=resultsDir)
+names(listofcsv)
+head(listofcsv[[1]])
+```
+
+```{r}
+#versio amb les html tables com venen per defecte (nomes mostra adj pval o pval)
+listofcsv <- dea_toptab_original(listofcoef=listofcoef, fit.main=fit.main, eset=eset_analysis, padjust.method="fdr", 
+                        html_report=FALSE,#ReportHTMLTopTab, 
+                        html_ntop=500, html_group="Group", html_padjust_method = toptable_padjust_method,
+                        outputDir=resultsDir)
+```
+
+### Results summary
+
+Function `dea_summary_ngc` can be used to summarize the results of differential expression. It returns a table with the number of features that are differentially expressed under different statistical thresholds. They are catalogued as _Up_ or _Down_-regulated if their logFC is above or below a selected logFC threshold, respectively. 
+
+```{r}
+(numGenesChanged <- dea_summary_ngc(listofcoef=listofcoef, listofcsv=listofcsv, B_thr=c(0), Pval_thr=c(0.01,0.05,0.1), adjPval_thr=c(0.01,0.05,0.15,0.25), logFC_thr=0, outputDir=resultsDir))
+```
+
+For an extended table involving different logFC thresholds, use function `dea_summary_ngc_ext` instead. The output will be a list with the summary tables obtained for each comparison.
+
+```{r}
+ngc_list <- dea_summary_ngc_ext(listofcoef=listofcoef, listofcsv=listofcsv, B_thr.e=c(0), Pval_thr.e=c(0.01,0.05,0.1), adjPval_thr.e=c(0.01,0.05,0.15,0.25), logFC_thr.e=c(0,0.5,1,1.5,2), outputDir=resultsDir)
+names(ngc_list)
+head(ngc_list[["PD1vsCTL"]])
+```
+
+The two functions mentioned above are combined into a single function `dea_summary_ngc1`, where parameter `extended` specifies whether the extended tables are to be performed. The output is a list of two elements, the first containing the simple numGenesChanged dataframe and the second a list with the extended tables if performed.
+
+```{r}
+numGenesChanged_all <- dea_summary_ngc1(listofcoef=listofcoef, listofcsv=listofcsv, B_thr=c(0), Pval_thr=c(0.01,0.05,0.1), adjPval_thr=c(0.01,0.05,0.15,0.25), logFC_thr=0, extended=TRUE, B_thr.e=c(0), Pval_thr.e=c(0.01,0.05,0.1), adjPval_thr.e=c(0.01,0.05,0.15,0.25), logFC_thr.e=c(0,0.5,1,1.5,2), outputDir=resultsDir)
+names(numGenesChanged_all)
+```
+
+```{r}
+#si declaro els parametres aixi no em funciona:
+# numGenesChanged_allkk <- dea_summary_ngc1(listofcoef=listofcoef, listofcsv=listofcsv, B_thr=c(0), Pval_thr=c(0.01,0.05,0.1), adjPval_thr=c(0.01,0.05,0.15,0.25), logFC_thr=0, extended=TRUE, B_thr.e=B_thr, Pval_thr.e=Pval_thr, adjPval_thr.e=adjPval_thr, logFC_thr.e=c(0,0.5,1,1.5,2), outputDir=resultsDir)
+```
+
+### Volcano plots
+
+<!-- Volcanos  -->
+
+<!-- ```{r} -->
+<!-- dea_plotvolcano(listofcsv, volc_pval, volc_pval.thr, volc_logFC, volc_x0, volc_x1, volc_y0, volc_y1, numplots=6, label, outputDir=resultsDir) -->
+<!-- ``` -->
+
+
+### All DEA in one function
+
+All the steps performed in `Block 02- DEA` can be executed in a single step using `dea_all()` function. The result is a list with objects corresponding to each step of the analysis: design, fit, and fit.main.
+
+```{r}
+dea.reslist <- dea_all(data=eset_analysis, targets=pData(eset_analysis), sampleNames="ShortName", group=design.mainfact, covariates=design.cofact, fmla=NULL, block.cor=blocking.fact, contrastsv=contrastsv, moderated=TRUE, summaryFN=resultsSummFN, outputDir=resultsDir)
+```
+
+```{r}
+dea.reslist$design
+dea.reslist$fit.main$contrasts
+#extract object fit.main for further analysis:
+fit.main <- dea.reslist$fit.main
+```
+
+Afegir ngc, toptables i volcanoplots en la mateixa funcio dea_all
+
 ## Multiple Comparisons
 ## Analysis of Biological Significance
 
+# Special cases
+
+## Different tissues
+
+## Paired analysis
+
+# References

@@ -1,4 +1,4 @@
-#' A function to create a PCA plot from raw or normalized data
+#' PCA plot of raw or normalized data
 #'
 #' Performs a principal components analysis on the given data matrix and creates a plot of the data projected onto the 2-3 first principal components. The plot is saved into a pdf file.
 #' @param data A matrix of expression values, with samples in columns and probes in rows.

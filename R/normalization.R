@@ -1,11 +1,11 @@
-#' A function to normalize microarray data
+#' Normalize microarray data
 #'
 #' Normalizes data using one of the available methods (see 'Details') and returns a FeatureSet of normalized data. The normalized expression values are saved into a csv/xls file.
 #' @param data An ExpressionSet object with the raw data to be normalized.
 #' @param norm.method Method used for normalization (currently: oligo::rma)
-#' @param exonStudy If the analysis is to be performed at exon level (TRUE/FALSE). Defaults to FALSE.
+#' @param exonStudy a logical value indicating if the analysis is to be performed at exon level. Defaults to FALSE.
 #' @param norm.level Level of summarization (only for Exon/Gene arrays). Defaults to 'core' for summarization at transcript level. To summarize at probe level use target='probeset'.
-#' @param bkgremove Whether to perform RMA background correction (TRUE/FALSE). Defaults to TRUE.
+#' @param bkgremove a logical value indicating whether to perform RMA background correction. Defaults to TRUE.
 #' @param annotPkg Annotation package to be used to annotate the FeatureSet generated
 #' @param outputFN File name of the datasheet saved containing normalized data (csv or xls file), without extension.
 #' @param outputDir Name of the directory where the datasheet of normalized data will be saved
@@ -16,7 +16,7 @@
 #' @author Mireia Ferrer Almirall \email{mireia.ferrer.vhir@@gmail.com}
 #' @seealso \link[oligo]{rma}
 #' @examples
-#' @return eset_norm An R object containing the normalized data (a FeatureSet)
+#' @return Returns an ExpressionSet object containing the normalized data. The normalized expression values are saved into a csv/xls file.
 #' @keywords normalization rma
 #' @references
 

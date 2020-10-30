@@ -2,7 +2,7 @@
 % Please edit documentation in R/qc_all.R
 \name{qc_all}
 \alias{qc_all}
-\title{A function to perform different Quality Control plots and report generation for raw or normalized expression data}
+\title{Quality Control plots and report generation for raw or normalized expression data}
 \usage{
 qc_all(
   data,

@@ -7,7 +7,7 @@ resultsDirN <- "results" #name of results directory
 resultsSummFN <- "ResultsSummary_DEA.txt" #A summary of results obtained in each step will be saved in a text file
 
 #Input data
-inputDEARda <- "normData.Rda" #Rda object to load 
+inputDEARda <- "normData.Rda" #Rda object to load
 ##From 'normData.Rda' object created in script 01-microarrayAnalysis-Load-QC-Norm-Filt.R, which contains also 'rawData', 'eset_filtered', 'eset_norm' and 'targets' objects)
 ##If only Volcano Plots are to be performed, data can be loaded from 'afterTopTabs.Rda' object
 
@@ -19,11 +19,12 @@ eset_analysis <- "eset_filtered" # (eg. eset_filtered (filtered dataset) or eset
 ##For Clariom S Human: "clariomshumantranscriptcluster.db"
 ##For Clariom D Mouse, transcript level: "mta10transcriptcluster.db"
 ##For Clariom S Mouse: "clariomsmousetranscriptcluster.db"
-annotPackage <- "clariomsmousetranscriptcluster.db"  
+annotPackage <- "clariomsmousetranscriptcluster.db"
 
 #Design matrix
-design.fact <- c("Group") # Variables to include in Design matrix (eg. Group, Batch, Mouse/Patient). Group must be the first.
-blocking.fact <- NULL # Variables to block as random effect (via calculation of duplicateCorrelation) for fitting the model. eg. "PatientID". If not to consider any variable, set NULL. 
+design.mainfact <- "Group" # Main variable containing group information to include in Design matrix (eg. "Group")
+design.cofact <- "Batch" # Covariates to be included in the linear model as cofactors (eg. "Batch", "Sex", ...). If not to consider any variable, set NULL.
+blocking.fact <- NULL # Variables to block as random effect (via calculation of duplicateCorrelation) for fitting the model. eg. "PatientID". If not to consider any variable, set NULL.
 
 #Contrasts matrix
 contrastsv <- c("PD1vsCTL = PD1 - CTL",

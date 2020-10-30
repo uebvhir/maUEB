@@ -2,7 +2,7 @@
 % Please edit documentation in R/qc_pvca.R
 \name{qc_pvca}
 \alias{qc_pvca}
-\title{A function to assess the source of batch effects in a microarray gene expression experiment}
+\title{Assess the source of batch effects in a microarray gene expression experiment}
 \usage{
 qc_pvca(
   data,

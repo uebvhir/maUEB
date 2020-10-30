@@ -6,7 +6,7 @@ loadRawData <- FALSE # Whether to load raw data expression set (rawData) previou
 loadNormData <- FALSE # Whether to load normalized data expression set (eset_norm) previously created with this script (TRUE/FALSE)
 
 ## Normalize data
-normalize <- TRUE # Whether to normalize raw data (TRUE/FALSE)
+normalizedata <- TRUE # Whether to normalize raw data (TRUE/FALSE)
 
 ## QC RawData
 QCraw <- TRUE # Whether to perform quality control of raw data (TRUE/FALSE)

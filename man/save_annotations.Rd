@@ -2,7 +2,7 @@
 % Please edit documentation in R/save_annotations.R
 \name{save_annotations}
 \alias{save_annotations}
-\title{A function to save probeset annotations}
+\title{Save probeset annotations}
 \usage{
 save_annotations(
   data,

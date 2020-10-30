@@ -1,4 +1,4 @@
-#' A function to remove batch effects from expression data
+#' Remove batch effects from expression data
 #'
 #' Removes batch/covariate effects from expression data using linear models (removeBatchEffect function from limma package)
 #' @param data A matrix of expression values, with samples in columns and probes in rows.

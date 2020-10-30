@@ -2,7 +2,7 @@
 % Please edit documentation in R/build_targets.R
 \name{build_targets}
 \alias{build_targets}
-\title{A function to create a Targets file template}
+\title{Create a Targets file template}
 \usage{
 build_targets(inputDir, outputDir, client, ID, descriptors)
 }

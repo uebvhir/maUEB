@@ -2,7 +2,7 @@
 % Please edit documentation in R/normalization.R
 \name{normalization}
 \alias{normalization}
-\title{A function to normalize microarray data}
+\title{Normalize microarray data}
 \usage{
 normalization(
   data,
@@ -20,11 +20,11 @@ normalization(
 
 \item{norm.method}{Method used for normalization (currently: oligo::rma)}
 
-\item{exonStudy}{If the analysis is to be performed at exon level (TRUE/FALSE). Defaults to FALSE.}
+\item{exonStudy}{a logical value indicating if the analysis is to be performed at exon level. Defaults to FALSE.}
 
 \item{norm.level}{Level of summarization (only for Exon/Gene arrays). Defaults to 'core' for summarization at transcript level. To summarize at probe level use target='probeset'.}
 
-\item{bkgremove}{Whether to perform RMA background correction (TRUE/FALSE). Defaults to TRUE.}
+\item{bkgremove}{a logical value indicating whether to perform RMA background correction. Defaults to TRUE.}
 
 \item{annotPkg}{Annotation package to be used to annotate the FeatureSet generated}
 
@@ -33,7 +33,7 @@ normalization(
 \item{outputDir}{Name of the directory where the datasheet of normalized data will be saved}
 }
 \value{
-eset_norm An R object containing the normalized data (a FeatureSet)
+Returns an ExpressionSet object containing the normalized data. The normalized expression values are saved into a csv/xls file.
 }
 \description{
 Normalizes data using one of the available methods (see 'Details') and returns a FeatureSet of normalized data. The normalized expression values are saved into a csv/xls file.

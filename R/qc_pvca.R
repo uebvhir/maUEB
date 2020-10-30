@@ -1,4 +1,4 @@
-#' A function to assess the source of batch effects in a microarray gene expression experiment
+#' Assess the source of batch effects in a microarray gene expression experiment
 #'
 #' Performs a Principal Variance Component Analysis (PVCA) using 'pvcaBatchAssess' function from 'pvca' package. A barplot is created with the percentage of total variance associated to each factor assessed. The effects associated to each factor are calculated by fitting all sources as random effects including two-way interaction terms in the Mixed Model to select principal components. See 'Details' for extended information.
 #' @param data An instance of ExpressionSet.

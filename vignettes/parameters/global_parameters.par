@@ -10,4 +10,4 @@ descriptors <- c("FileName","Group", "ShortName", "Colors", "Batch") #variable n
 
 # Annotation package
 annotPackage <- "clariomsmousetranscriptcluster.db"
-organism <- "mouse"
+organismsp <- "mouse"

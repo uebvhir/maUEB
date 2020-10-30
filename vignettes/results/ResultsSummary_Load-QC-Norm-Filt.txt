@@ -144,3 +144,841 @@ $label
 [1] "Group:Batch" "Group"       "Batch"       "resid"      
 
 
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: TRUE 
+--Function used to filter by variance: IQR 
+--Percentage of features removed among total: 65 %
+-Number of features before filtering: 29129 
+-Number of features after filtering: 7104 
+  numDupsRemoved numLowVar numRemoved.ENTREZID
+1            135     13192                8698
+

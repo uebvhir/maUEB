@@ -1,4 +1,4 @@
-#' A function to save probeset annotations
+#' Save probeset annotations
 #'
 #' Uses aafTableAnn function from annaffy package to construct an aafTable object given a set of probe ids. Saves annotation for all summarized probes as csv and html files
 #' @param data character vector of probe ids
@@ -19,7 +19,7 @@
 
 save_annotations <- function(data, annotPkg, outputFN="Annotations.AllGenes", saveHTML=TRUE, title="Annotations for all genes", outputDir){
     require(annotPkg, character.only=TRUE)
-    aat <- aafTableAnn(data, annotPkg)
+    at <- aafTableAnn(data, annotPkg)
     saveHTML(at, file.path(outputDir, paste0(outputFN, ".html")), title)
     saveText(at, file.path(outputDir, paste0(outputFN, ".csv")), header=TRUE)
     return(at)

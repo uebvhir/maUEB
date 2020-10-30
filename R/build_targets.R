@@ -1,4 +1,4 @@
-#' A function to create a Targets file template
+#' Create a Targets file template
 #'
 #' Lists the cel files in a directory and creates a csv2 file containing a dataframe with the file names and phenotypic data to be filled in.
 #' @param outputDir Name of the directory where the targets file will be saved.

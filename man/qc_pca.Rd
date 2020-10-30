@@ -2,7 +2,7 @@
 % Please edit documentation in R/qc_pca.R
 \name{qc_pca}
 \alias{qc_pca}
-\title{A function to create a PCA plot from raw or normalized data}
+\title{PCA plot of raw or normalized data}
 \usage{
 qc_pca(
   data,
