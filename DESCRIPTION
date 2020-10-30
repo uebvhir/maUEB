@@ -3,25 +3,47 @@ Title: A package for microarray analysis
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Mireia",
-           family = "Ferrer",
-           role = c("aut", "cre"),
-           email = "mireia.ferrer.vhir@gmail.com"),
-    person(given = "Alex",
-           family = "Sanchez",
-           role = c("aut"),
-           email = "alex.sanchez@vhir.org"),
-    person(given = "Ricardo",
-           family = "Gonzalo",
-           role = c("aut"),
-           email = "ricardo.gonzalo@vhir.org"))
-Description: This package contains functions to perform a complete analysis of microarray data, including quality checks and exploratory analysis of raw and normalized data, probe normalization and summarization, differential expression analysis, multiple comparisons and biological significance analysis. 
+             family = "Ferrer",
+             role = c("aut", "cre"),
+             email = "mireia.ferrer.vhir@gmail.com"),
+      person(given = "Alex",
+             family = "Sanchez",
+             role = "aut",
+             email = "alex.sanchez@vhir.org"),
+      person(given = "Ricardo",
+             family = "Gonzalo",
+             role = "aut",
+             email = "ricardo.gonzalo@vhir.org"))
+Description: This package contains functions to perform a
+    complete analysis of microarray data, including quality checks and
+    exploratory analysis of raw and normalized data, probe normalization
+    and summarization, differential expression analysis, multiple
+    comparisons and biological significance analysis. 
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
+Imports: 
+    annaffy,
+    annotate,
+    arrayQualityMetrics,
+    Biobase,
+    genefilter,
+    ggplot2,
+    ggrepel,
+    htmlwidgets,
+    hwriter,
+    limma,
+    magrittr,
+    oligo,
+    plotly,
+    pvca,
+    ReportingTools,
+    WriteXLS
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Suggests: 
-    knitr,
-    rmarkdown, BiocStyle
-VignetteBuilder: knitr
