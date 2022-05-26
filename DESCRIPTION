@@ -1,11 +1,15 @@
 Package: maUEB
 Title: A package for microarray analysis
-Version: 0.0.0.9000
+Version: 1.0
 Authors@R: 
     c(person(given = "Mireia",
              family = "Ferrer",
              role = c("aut", "cre"),
              email = "mireia.ferrer.vhir@gmail.com"),
+     person(given = "Esther",
+            family = "Camacho",
+            role = c("aut"),
+            email = "esther.camacho@vhir.org"),
       person(given = "Alex",
              family = "Sanchez",
              role = "aut",

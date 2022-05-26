@@ -7,8 +7,9 @@
 qc_pca1(
   data,
   scale,
-  dim = 2,
+  dim = c(1, 2, 3),
   pca2D_factors = c("Group"),
+  pca3D = FALSE,
   pca3D_factors = c("Group"),
   targets,
   col.group = "Colors",
@@ -27,9 +28,11 @@ qc_pca1(
 
 \item{scale}{a logical value indicating whether the variables should be scaled to have unit variance before the analysis takes place.}
 
-\item{dim}{A vector with the number of dimensions (2 and/or 3) to project the PCA. Defaults to 2.}
+\item{dim}{Numeric vector with the number of the principal components to project the PCA. Defaults to first 2. For a 2D plot using PC2 and PC3 should be indicated as c(2,3)}
 
 \item{pca2D_factors}{A vector with the names of factor variables contained in targets to color samples in pca 2D plots. Default is "Group".}
+
+\item{pca3D}{Logical, whether a threedimensional plot is to be performed. Defaults to FALSE. If TRUE then dim should be 3 dimensions (default: the first 3 PC)}
 
 \item{pca3D_factors}{A vector with the names of factor variables contained in targets to color samples in pca 3D plots. Default is "Group".}
 

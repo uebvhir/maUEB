@@ -15,7 +15,7 @@
 #' @references
 
 removebatch <- function(data, targets, batchFactors=NULL){
-    fmla <- paste("~ ", paste(batchcolName, collapse=" + "), sep="+ ")
+    fmla <- paste("~ ", paste(batchFactors, collapse=" + "), sep="+ ")
     batch.design <- model.matrix(as.formula(fmla), data=targets)
     batch.design <- batch.design[,-1] #treiem intercept
     data <- removeBatchEffect(data, covariates=batch.design) #function from limma package
