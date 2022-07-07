@@ -28,7 +28,7 @@
 #' @keywords boxplot ExpressionSet FeatureSet
 #' @references
 
-qc_boxplot <- function(data, group="Group", group.color="Colors", samplenames="ShortName", outputDir, bp.main="Boxplot for array intensity", label, cex.axis=0.5, bp.ylab="log2 intensity", cex.lab=0.7, las=2, bp.legend=TRUE, bp.legend.posx=10, bp.legend.posy=13, bp.legend.cex=0.6, ...){
+qc_boxplot <-function(data, group="Group", group.color="Colors", samplenames="ShortName", outputDir, bp.main="Boxplot for array intensity", label, cex.axis=0.5, bp.ylab="log2 intensity", cex.lab=0.7, las=2, bp.legend=TRUE, bp.legend.posx=10, bp.legend.posy=13, bp.legend.cex=0.6, which="all", ...){ ### S'ha afegit el paràmetre which
     ###Note: takes 'boxplot' function from package 'oligo'. For raw data (ExpressionSet), it transforms intensities to log2-scale (default: transfo=log2)
     targets <- pData(data)
     names <- as.character(targets[,samplenames])
@@ -37,14 +37,14 @@ qc_boxplot <- function(data, group="Group", group.color="Colors", samplenames="S
     set.seed(123)
     op <- par(mar = c(8, 5, 4, 2) + 0.1)
     oligo::boxplot(x=data, col=col, cex.axis=cex.axis, las=las, ylab=bp.ylab, cex.lab=cex.lab,
-                   names=names, main=paste0(bp.main, ". ", label))
+                   names=names, which=which, main=paste0(bp.main, ". ", label)) ### S'ha afegit el paràmetre which
     if (bp.legend) {legend(x=bp.legend.posx, y=bp.legend.posy, legend=unique(targets[,group]), fill=unique(col), cex=bp.legend.cex, bg="white")}
     #ho he de fer dos vegades pq no mel deixa guardar com a objecte
     pdf(file.path(outputDir, paste0("Boxplot", label, ".pdf")))
     op <- par(mar = c(8, 5, 4, 2) + 0.1)
     oligo::boxplot(x=data, col=col, cex.axis=cex.axis, las=las, ylab=bp.ylab, cex.lab=cex.lab,
-                   names=names, main=paste0(bp.main, ". ", label))
+                   names=names, which=which, main=paste0(bp.main, ". ", label)) ### S'ha afegit el paràmetre which
     if (bp.legend) {legend(x=bp.legend.posx, y=bp.legend.posy, legend=unique(targets[,group]), fill=unique(col), cex=bp.legend.cex, bg="white")}
     dev.off()
     par(op)
-}
+    }
