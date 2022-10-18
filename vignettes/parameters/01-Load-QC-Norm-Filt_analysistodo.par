@@ -29,8 +29,9 @@ SDplot <- TRUE # Plot SD vs nº features
 
 ## Filtering
 filterByAnnot <- TRUE # If features are filtered by annotation (entrezID) in function 'nsFilter'
-filterByVar <- TRUE # If features are filtered by variance in function 'nsFilter'
+filterByVar <- FALSE # If features are filtered by variance in function 'nsFilter'
 ##a millorar: controls a excloure (nomes treu els d'Affymetrix si no filtres per anotacio)
+removingofsamples <- TRUE
 
 ## Save annotation of genes
 save_annot_all <- TRUE #Whether to save annotation for all genes as html and csv files (TRUE/FALSE)

@@ -25,6 +25,9 @@ annotPackage <- "clariomsmousetranscriptcluster.db"
 design.mainfact <- "Group" # Main variable containing group information to include in Design matrix (eg. "Group")
 design.cofact <- "Batch" # Covariates to be included in the linear model as cofactors (eg. "Batch", "Sex", ...). If not to consider any variable, set NULL.
 blocking.fact <- NULL # Variables to block as random effect (via calculation of duplicateCorrelation) for fitting the model. eg. "PatientID". If not to consider any variable, set NULL.
+design.num <- NULL # Covariates to be included in the linear model as numeric variables (eg. "Age", ...). If not to consider any variable, set NULL.
+design.num.targ <- NULL # Covariates to be included in the linear model as numeric variables from targets file (eg. targets$Age, ...). If not to consider any variable, set NULL.
+
 
 #Contrasts matrix
 contrastsv <- c("PD1vsCTL = PD1 - CTL",

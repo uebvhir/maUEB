@@ -7,9 +7,9 @@ resultsDirN <- "results" #name of results directory
 resultsSummFN <- "ResultsSummary_ABS-GSEA.txt" #A summary of results obtained in each step will be saved in a text file
 
 # Input data
-inputABSRda <- "afterTopTabs.Rda" #Rda object to load 
+inputABSGSEARda <- "afterTopTabs.Rda" #Rda object to load
 #Load topTabs data (.Rda) for GO/Reactome analysis
-#If GOAnalysis.unfilt/ReactomeAnalysis.unfilt or GOAnalysis.filt/ReactomeAnalysis.filt have already been performed 
+#If GOAnalysis.unfilt/ReactomeAnalysis.unfilt or GOAnalysis.filt/ReactomeAnalysis.filt have already been performed
 #and want to start from those lists files will be loaded from (ABS-GSEA-GOresults-unfilt.Rda/ABS-GSEA-GOresults-filt.Rda) during the script.
 
 #Annotation package
@@ -17,23 +17,36 @@ inputABSRda <- "afterTopTabs.Rda" #Rda object to load
 ##For Clariom S Human: "clariomshumantranscriptcluster.db"
 ##For Clariom D Mouse, transcript level: "mta10transcriptcluster.db"
 ##For Clariom S Mouse: "clariomsmousetranscriptcluster.db"
-annotPackage <- "clariomsmousetranscriptcluster.db"  
+annotPackage <- "clariomsmousetranscriptcluster.db"
 organism_annot  <- "org.Mm.eg.db" #organism annotation package (eg. "org.Hs.eg.db", "org.Mm.eg.db") (required for GO)
 organism <- "mouse" #("human", "rat", "mouse", "celegans", "yeast", "zebrafish", "fly") (required for Reactome)
+label=""
+resultsSummFN <- "ResultsSummary_ABS-GSEA.txt"
+
+#GSEA parameters
+ranking_metric <- "logFC"
+geneColname <- "EntrezID"
+keyType <- "ENTREZID" #amb majuscules, corresponent a camp d taula d'anotacions orgdb
+label <- ""
+readable <- FALSE
+saveGMT <- TRUE
+saveTables <- TRUE
+saveRda <- TRUE
 
 #GO
 GO_comparisons <- c(1:3) # comparisons to be analysed, indicated by the corresponding position in 'listofcoef' or 'listofTopNames' (eg. 1:10 or c(1,2,8))
 ##Setting of pvalue cutoffs and pvalue adjustment method for each GO category to analyse (CC, BP, MF) in each comparison.
 ##Can be set after looking at the table 'numTermsChanged' generated in 'GOAnalysis.unfilt', which helps to decide optimal thresholds.
 GO_pvalcutoff <- list(rep(0.05, 3), rep(0.05, 3), rep(0.05, 3)) #in this order: BP, CC, MF
-GO_pAdjustMethod <- list(rep("BH", 3), rep("BH", 3), rep("BH", 3)) # (eg. "BH", "bonferroni" or "none") 
+GO_pAdjustMethod <- list(rep("BH", 3), rep("BH", 3), rep("BH", 3)) # (eg. "BH", "bonferroni" or "none")
 ##Setting of minimal/maximal size of each geneSet for testing
 GO_minSetSize <- 3 # (eg. 3 (default))
 GO_maxSetSize <- 500 # (eg. 500 (default))
-    
+
 #Reactome
 Reac_comparisons <- GO_comparisons # comparisons to be analysed, indicated by the corresponding position in 'listofcoef' or 'listofTopNames' (eg. 1:10 or c(1,2,8))
 Reac_pvalcutoff <- rep(0.05, 3) # pvalue cutoff for Reactome significance for the comparisons selected
 Reac_pAdjustMethod <- rep("BH", 3) # pvalue adjustment method for Reactome significance (eg. "BH", "bonferroni" or "none") for the comparisons selected
 Reac_minSetSize <- 3 # minimal size of each geneSet for analyzing (eg. 3 (default))
 Reac_maxSetSize <- 500 # maximal size of genes annotated for testing (eg. 500 (default))
+

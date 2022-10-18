@@ -8,8 +8,9 @@ dea_lmdesign(
   targets,
   sampleNames,
   data,
-  group,
-  covariates,
+  group = NULL,
+  cov.fact = NULL,
+  cov.num = NULL,
   fmla = NULL,
   summaryFN,
   outputDir
@@ -24,7 +25,9 @@ dea_lmdesign(
 
 \item{group}{Name of variable in targets containing the main factor of interest (usually: 'Group')}
 
-\item{covariates}{Vector with the name of variable(s) to be used as covariates in the linear model. If not to consider any variable, set NULL.}
+\item{cov.fact}{Vector with the name of categorical variable(s) to be used as covariates in the linear model. If not to consider any variable, set NULL.}
+
+\item{cov.num}{Vector with the name of numerical variable(s) to be used as covariates in the linear model. If not to consider any variable, set NULL.}
 
 \item{fmla}{Formula to be used in the model to construct the design matrix (eg. ' ~ 0 + Group'). Default is NULL. If no formula is provided, it will be automatically built from the main factor and covariates specified in parameters such as: '0 + group + covariates'.}
 

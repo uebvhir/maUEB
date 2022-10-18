@@ -20,6 +20,7 @@ qc_boxplot(
   bp.legend.posx = 10,
   bp.legend.posy = 13,
   bp.legend.cex = 0.6,
+  which = "all",
   ...
 )
 }

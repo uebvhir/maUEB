@@ -1,0 +1,42 @@
+"ID"	"Description"	"pvalue"	"p.adjust"	"Sign"
+"R-MMU-390522"	"Striated Muscle Contraction"	2.76862528140196e-15	8.69348338360217e-13	NA
+"R-MMU-397014"	"Muscle contraction"	1.81177059059469e-13	2.84447982723366e-11	NA
+"R-MMU-5686938"	"Regulation of TLR by endogenous ligand"	9.88417552915658e-06	0.00103454370538506	NA
+"R-MMU-6799990"	"Metal sequestration by antimicrobial proteins"	1.94748446651538e-05	0.00152877530621458	NA
+"R-MMU-198933"	"Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell"	6.37693284673072e-05	0.00400471382774689	NA
+"R-MMU-2173782"	"Binding and Uptake of Ligands by Scavenger Receptors"	0.000163774321230403	0.00813863322451004	NA
+"R-MMU-5668599"	"RHO GTPases Activate NADPH Oxidases"	0.000210091075479576	0.00813863322451004	NA
+"R-MMU-5578775"	"Ion homeostasis"	0.000218230667194292	0.00813863322451004	NA
+"R-MMU-1236973"	"Cross-presentation of particulate exogenous antigens (phagosomes)"	0.000259192140907963	0.00813863322451004	NA
+"R-MMU-5621480"	"Dectin-2 family"	0.000259192140907963	0.00813863322451004	NA
+"R-MMU-2142753"	"Arachidonic acid metabolism"	0.000366729659573945	0.0100456275594292	NA
+"R-MMU-159763"	"Transport of gamma-carboxylated protein precursors from the endoplasmic reticulum to the Golgi apparatus"	0.000383909333481372	0.0100456275594292	NA
+"R-MMU-159782"	"Removal of aminoterminal propeptides from gamma-carboxylated proteins"	0.00054156488623118	0.0130808749443531	NA
+"R-MMU-159854"	"Gamma-carboxylation, transport, and amino-terminal cleavage of proteins"	0.000735321667612377	0.0162380698264228	NA
+"R-MMU-114608"	"Platelet degranulation "	0.000775703972599813	0.0162380698264228	NA
+"R-MMU-76005"	"Response to elevated platelet cytosolic Ca2+"	0.00102562233594141	0.0201278383428503	NA
+"R-MMU-5576891"	"Cardiac conduction"	0.00114204820114407	0.0210943020681904	NA
+"R-MMU-1236975"	"Antigen processing-Cross presentation"	0.00130641561071119	0.0227896945424062	NA
+"R-MMU-1474228"	"Degradation of the extracellular matrix"	0.00155589967937398	0.0257132894380753	NA
+"R-MMU-140834"	"Extrinsic Pathway of Fibrin Clot Formation"	0.0028188036584896	0.0442552174382867	NA
+"R-MMU-140877"	"Formation of Fibrin Clot (Clotting Cascade)"	0.00318393990449438	0.0476074823814873	NA
+"R-MMU-977606"	"Regulation of Complement cascade"	0.00388576684051228	0.055460490360039	NA
+"R-MMU-446652"	"Interleukin-1 family signaling"	0.00436846905516549	0.0594782354170227	NA
+"R-MMU-373076"	"Class A/1 (Rhodopsin-like receptors)"	0.00454610716563231	0.0594782354170227	NA
+"R-MMU-140875"	"Common Pathway of Fibrin Clot Formation"	0.00522789212308663	0.065662325065968	NA
+"R-MMU-1474244"	"Extracellular matrix organization"	0.00608611005169577	0.0735014829320181	NA
+"R-MMU-2142691"	"Synthesis of Leukotrienes (LT) and Eoxins (EX)"	0.00766331018319096	0.0891214591674801	NA
+"R-MMU-418594"	"G alpha (i) signalling events"	0.00855007343127429	0.0958829663364331	NA
+"R-MMU-166658"	"Complement cascade"	0.00964932820557893	0.10115469909663	NA
+"R-MMU-159740"	"Gamma-carboxylation of protein precursors"	0.00970050030881797	0.10115469909663	NA
+"R-MMU-983712"	"Ion channel transport"	0.00998661042036797	0.10115469909663	NA
+"R-MMU-3000480"	"Scavenging by Class A Receptors"	0.0119902341644647	0.11765417273881	NA
+"R-MMU-500792"	"GPCR ligand binding"	0.0133342459751648	0.12457444068397	NA
+"R-MMU-936837"	"Ion transport by P-type ATPases"	0.0134889521759712	0.12457444068397	NA
+"R-MMU-375276"	"Peptide ligand-binding receptors"	0.0140867790904415	0.125231618776226	NA
+"R-MMU-1442490"	"Collagen degradation"	0.0143577652100131	0.125231618776226	NA
+"R-MMU-2022090"	"Assembly of collagen fibrils and other multimeric structures"	0.0152612808336331	0.128907811307846	NA
+"R-MMU-3299685"	"Detoxification of Reactive Oxygen Species"	0.0156003083748349	0.128907811307846	NA
+"R-MMU-2162123"	"Synthesis of Prostaglandins (PG) and Thromboxanes (TX)"	0.0171959601347227	0.138449525187254	NA
+"R-MMU-163841"	"Gamma carboxylation, hypusine formation and arylsulfatase activation"	0.0184721967677346	0.145006744626716	NA
+"R-MMU-2980736"	"Peptide hormone metabolism"	0.0192303928505975	0.147276667197259	NA

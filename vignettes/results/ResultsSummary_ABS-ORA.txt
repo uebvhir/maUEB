@@ -1,0 +1,135 @@
+
+-------------------------ORA-GO----------------------------------
+Comparison:  PD1vsCTL
+Universe: 
+Selected genes-pval type:  P.Value
+Selected genes-pval threshold:  0.05
+Selected genes-logFC threshold:  1 ( abs )
+Num. selected genes:  43
+Num. unique selected genes:  43
+
+-------------------------ORA-GO----------------------------------
+Comparison:  CMPvsCTL
+Universe: 
+Selected genes-pval type:  P.Value
+Selected genes-pval threshold:  0.05
+Selected genes-logFC threshold:  1 ( abs )
+Num. selected genes:  380
+Num. unique selected genes:  380
+
+-------------------------ORA-GO----------------------------------
+Comparison:  PD1vsCMP
+Universe: 
+Selected genes-pval type:  P.Value
+Selected genes-pval threshold:  0.05
+Selected genes-logFC threshold:  1 ( abs )
+Num. selected genes:  240
+Num. unique selected genes:  240
+
+-------------------------ORA-GO----------------------------------
+Comparison:  PD1vsCTL 
+GO category:  BP 
+GO pval-cutoff:  0.15 
+GO pAdjustMethod:  BH 
+Number of terms found:  352
+
+-------------------------ORA-GO----------------------------------
+Comparison:  PD1vsCTL 
+GO category:  CC 
+GO pval-cutoff:  0.15 
+GO pAdjustMethod:  BH 
+Number of terms found:  0
+
+-------------------------ORA-GO----------------------------------
+Comparison:  PD1vsCTL 
+GO category:  MF 
+GO pval-cutoff:  0.15 
+GO pAdjustMethod:  BH 
+Number of terms found:  49
+
+-------------------------ORA-GO----------------------------------
+Comparison:  CMPvsCTL 
+GO category:  BP 
+GO pval-cutoff:  0.15 
+GO pAdjustMethod:  BH 
+Number of terms found:  2078
+
+-------------------------ORA-GO----------------------------------
+Comparison:  CMPvsCTL 
+GO category:  CC 
+GO pval-cutoff:  0.15 
+GO pAdjustMethod:  BH 
+Number of terms found:  83
+
+-------------------------ORA-GO----------------------------------
+Comparison:  CMPvsCTL 
+GO category:  MF 
+GO pval-cutoff:  0.15 
+GO pAdjustMethod:  BH 
+Number of terms found:  140
+
+-------------------------ORA-GO----------------------------------
+Comparison:  PD1vsCMP 
+GO category:  BP 
+GO pval-cutoff:  0.15 
+GO pAdjustMethod:  BH 
+Number of terms found:  1768
+
+-------------------------ORA-GO----------------------------------
+Comparison:  PD1vsCMP 
+GO category:  CC 
+GO pval-cutoff:  0.15 
+GO pAdjustMethod:  BH 
+Number of terms found:  86
+
+-------------------------ORA-GO----------------------------------
+Comparison:  PD1vsCMP 
+GO category:  MF 
+GO pval-cutoff:  0.15 
+GO pAdjustMethod:  BH 
+Number of terms found:  240
+
+-------------------------ORA-REACTOME----------------------------------
+Comparison:  PD1vsCTL
+Universe: 
+Selected genes-pval type:  P.Value
+Selected genes-pval threshold:  0.05
+Selected genes-logFC threshold:  1 ( abs )
+Num. selected genes:  43
+Num. unique selected genes:  43
+
+-------------------------ORA-REACTOME----------------------------------
+Comparison:  CMPvsCTL
+Universe: 
+Selected genes-pval type:  P.Value
+Selected genes-pval threshold:  0.05
+Selected genes-logFC threshold:  1 ( abs )
+Num. selected genes:  380
+Num. unique selected genes:  380
+
+-------------------------ORA-REACTOME----------------------------------
+Comparison:  PD1vsCMP
+Universe: 
+Selected genes-pval type:  P.Value
+Selected genes-pval threshold:  0.05
+Selected genes-logFC threshold:  1 ( abs )
+Num. selected genes:  240
+Num. unique selected genes:  240
+
+-------------------------ORA-REACTOME----------------------------------
+Comparison:  PD1vsCTL 
+Reactome pval-cutoff:  0.15 
+Reactome pAdjustMethod:  BH 
+Number of terms found:  27
+
+-------------------------ORA-REACTOME----------------------------------
+Comparison:  CMPvsCTL 
+Reactome pval-cutoff:  0.15 
+Reactome pAdjustMethod:  BH 
+Number of terms found:  66
+
+-------------------------ORA-REACTOME----------------------------------
+Comparison:  PD1vsCMP 
+Reactome pval-cutoff:  0.15 
+Reactome pAdjustMethod:  BH 
+Number of terms found:  41

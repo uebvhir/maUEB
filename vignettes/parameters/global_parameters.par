@@ -1,6 +1,6 @@
 # Directories
 dataDirN <- "dades" #name of data directory
-celDirN <-  "celfiles" #name of celfiles directory
+celDirN <-  "celfiles" #name of celfiles directory (if it is in another folder, write the relative path)
 resultsDirN <- "results" #name of results directory
 
 # Study data

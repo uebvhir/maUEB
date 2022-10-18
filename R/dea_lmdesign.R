@@ -5,7 +5,8 @@
 #' @param sampleNames Name of variable in targets containing the sample names (the same identificators as the column names of the expression matrix)
 #' @param data An ExpressionSet instance or a matrix of expression values, with samples in columns and probes in rows, to which the linear model will be fitted. Column names should be the same and in the same order as the targets sample names used to build the design matrix.
 #' @param group Name of variable in targets containing the main factor of interest (usually: 'Group')
-#' @param covariates Vector with the name of variable(s) to be used as covariates in the linear model. If not to consider any variable, set NULL.
+#' @param cov.fact Vector with the name of categorical variable(s) to be used as covariates in the linear model. If not to consider any variable, set NULL.
+#' @param cov.num Vector with the name of numerical variable(s) to be used as covariates in the linear model. If not to consider any variable, set NULL.
 #' @param fmla Formula to be used in the model to construct the design matrix (eg. ' ~ 0 + Group'). Default is NULL. If no formula is provided, it will be automatically built from the main factor and covariates specified in parameters such as: '0 + group + covariates'.
 #' @param summaryFN Name of the file where the reporting summary of execution results will be saved
 #' @param outputDir Name of the directory where the results summary will be saved
@@ -18,7 +19,7 @@
 #' @keywords linear model design matrix
 #' @references
 
-dea_lmdesign <- function(targets, sampleNames, data, group, covariates, fmla=NULL, summaryFN, outputDir){
+dea_lmdesign <- function(targets, sampleNames, data, group=NULL, cov.fact=NULL, cov.num=NULL, fmla=NULL, summaryFN, outputDir){
     #Before doing the design and contrast matrix, verify that order and number of samples in targets is the same as in the expression set
     #if not, you will need to arrange to make them coincide
     #(reason: it constructs the design matrix based only on targets sample name and then the fit is done based on ordering positions)
@@ -26,14 +27,17 @@ dea_lmdesign <- function(targets, sampleNames, data, group, covariates, fmla=NUL
         stop("Attention: order of samples in targets and expression set is not the same. The model will not be constructed correctly.")
     }
     #Design matrix
-    designfactors <- c(group, covariates)
     ##convert to factors
-    for (i in designfactors){
+    for (i in c(group, cov.fact)){
         targets[,i] <- factor(targets[,i], levels=unique(targets[,i]))
     }
+    for (i in cov.num){
+        targets[,i] <- as.numeric(paste(targets[,i]))
+    }
+    designcov <- c(group, cov.fact, cov.num)
     ##Formula for linear model
     if (is.null(fmla)){
-        fmla <- paste("~ 0 ", paste(designfactors, collapse=" + "), sep="+ ")
+        fmla <- paste("~ 0 ", paste(designcov, collapse=" + "), sep="+ ")
     }
     design <- model.matrix(as.formula(fmla), data=targets)
     ##Change names of "Group" columns of design matrix according to group levels

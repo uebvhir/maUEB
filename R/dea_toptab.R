@@ -12,9 +12,9 @@
 #' @param outputDir Name of the directory where the results summary will be saved
 #' @details
 #' @importFrom limma topTable
-#' @importFrom hwriter hwrite hwriteImage
-#' @importFrom WriteXLS WriteXLS
-#' @import annotate ReportingTools ggplot2 Biobase
+#' @import annotate
+#' @import ReportingTools
+#' @import WriteXLS
 #' @export dea_toptab
 #' @author Mireia Ferrer \email{mireia.ferrer.vhir@@gmail.com}
 #' @seealso \link[limma]{topTable} \link[ReportingTools]{HTMLReport}
@@ -23,10 +23,10 @@
 #' @keywords topTable
 #' @references
 
-dea_toptab <- function(listofcoef, fit.main, eset, padjust.method="fdr", html_report=FALSE, html_ntop=500, html_group="Group", outputDir){
+dea_toptab <- function(listofcoef, fit.main, eset, padjust.method="fdr", html_report=FALSE, html_ntop=500, html_group="Group", html_padjust_method, outputDir){
     #Toptables
     listofTop <- lapply(listofcoef, function(x){topTable(fit.main, number = nrow(fit.main), coef = x, adjust = padjust.method)})
-    names(listofTop) <- paste0("topTab.", listofcoef)
+    names(listofTop) <- listofcoef
     #Annotate and add expression values as additional columns in a dataframe ('csvtopTab.XXX')
     selectedgenes <- as.data.frame(exprs(eset))
     listofcsv <- lapply(seq_along(listofTop), function(i){
@@ -48,58 +48,24 @@ dea_toptab <- function(listofcoef, fit.main, eset, padjust.method="fdr", html_re
             write.csv2(top.annot, file.path(outputDir, paste("ExpressionAndTop_", listofcoef[i],".csv",sep="")))
         }
         return(top.annot)})
-    names(listofcsv) <- paste0("csv2", names(listofTop))
+    names(listofcsv) <- listofcoef
     #HTML report
     #Create HTML Report of TopTables (top 500 genes included)
     if (html_report){
-        #expression data for boxplots in html table
-        exprdata <- listofcsv[[1]][,colnames(selectedgenes)]
-        # if (batchRemove){
-        #     exprdata <- removebatch(data=exprdata, targets=pData(eset), batchFactors="Batch")
-        # }
-        colstoshow <- c("ProbesetID","Gene.Symbol", "EntrezID", "logFC", "P.Value", "adj.P.Val", "B")
-        for (j in 1:length(listofcoef)){
-            figsDir <- file.path(outputDir, paste0("figurestopTab.", listofcoef[j]))
-            if (dir.exists(figsDir)) unlink(figsDir, recursive = TRUE)
-            dir.create(figsDir, showWarnings = FALSE)
-            top.df <- listofcsv[[j]][1:html_ntop, colstoshow]
-            #add link to entrezID
-            top.df$EntrezID <- hwrite(as.character(top.df$EntrezID),
-                                     link = paste0("http://www.ncbi.nlm.nih.gov/gene/", as.character(top.df$EntrezID)), table = FALSE)
-            #add boxplots for each gene
-            imagename <- c()
-            for (g in 1:nrow(top.df)){
-                imagename[g] <- paste0("boxplot.", top.df[g,"ProbesetID"], ".png")
-                genexpr <- as.data.frame(t(exprdata[g,]))
-                colnames(genexpr) <- "value"
-                genexpr$Group <- pData(eset)[,html_group]
-                bp <- ggplot(genexpr, aes(x=Group, y=value, color=Group)) +
-                    # geom_boxplot()+
-                    # geom_point()+
-                    geom_boxplot(outlier.shape=NA,position=position_dodge(1))+
-                    geom_point(position=position_jitterdodge(jitter.width=0.2, dodge.width=1), size=2)+
-                    theme_classic() +
-                    labs(y="log2 normalized expression", title=paste0(top.df[g,"ProbesetID"], " - ", top.df[g,"Gene.Symbol"])) +
-                    # scale_y_continuous(limits=c(0,max(selectedgenes))) +
-                    theme(plot.title = element_text(hjust = 0.5, size=15, face="bold"),
-                          axis.text=element_text(size=14), axis.title.y=element_text(vjust=1, size=14),
-                          axis.text.x=element_text(angle=45, hjust=1), axis.title.x=element_blank(),
-                          # plot.margin = unit(c(1,1,1,1), "cm"),
-                          legend.position="none")
-                png(file.path(figsDir, imagename[g]))
-                # boxplot(genexpr[,1]~genexpr$Group, main=top.df[g,"ProbesetID"], ylab="log2-normalized intensity", xlab=html_group, cex.ylab=0.8)
-                print(bp)
-                dev.off()
-            }
-            top.df$Boxplot <- hwriteImage(file.path(figsDir, imagename), link=file.path(figsDir, imagename), table = FALSE, width=50, height=20)
-            wd <- getwd()
-            setwd(outputDir)
-            deReport <- HTMLReport(shortName = paste0("topTab.",listofcoef[j]) ,
-                                   title = paste("Analysis of Differential Expression for:",
-                                                  listofcoef[j], "(top", html_ntop, "features)"), reportDirectory = ".")
-            publish(top.df, deReport)
+        for(i in 1:length(listofcoef)){
+            deReport <- HTMLReport(shortName = paste0("topTab.",listofcoef[i]) ,
+                                   title = paste0("Analysis of Differential Expression for: TopTab.",
+                                                  listofcoef[i]), reportDirectory = paste("./",basename(outputDir),sep=""))
+            publish(fit.main, deReport, eSet = eset, factor = pData(eset)[,html_group], coef = listofcoef[i],
+                    n = html_ntop, pvalueCutoff = 1, adjust.method=html_padjust_method[i]) #Gives the adjusted pvalue by default. For raw pvalue, use 'adjust.method="none"'. Then change column name in html file using a text editor.
             finish(deReport)
-            setwd(wd)
+            #if adjust.method="none", the following 'if' modifies name of column from "adjusted pvalue" to "Pvalue" in html file
+            if (html_padjust_method[i]=="none"){
+                f <- file.path(resultsDir, paste0("topTab.",listofcoef[i], ".html"))
+                x <- readLines(f)
+                y <- gsub("Adjusted p-Value", "P.Value", x )
+                cat(y, file=f, sep="\n")
+            }
         }
     }
     return(listofcsv)

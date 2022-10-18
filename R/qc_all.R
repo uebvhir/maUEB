@@ -5,7 +5,8 @@
 #' @param group Name of the targets variable specifying the group factor to color samples (eg. "Group")
 #' @param group.color A vector of group colors to be used to colour the bodies of the box plots
 #' @param samplenames Name of the targets variable specifying the sample names which will be printed under each boxplot
-#' @param factors A vector with the names of factor variables contained in targets to color samples in pca plots, pvca and/or arrayQM report
+#' @param factors A vector with the names of factor variables contained in targets to color samples in pca plots and/or arrayQM report
+#' @param factorspvca A vector with the names of factor variables contained in targets to be used in pvca
 #' @param colorlist Vector of RGB colors to be used for factor variables specified in 'factors' other than Group. If is NULL (default), a default colorlist will be used.
 #' @param pca_scale a logical value indicating whether the variables in PCA should be scaled to have unit variance before the analysis takes place.
 #' @param batchRemove a logical value indicating whether batch/covariate effects should be removed from the data prior to PCA
@@ -32,14 +33,14 @@
 #' @keywords Quality control
 #' @references
 
-qc_all <- function(data, group, group.color, samplenames, factors, pca_scale, colorlist, batchRemove, batchFactors, hc.method, hc.numclusters=2, label, outputDir, summaryFN, doboxplot=TRUE, dopca=TRUE, dopvca=FALSE, dohc=TRUE, doarrayQMreport=FALSE) {
+qc_all <- function(data, group, group.color, samplenames, factors, factorspvca, pca_scale, colorlist, batchRemove, batchFactors, hc.method, hc.numclusters=2, label, outputDir, summaryFN, doboxplot=TRUE, dopca=TRUE, dopvca=FALSE, dohc=TRUE, doarrayQMreport=FALSE) { ### ES DEFINEIX UNA VARIABLE DIFERENT PER PCA I PVCA (factorspca, factorspvca)
     targets <- pData(data)
     if (doboxplot) {qc_boxplot(data=data, group=group, group.color=group.color, samplenames=samplenames, outputDir=outputDir, bp.main="Boxplot for array intensity", label, cex.axis=0.5, bp.ylab="log2 intensity", cex.lab=0.7, las=2, bp.legend=TRUE, bp.legend.posx=10, bp.legend.posy=13, bp.legend.cex=0.6)}
     if (dohc) {qc_hc(data=exprs(data), hclust.method=hc.method, names=targets[,samplenames], cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=hc.numclusters, outputDir=outputDir, label=label)}
     if (doarrayQMreport) {
         require(arrayQualityMetrics)
         arrayQualityMetrics(data, outdir = file.path(outputDir, paste0("QCDir.", label)), force=TRUE, intgroup=factors)
-        }
+    }
     if (dopca) {qc_pca1(data=exprs(data), scale=pca_scale, pca2D_factors=factors, targets=targets, col.group=group.color, colorlist=colorlist, names=targets[,samplenames], outputDir=outputDir, label=label)}
-    if (dopvca) {qc_pvca(data=data, factors=factors,label=label, outputDir=resultsDir, summaryFN=summaryFN)}
+    if (dopvca) {qc_pvca(data=data, factors=factorspvca,label=label, outputDir=resultsDir, summaryFN=summaryFN)}
 }

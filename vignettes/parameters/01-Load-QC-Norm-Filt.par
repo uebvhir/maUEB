@@ -20,6 +20,9 @@ colorlist <- c("firebrick1", "blue", "darkgoldenrod1", "darkorchid1", "lightblue
 ##For Clariom S Mouse: "clariomsmousetranscriptcluster.db"
 annotPackage <- "clariomsmousetranscriptcluster.db"  
 
+#Samples to remove
+samplestoremove <- "CMP.2"
+
 #Normalization
 normalize.method <- "oligo::rma" # Specify normalization method and from which package (eg. "oligo::rma")
 

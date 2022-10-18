@@ -10,6 +10,7 @@ qc_all(
   group.color,
   samplenames,
   factors,
+  factorspvca,
   pca_scale,
   colorlist,
   batchRemove,
@@ -35,7 +36,9 @@ qc_all(
 
 \item{samplenames}{Name of the targets variable specifying the sample names which will be printed under each boxplot}
 
-\item{factors}{A vector with the names of factor variables contained in targets to color samples in pca plots, pvca and/or arrayQM report}
+\item{factors}{A vector with the names of factor variables contained in targets to color samples in pca plots and/or arrayQM report}
+
+\item{factorspvca}{A vector with the names of factor variables contained in targets to be used in pvca}
 
 \item{pca_scale}{a logical value indicating whether the variables in PCA should be scaled to have unit variance before the analysis takes place.}
 

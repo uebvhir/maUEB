@@ -15,18 +15,18 @@
 #' @importFrom hwriter hwrite hwriteImage
 #' @importFrom WriteXLS WriteXLS
 #' @import annotate ReportingTools ggplot2 Biobase
-#' @export dea_toptab
 #' @author Mireia Ferrer \email{mireia.ferrer.vhir@@gmail.com}
 #' @seealso \link[limma]{topTable} \link[ReportingTools]{HTMLReport}
 #' @examples
 #' @return A list with csv2top
 #' @keywords topTable
 #' @references
+#' @export
 
-dea_toptab <- function(listofcoef, fit.main, eset, padjust.method="fdr", html_report=FALSE, html_ntop=500, html_group="Group", outputDir){
+dea_toptab1 <- function(listofcoef, fit.main, eset, padjust.method="fdr", html_report=FALSE, html_ntop=500, html_group="Group", outputDir){
     #Toptables
     listofTop <- lapply(listofcoef, function(x){topTable(fit.main, number = nrow(fit.main), coef = x, adjust = padjust.method)})
-    names(listofTop) <- paste0("topTab.", listofcoef)
+    names(listofTop) <- listofcoef
     #Annotate and add expression values as additional columns in a dataframe ('csvtopTab.XXX')
     selectedgenes <- as.data.frame(exprs(eset))
     listofcsv <- lapply(seq_along(listofTop), function(i){
@@ -48,7 +48,7 @@ dea_toptab <- function(listofcoef, fit.main, eset, padjust.method="fdr", html_re
             write.csv2(top.annot, file.path(outputDir, paste("ExpressionAndTop_", listofcoef[i],".csv",sep="")))
         }
         return(top.annot)})
-    names(listofcsv) <- paste0("csv2", names(listofTop))
+    names(listofcsv) <- listofcoef
     #HTML report
     #Create HTML Report of TopTables (top 500 genes included)
     if (html_report){

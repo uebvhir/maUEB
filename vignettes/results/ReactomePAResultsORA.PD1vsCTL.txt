@@ -1,0 +1,28 @@
+"ID"	"Description"	"pvalue"	"p.adjust"	"Sign"
+"R-MMU-2172127"	"DAP12 interactions"	0.000643832043073773	0.0379592872081785	1
+"R-MMU-2168880"	"Scavenging of heme from plasma"	0.00112223214938829	0.0379592872081785	1
+"R-MMU-202433"	"Generation of second messenger molecules"	0.00140589952622883	0.0379592872081785	1
+"R-MMU-198933"	"Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell"	0.00337765126370507	0.0605929620571423	1
+"R-MMU-2173782"	"Binding and Uptake of Ligands by Scavenger Receptors"	0.0037403062998236	0.0605929620571423	1
+"R-MMU-6809371"	"Formation of the cornified envelope"	0.00449445933707311	0.060675201050487	1
+"R-MMU-383280"	"Nuclear Receptor transcription pathway"	0.00951868791465962	0.0870980692592598	1
+"R-MMU-380108"	"Chemokine receptors bind chemokines"	0.0102661283665683	0.0870980692592598	1
+"R-MMU-202403"	"TCR signaling"	0.0114346736171537	0.0870980692592598	1
+"R-MMU-390650"	"Histamine receptors"	0.0118281328623686	0.0870980692592598	1
+"R-MMU-6799990"	"Metal sequestration by antimicrobial proteins"	0.0118281328623686	0.0870980692592598	1
+"R-MMU-6805567"	"Keratinization"	0.0173738489193592	0.110232511256359	1
+"R-MMU-5362798"	"Release of Hh-Np from the secreting cell"	0.0176916376090452	0.110232511256359	1
+"R-MMU-9020958"	"Interleukin-21 signaling"	0.020610830365036	0.119248375683422	1
+"R-MMU-202430"	"Translocation of ZAP-70 to Immunological synapse"	0.0235216806634484	0.125903595466953	1
+"R-MMU-449147"	"Signaling by Interleukins"	0.0262778227622448	0.125903595466953	1
+"R-MMU-877312"	"Regulation of IFNG signaling"	0.0264242113942987	0.125903595466953	1
+"R-MMU-8866427"	"VLDLR internalisation and degradation"	0.0293184453874099	0.130427841920864	1
+"R-MMU-139853"	"Elevation of cytosolic Ca2+ levels"	0.0322044054125591	0.130427841920864	1
+"R-MMU-6785807"	"Interleukin-4 and Interleukin-13 signaling"	0.0322044054125591	0.130427841920864	1
+"R-MMU-202427"	"Phosphorylation of CD3 and TCR zeta chains"	0.0350821141796303	0.133655614845223	1
+"R-MMU-389948"	"PD-1 signaling"	0.037951594338767	0.133655614845223	1
+"R-MMU-8854691"	"Interleukin-20 family signaling"	0.037951594338767	0.133655614845223	1
+"R-MMU-8957275"	"Post-translational protein phosphorylation"	0.0417934996825614	0.141053061428645	1
+"R-MMU-877300"	"Interferon gamma signaling"	0.043665959135993	0.141477707600617	1
+"R-MMU-381426"	"Regulation of Insulin-like Growth Factor (IGF) transport and uptake by Insulin-like Growth Factor Binding Proteins (IGFBPs)"	0.0460000272925888	0.143307777334604	1
+"R-MMU-5358346"	"Hedgehog ligand biogenesis"	0.0493476798162337	0.148043039448701	1

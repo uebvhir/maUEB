@@ -1,0 +1,58 @@
+# Parameters required to run 04-ABS-GSEA.R
+# Directories
+dataDirN <- "dades" #name of data directory
+resultsDirN <- "results" #name of results directory
+
+# Resultsfile
+resultsSummFN <- "ResultsSummary_ABS-ORA.txt" #A summary of results obtained in each step will be saved in a text file
+
+# Input data
+inputABSORARda <- "afterTopTabs.Rda" #Rda object to load 
+#Load topTabs data (.Rda) for GO/Reactome analysis
+#If GOAnalysis.unfilt/ReactomeAnalysis.unfilt or GOAnalysis.filt/ReactomeAnalysis.filt have already been performed 
+#and want to start from those lists files will be loaded from (ABS-GSEA-GOresults-unfilt.Rda/ABS-GSEA-GOresults-filt.Rda) during the script.
+
+#Annotation package
+##For Clariom D Human, transcript level: "clariomdhumantranscriptcluster.db"
+##For Clariom S Human: "clariomshumantranscriptcluster.db"
+##For Clariom D Mouse, transcript level: "mta10transcriptcluster.db"
+##For Clariom S Mouse: "clariomsmousetranscriptcluster.db"
+annotPackage <- "clariomsmousetranscriptcluster.db"  
+organism_annot  <- "org.Mm.eg.db" #organism annotation package (eg. "org.Hs.eg.db", "org.Mm.eg.db") (required for GO)
+organism <- "mouse" #("human", "rat", "mouse", "celegans", "yeast", "zebrafish", "fly") (required for Reactome)
+label=""
+resultsSummFN <- "ResultsSummary_ABS-ORA.txt"
+universe <- NULL 
+sign <- c(1,-1) #+1 for up -1 for down or 0 for abs. vector of length namescomp
+keyType <- "ENTREZID"
+
+
+#GO
+geneColname <- "EntrezID" #required for GO, per fer l'enriquiment directament amb els uniprot
+#listselgenes_GO <- lapply(listselgenes, function(df) as.character(df[,geneColname]))
+GO_categories <- list("BP")#,"CC","MF")
+GO_minSetSize <- 3
+GO_maxSetSize <- 500
+selected.pval.go <- c("P.Value","P.Value","P.Value") #"P.Value" or "adj.P.Val" (for each set of comparisons)
+selected.pvalthr.go <- c(0.05,0.05,0.05) #pvalue threshold  (for each set of comparisons)
+selected.logFC.go <- c(1,1,1)
+col_logFC.go <- c("logFC")
+sign_logFC.go <- c("abs")
+GOPlots <- TRUE
+GO_pvalcutoff <- rep(list(c(BP=0.15, CC=0.15, MF=0.15)),length(namescomp)) #in this order: BP, CC, MF
+GO_pAdjustMethod <- rep(list(c(BP="BH", CC="BH", MF="BH")),length(namescomp)) # (eg. "BH", "bonferroni" or "none") 
+
+    
+#Reactome
+col_entrez <- "EntrezID" #required for Reactome. necessita entrezid per fer l'enriquiment.
+#listselgenes_Reac <- lapply(listselgenes, function(df) as.character(df[,col_entrez]))
+Reac_minSetSize <- 3 # minimal size of each geneSet for analyzing (eg. 3 (default))
+Reac_maxSetSize <- 500 # maximal size of genes annotated for testing (eg. 500 (default))
+Reac_pvalcutoff <- rep(0.15,length(namescomp)) # pvalue cutoff for Reactome significance for the comparisons selected
+Reac_pAdjustMethod <- rep("BH",length(namescomp)) # pvalue adjustment method for Reactome significance (eg. "BH", "bonferroni" or "none") for the comparisons selected
+ReacPlots <- TRUE
+selected.pval.reac <- c("P.Value","P.Value","P.Value")
+selected.pvalthr.reac <- c(0.05,0.05,0.05) #pvalue threshold  (for each set of comparisons)
+selected.logFC.reac <- c(1,1,1)
+col_logFC.reac <- c("logFC")
+sign_logFC.reac <- c("abs")
