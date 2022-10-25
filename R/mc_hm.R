@@ -22,6 +22,9 @@
 #' @param batchcolName column name in 'targets' file containing Batch (eg. 'Batch')
 #' @param batchcolName2 column name in 'targets' file containing categorical cofactor to remove from expression data (eg. 'Batch2')
 #' @param batchNumcolName Vector of numerical variables contained in 'targets' file to be taken as covariates in removeBatcheffect function (eg. 'Day')
+#' @param hm_fontsize
+#' @param hm_fontsize_row
+#' @param hm_fontsize_col
 #' @param outputDir directory in which the results are going to be saved
 #' @details
 #' @import limma
@@ -36,7 +39,7 @@
 #' @export
 
 mc_hm <- function(listofcsv, hm_dataset, targets, featureCol="Gene.Symbol", hm_comparNames, hm_compar, hm_groupexclude=rep(list(c()), length(hm_comparNames)), hm_pval, hm_pval.thr, hm_logFC="logFC", hm_logFC.thr, hm_palette=colorRampPalette(c("blue", "white", "red"))(n = 199), hm_clustCol=TRUE, hm_clustCol.dist="euclidian", hm_clustCol.method="complete", hm_clustRow.cor=TRUE, batcheffect=FALSE,
-                  batchcolName=NULL, batchcolName2=NULL, batchNumcolName=NULL, hm_plots_interactive=FALSE, resultsSummFN, outputDir){
+                  batchcolName=NULL, batchcolName2=NULL, batchNumcolName=NULL, hm_fontsize_row=rep(3, length(hm_comparNames)), hm_fontsize_col=rep(7, length(hm_comparNames)), hm_fontsize= rep(8, length(hm_comparNames)), hm_plots_interactive=FALSE, resultsSummFN, outputDir){
         if (batcheffect){
             if(is.null(batchcolName)) batch <- NULL else batch <- as.factor(targets[,batchcolName])
             if(is.null(batchcolName2)) batch2 <- NULL else batch2 <- as.factor(targets[,batchcolName2])
@@ -44,6 +47,7 @@ mc_hm <- function(listofcsv, hm_dataset, targets, featureCol="Gene.Symbol", hm_c
             designmat <- model.matrix(~0+Group, targets)
             hm_dataset[,as.character(targets$ShortName)] <- removeBatchEffect(hm_dataset[,as.character(targets$ShortName)], batch=batch, batch2=batch2, covariates=batch.num, design=designmat) #function from limma package
         }
+    list_hm <- list()
         for (h in 1:length(hm_compar)){
             whichcomp <- hm_compar[[h]]
             listofcsv_hm <- listofcsv[whichcomp]
@@ -112,20 +116,21 @@ mc_hm <- function(listofcsv, hm_dataset, targets, featureCol="Gene.Symbol", hm_c
             hm <- pheatmap(expr.selected,
                         cluster_rows = clustRow,
                         cluster_cols = clustCol, #determines if samples are reordered according to hierarchical clustering
-                        main = paste0("Heatmap for ", hm_comparNames[h], ":\n", hm_pval[h], " < ", hm_pval.thr[h], " & abs(logFC) > ", hm_logFC[h],
+                        main = paste0("Heatmap for ", hm_comparNames[h], ":\n", hm_pval[h], " < ", hm_pval.thr[h], " & abs(logFC) > ", hm_logFC.thr[h],
                                      " (", nrow(expr.selected), " genes)"),
                         scale = "row",
                         col = hm_palette,
                         border_color=NA,
-                        fontsize=8,
-                        fontsize_row = 3,
-                        fontsize_col = 7,
+                        fontsize=hm_fontsize[h],
+                        fontsize_row = hm_fontsize_row[h],
+                        fontsize_col = hm_fontsize_col[h],
                         annotation_col = targets1["Group"],
                         angle_col="45",
                         annotation_colors = hm_samplecolors)
             pdf(file.path(outputDir, paste0("Heatmap", hm_comparNames[h], filename.clustcol, ".", hm_pval[h], hm_pval.thr[h], ".", hm_logFC, hm_logFC.thr[h], ".pdf")))
             print(hm)
             dev.off()
+            list_hm[[h]] <- hm
 
             ##CREATE INTERACTIVE HEATMAPS
             if (hm_plots_interactive) {
@@ -153,6 +158,8 @@ mc_hm <- function(listofcsv, hm_dataset, targets, featureCol="Gene.Symbol", hm_c
                         file=paste0(outputDir, "/Heatmap", hm_comparNames[h], filename.clustcol, ".", hm_pval[h], hm_pval.thr[h], ".", hm_logFC, hm_logFC.thr[h], ".html"))
             }
         }
+    names(list_hm) <- hm_comparNames
+    return(list_hm)
     }
 
 

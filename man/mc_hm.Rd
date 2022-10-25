@@ -25,6 +25,9 @@ mc_hm(
   batchcolName = NULL,
   batchcolName2 = NULL,
   batchNumcolName = NULL,
+  hm_fontsize_row = rep(3, length(hm_comparNames)),
+  hm_fontsize_col = rep(7, length(hm_comparNames)),
+  hm_fontsize = rep(8, length(hm_comparNames)),
   hm_plots_interactive = FALSE,
   resultsSummFN,
   outputDir
