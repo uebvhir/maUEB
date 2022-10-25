@@ -12,6 +12,8 @@
 #' @param volc_y1 Numeric vector of edge y superior limits for each comparison
 #' @param n Number of plots per sheet. For multiple plots, n=6 is recommended. Default is 1.
 #' @param cols Number of columns per sheet. For multiple plots, cols=2 is recommended. Default is 1.
+#' @param size_label Size of label
+#' @param col_label Column name containing labels. eg. "Gene.Symbol" (default)
 #' @param outputDir Name of the directory where the plot will be saved
 #' @param label A string to be included in the file name to be saved
 #' @details
@@ -24,7 +26,7 @@
 #' @references
 #' @export
 
-dea_volcanoplot <- function(listofcsv, listofcoef, volc_logFC=rep(1,length(listofcoef)), volc_pval=c(rep("adj.P.Val", length(listofcoef))), volc_pval.thr=rep(0.05, length(listofcoef)), volc_x0=rep(-3, length(listofcoef)), volc_x1=rep(+3, length(listofcoef)), volc_y0=rep(0, length(listofcoef)), volc_y1=rep(10, length(listofcoef)), n=1, cols=1, outputDir, label=""){
+dea_volcanoplot <- function(listofcsv, listofcoef, volc_logFC=rep(1,length(listofcoef)), volc_pval=c(rep("adj.P.Val", length(listofcoef))), volc_pval.thr=rep(0.05, length(listofcoef)), volc_x0=rep(-3, length(listofcoef)), volc_x1=rep(+3, length(listofcoef)), volc_y0=rep(0, length(listofcoef)), volc_y1=rep(10, length(listofcoef)), n=1, cols=1, size_label=2, col_label="Gene.Symbol", outputDir, label=""){
     #aquí es miren els punts que sortiran amb nom
     plotes <- list()
     for(i in 1:length(listofcsv)){
@@ -45,8 +47,8 @@ dea_volcanoplot <- function(listofcsv, listofcoef, volc_logFC=rep(1,length(listo
                   legend.key.size = unit(0.5, "cm"), legend.key = element_rect(fill="grey90", size=0.1), legend.text = element_text(size=8),
                   legend.position="top", legend.margin=margin(0,-2,-2,0), legend.box.margin=margin(-2,-8,-8,-6)) +
             geom_vline(xintercept = c(-volc_logFC[i], volc_logFC[i]), linetype = "dotted") +
-            geom_text_repel(data = subset(top, volcThreshold == "TRUE")[1:20,], aes(label = Gene.Symbol),
-                            size = 2, vjust = -0.25, hjust = 1.1, segment.size=0.1, col="gray20") +
+            geom_text_repel(data = subset(top, volcThreshold == "TRUE")[1:20,], aes_string(label = col_label),
+                            size = size_label, vjust = -0.25, hjust = 1.1, segment.size=0.1, col="gray20", max.overlaps=Inf) +
             scale_y_continuous(trans = "log1p", limits = c(volc_y0[i], volc_y1[i]))
         plotes[[i]] <- pl
     }
@@ -65,6 +67,7 @@ dea_volcanoplot <- function(listofcsv, listofcoef, volc_logFC=rep(1,length(listo
     for (j in 1:(q+r1)){
         multiplot(plotlist = plotes[i1[j]:i2[j]], cols = cols)
     }
+    return(plotes)
 }
 
 #funció per fer disposar gràfics per files i columnes dintre d'un "for" amb ggplot
