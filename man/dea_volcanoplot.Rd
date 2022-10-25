@@ -16,6 +16,8 @@ dea_volcanoplot(
   volc_y1 = rep(10, length(listofcoef)),
   n = 1,
   cols = 1,
+  size_label = 2,
+  col_label = "Gene.Symbol",
   outputDir,
   label = ""
 )
@@ -42,6 +44,10 @@ dea_volcanoplot(
 \item{n}{Number of plots per sheet. For multiple plots, n=6 is recommended. Default is 1.}
 
 \item{cols}{Number of columns per sheet. For multiple plots, cols=2 is recommended. Default is 1.}
+
+\item{size_label}{Size of label}
+
+\item{col_label}{Column name containing labels. eg. "Gene.Symbol" (default)}
 
 \item{outputDir}{Name of the directory where the plot will be saved}
 

@@ -23,8 +23,7 @@ Description: This package contains functions to perform a
     exploratory analysis of raw and normalized data, probe normalization
     and summarization, differential expression analysis, multiple
     comparisons and biological significance analysis. 
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+License: `use_gpl3_license()`
 Imports: 
     annaffy,
     annotate,
