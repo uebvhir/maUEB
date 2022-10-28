@@ -67,6 +67,8 @@ mc_all(
 
 \item{pval}{p-value by which the selection is done}
 
+\item{colFC}{column referring to logFC (eg. "logFC")}
+
 \item{FC}{logFC value to select genes}
 
 \item{pltR}{to show or not the image in R}
@@ -91,7 +93,7 @@ mc_all(
 
 \item{cex2}{size of the numbers}
 
-\item{include}{direction in which genes are going to be selected (up / down / abs)}
+\item{include}{vector with direction in which genes are going to be selected (up / down / abs) in each multiple comparison}
 
 \item{hm_dataset}{Dataset with expression values to plot on heatmap}
 

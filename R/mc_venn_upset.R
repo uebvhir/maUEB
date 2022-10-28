@@ -21,11 +21,11 @@
 #' @param rotation venn global rotation
 #' @param position vector with the position in grades of each comparison label
 #' @param FC logFC value to select genes
+#' @param colFC column referring to logFC (eg. "logFC")
 #' @param include direction in which genes are going to be selected (up / down / abs)
 #' @param outputDir directory in which the results are going to be saved
 #' @details
-#' @import VennDiagram
-#' @import writexl
+#' @import VennDiagram writexl grid
 #' @author Mireia Ferrer \email{mireia.ferrer.vhir@@gmail.com} and Esther Camacho
 #' @examples
 #' @return Plot Venn diagramm from 2 to 5 comparisons or UpsetR plot if >5 comparisons
@@ -33,9 +33,9 @@
 #' @references
 #' @export
 
-mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval, colFC, FC, pltR=TRUE,
+mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval=0.05, colFC, FC=1, pltR=TRUE,
                           pltPdf=TRUE, pltPng=FALSE, venn=TRUE, eul=FALSE, saveTables=TRUE, upsetPlot=FALSE, saveTables_extended=TRUE,
-                          colors=rainbow(length(namescomp)), trans=0.5, cex1=1, rotation=0, position=rep(0,length(namescomp)), cex2=1, include, resultsSummFN, outputDir){
+                          colors=rainbow(length(namescomp)), trans=0.5, cex1=1, rotation=0, position=rep(0,length(namescomp)), cex2=1, include=rep("abs", length(namescomp)), margins_venn=c(5.1,4.1,4.1,2.1), resultsSummFN, outputDir){
     ## Initializing lists
     list_genes_sel <- list()
     topTabs <- listofcsv[namescomp]
@@ -48,6 +48,7 @@ mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval, c
     numgenes.sel <- sapply(list_genes_sel, length)
     namescomp_plot <- paste0(namescomp, paste0("\n(",numgenes.sel,")"))
     ## Creating Venn Diagram
+    opt <- par(mar=margins_venn)
     if (venn) {
         if (include=="abs") {titulo <- paste0("Venn diagram for comparison: ", label, "\n(" , colPval, " < ", pval," & abs(logFC) > ", FC, ")")}
         if (include=="up") {titulo <- paste0("Venn diagram for comparison: ", label, "\nUp-regulated genes (" , colPval, " < ", pval," & ", colFC, " > ", FC, ")")}
@@ -80,13 +81,13 @@ mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval, c
         sink(file.path(outputDir, resultsSummFN), split = FALSE, append = TRUE)
         cat("\n--------------------Venn settings:--------------------\n")
         cat("-Sets for comparison:", paste(venn_comparNames, collapse=", "))
-        cat("\n-pvalue type:", paste(venn_pval, collapse=", "))
-        cat("\n-pvalue thr:", paste(venn_pval.thr, collapse=", "))
-        cat("\n-logFC:", paste(venn_logFC, collapse=", "))
+        cat("\n-pvalue type:", paste(colPval, collapse=", "))
+        cat("\n-pvalue thr:", paste(pval, collapse=", "))
+        cat("\n-logFC:", paste(FC, collapse=", "))
         cat("\n")
         sink()
     }
-
+par(opt)
     ## Creating Euler Diagram
     if (eul) {
         set <- NULL
@@ -111,7 +112,6 @@ mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval, c
         names(list_genes_sel) <- namescomp
         #això ens prepara l'objecte per fer el gràfic. la llista que surt no te rownames.
         data2upset <- fromList(list_genes_sel)
-        pdf(file.path(outputDir, paste0("UpSetPlot.",venn_comparNames[i], ".", venn_pval[i], venn_pval.thr[i], ".",colFC, venn_logFC[i], ".pdf")))
         plotupset <- upset(data2upset, sets=namescomp, keep.order=TRUE,order.by = "freq", nsets = length(whichcomp),  mainbar.y.label = "Genes in intersection",
                            sets.x.label = "Genes in comparison", main.bar.color = "#5536AB",
                            matrix.color = "#5536AB", sets.bar.color = "#5536AB")
