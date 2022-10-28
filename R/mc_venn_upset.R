@@ -25,6 +25,7 @@
 #' @param include direction in which genes are going to be selected (up / down / abs)
 #' @param outputDir directory in which the results are going to be saved
 #' @param ... other arguments passed to venn.diagram
+#' @inheritParams venn.diagram
 #' @details
 #' @import VennDiagram writexl grid
 #' @author Mireia Ferrer \email{mireia.ferrer.vhir@@gmail.com} and Esther Camacho
