@@ -28,9 +28,9 @@ mc_venn_upset(
   position = rep(0, length(namescomp)),
   cex2 = 1,
   include = rep("abs", length(namescomp)),
-  margins_venn = c(5.1, 4.1, 4.1, 2.1),
   resultsSummFN,
-  outputDir
+  outputDir,
+  ...
 )
 }
 \arguments{
@@ -75,6 +75,8 @@ mc_venn_upset(
 \item{include}{direction in which genes are going to be selected (up / down / abs)}
 
 \item{outputDir}{directory in which the results are going to be saved}
+
+\item{...}{other arguments passed to venn.diagram}
 
 \item{csv}{create the csv file with the common genes}
 }

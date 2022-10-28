@@ -24,6 +24,7 @@
 #' @param colFC column referring to logFC (eg. "logFC")
 #' @param include direction in which genes are going to be selected (up / down / abs)
 #' @param outputDir directory in which the results are going to be saved
+#' @param ... other arguments passed to venn.diagram
 #' @details
 #' @import VennDiagram writexl grid
 #' @author Mireia Ferrer \email{mireia.ferrer.vhir@@gmail.com} and Esther Camacho
@@ -35,7 +36,7 @@
 
 mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval=0.05, colFC, FC=1, pltR=TRUE,
                           pltPdf=TRUE, pltPng=FALSE, venn=TRUE, eul=FALSE, saveTables=TRUE, upsetPlot=FALSE, saveTables_extended=TRUE,
-                          colors=rainbow(length(namescomp)), trans=0.5, cex1=1, rotation=0, position=rep(0,length(namescomp)), cex2=1, include=rep("abs", length(namescomp)), margins_venn=c(5.1,4.1,4.1,2.1), resultsSummFN, outputDir){
+                          colors=rainbow(length(namescomp)), trans=0.5, cex1=1, rotation=0, position=rep(0,length(namescomp)), cex2=1, include=rep("abs", length(namescomp)), resultsSummFN, outputDir,...){
     ## Initializing lists
     list_genes_sel <- list()
     topTabs <- listofcsv[namescomp]
@@ -50,7 +51,6 @@ mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval=0.
     ## Creating Venn Diagram
 
     if (venn) {
-        opt <- par(mar=margins_venn)
         if (include=="abs") {titulo <- paste0("Venn diagram for comparison: ", label, "\n(" , colPval, " < ", pval," & abs(logFC) > ", FC, ")")}
         if (include=="up") {titulo <- paste0("Venn diagram for comparison: ", label, "\nUp-regulated genes (" , colPval, " < ", pval," & ", colFC, " > ", FC, ")")}
         if (include=="down") {titulo <- paste0("Venn diagram for comparison: ", label, "\nDown-regulated genes (" , colPval, " < ", pval," & ", colFC, " < ", FC, ")")}
@@ -65,7 +65,7 @@ mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval=0.
                                   main = titulo,
                                   filename = NULL,
                                   rotation.degree = rotation,
-                                  cat.pos = position)
+                                  cat.pos = position,...)
         if (pltPdf) {
             pdf(file.path(outputDir, paste0("VennDiagram.", include, ".",label, ".", colPval, pval, ".",colFC,FC,".pdf")))
             grid.draw(venn.plot)
@@ -87,7 +87,6 @@ mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval=0.
         cat("\n-logFC:", paste(FC, collapse=", "))
         cat("\n")
         sink()
-        par(opt)
     }
 
     ## Creating Euler Diagram
