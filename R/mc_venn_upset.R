@@ -48,8 +48,9 @@ mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval=0.
     numgenes.sel <- sapply(list_genes_sel, length)
     namescomp_plot <- paste0(namescomp, paste0("\n(",numgenes.sel,")"))
     ## Creating Venn Diagram
-    opt <- par(mar=margins_venn)
+
     if (venn) {
+        opt <- par(mar=margins_venn)
         if (include=="abs") {titulo <- paste0("Venn diagram for comparison: ", label, "\n(" , colPval, " < ", pval," & abs(logFC) > ", FC, ")")}
         if (include=="up") {titulo <- paste0("Venn diagram for comparison: ", label, "\nUp-regulated genes (" , colPval, " < ", pval," & ", colFC, " > ", FC, ")")}
         if (include=="down") {titulo <- paste0("Venn diagram for comparison: ", label, "\nDown-regulated genes (" , colPval, " < ", pval," & ", colFC, " < ", FC, ")")}
@@ -86,8 +87,9 @@ mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval=0.
         cat("\n-logFC:", paste(FC, collapse=", "))
         cat("\n")
         sink()
+        par(opt)
     }
-par(opt)
+
     ## Creating Euler Diagram
     if (eul) {
         set <- NULL

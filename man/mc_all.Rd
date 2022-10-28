@@ -6,7 +6,8 @@
 \usage{
 mc_all(
   listofcsv,
-  namescomp,
+  venn_comparNames,
+  venn_compar,
   label,
   colFeat,
   colPval,
@@ -57,8 +58,6 @@ mc_all(
 \arguments{
 \item{listofcsv}{list of the dataframes with the toptables}
 
-\item{namescomp}{list with the names of each comparisons}
-
 \item{label}{name that is going to appear in the file}
 
 \item{colFeat}{column by which common genes are searched}
@@ -93,7 +92,7 @@ mc_all(
 
 \item{cex2}{size of the numbers}
 
-\item{include}{vector with direction in which genes are going to be selected (up / down / abs) in each multiple comparison}
+\item{include}{direction in which genes are going to be selected (up / down / abs)}
 
 \item{hm_dataset}{Dataset with expression values to plot on heatmap}
 
@@ -146,7 +145,7 @@ The Venn and Upset plots function is based in previous work of Ferran Briansó a
 
 }
 \author{
-Mireia Ferrer \email{mireia.ferrer.vhir@gmail.com}
+Mireia Ferrer \email{mireia.ferrer.vhir@gmail.com} and Esther Camacho
 }
 \keyword{Heatmap}
 \keyword{Upset}
