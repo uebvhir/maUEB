@@ -2,17 +2,17 @@
 % Please edit documentation in R/abs_gsea_GOunfilt.R
 \name{abs_gsea_GOunfilt}
 \alias{abs_gsea_GOunfilt}
-\title{GO unfilt}
+\title{Gene Set Enrichment Analysis (GSEA) over the Gene Ontology (GO) database}
 \usage{
 abs_gsea_GOunfilt(
   listofTopNamed,
   namescomp,
   ranking_metric = "logFC",
   geneColname = "EntrezID",
-  annotPackage,
-  organism_annot,
   keyType = "ENTREZID",
   readable = TRUE,
+  annotPackage,
+  organism_annot,
   GO_categories = c("BP", "CC", "MF"),
   GO_minSetSize = 3,
   GO_maxSetSize = 500,
@@ -32,21 +32,27 @@ abs_gsea_GOunfilt(
 
 \item{ranking_metric}{Column from toptable by which features will be ranked}
 
-\item{geneColname}{Column from toptable containing feature ID}
+\item{geneColname}{Column from toptable containing feature ID (eg. "EntrezID"). For proteins, the Uniprot accession number may be used.}
+
+\item{keyType}{Keytype of geneColname (eg. "ENTREZID"). For protein uniprot accession it may be specified as "UNIPROT"}
+
+\item{readable}{Whether features should be converted to gene symbol. Defaults to TRUE.}
 
 \item{annotPackage}{Annotation package (Clariom D/S, specific of species; e.g. "clariomdhumantranscriptcluster.db", "clariomshumantranscriptcluster.db", "mta10transcriptcluster.db", "clariomsmousetranscriptcluster.db")}
 
 \item{organism_annot}{Organism annotation package (e.g. "org.Hs.eg.db", "org.Mm.eg.db")}
 
-\item{GO_minSetSize}{Minimum size of the pathways analysed in the analysis}
+\item{GO_categories}{Vector of GO categories to analyze(eg. c("BP", "CC", "MF"))}
 
-\item{GO_maxSetSize}{Maximum size of the pathways analysed in the analysis}
+\item{GO_minSetSize}{Minimum size of the pathways analysed in the analysis. Defaults to 3}
+
+\item{GO_maxSetSize}{Maximum size of the pathways analysed in the analysis. Defaults to 500}
 }
 \value{
 Creates lists of GO unfiltered results and a table with number of terms found at different pvalue thresholds for the different categories analyzed.
 }
 \description{
-Performs GO analysis for all the comparisons and store unfiltered results (no pvalue threshold) in lists.
+Performs GSEA analysis using clusterProfiler package over GO database for the results from differential expression analysis ranked by the specified metric. The unfiltered enrichment results are returned and saved as xls files.
 }
 \references{
 

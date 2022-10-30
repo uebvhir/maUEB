@@ -2,7 +2,7 @@
 % Please edit documentation in R/abs_gsea_ReactomePAunfilt.R
 \name{abs_gsea_ReactomePAunfilt}
 \alias{abs_gsea_ReactomePAunfilt}
-\title{Reactome unfilt}
+\title{Gene Set Enrichment Analysis (GSEA) over Reactome Pathways database}
 \usage{
 abs_gsea_ReactomePAunfilt(
   listofTopNamed,
@@ -12,8 +12,8 @@ abs_gsea_ReactomePAunfilt(
   readable = TRUE,
   organism,
   organism_annot,
-  Reac_minSetSize,
-  Reac_maxSetSize,
+  Reac_minSetSize = 3,
+  Reac_maxSetSize = 500,
   resultsSummFN = "ResultsSummary_ABS-GSEA.txt",
   saveRda = TRUE,
   saveGMT = TRUE,
@@ -32,6 +32,10 @@ abs_gsea_ReactomePAunfilt(
 
 \item{col_entrez}{Column from toptable containing EntrezID}
 
+\item{readable}{Whether features should be converted to gene symbol. Defaults to TRUE.}
+
+\item{organism}{Organism (eg. 'human', 'rat', 'mouse')}
+
 \item{organism_annot}{Organism annotation package (e.g. "org.Hs.eg.db", "org.Mm.eg.db")}
 
 \item{Reac_minSetSize}{Minimum size of the pathways analysed in the analysis}
@@ -42,7 +46,7 @@ abs_gsea_ReactomePAunfilt(
 Creates lists of Reactome unfiltered results and a table with number of terms found at different pvalue thresholds for the different categories analyzed.
 }
 \description{
-Performs Reactome analysis for all the comparisons and store unfiltered results (no pvalue threshold) in lists.
+Performs GSEA analysis using clusterProfiler package over Reactome Pathways database for the results from differential expression analysis ranked by the specified metric. The unfiltered enrichment results are returned and saved as xls files.
 }
 \references{
 

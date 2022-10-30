@@ -1,13 +1,13 @@
-#' Reactome unfilt
+#' Gene Set Enrichment Analysis (GSEA) over Reactome Pathways database
 #'
-#' Performs Reactome analysis for all the comparisons and store unfiltered results (no pvalue threshold) in lists.
+#' Performs GSEA analysis using clusterProfiler package over Reactome Pathways database for the results from differential expression analysis ranked by the specified metric. The unfiltered enrichment results are returned and saved as xls files.
 
 #' @param listofTopNamed Named list of toptables
 #' @param namescomp Name of the comparisons to be analysed, corresponding to names in list of toptables
 #' @param ranking_metric Column from toptable by which features will be ranked
 #' @param col_entrez Column from toptable containing EntrezID
-#' @param readable
-#' @param organism
+#' @param readable Whether features should be converted to gene symbol. Defaults to TRUE.
+#' @param organism Organism (eg. 'human', 'rat', 'mouse')
 #' @param organism_annot Organism annotation package (e.g. "org.Hs.eg.db", "org.Mm.eg.db")
 #' @param Reac_minSetSize Minimum size of the pathways analysed in the analysis
 #' @param Reac_maxSetSize Maximum size of the pathways analysed in the analysis
@@ -19,7 +19,7 @@
 #' @param rdaDir
 #' @param gmtDir
 #' @details
-#' @import reactome.db AnnotationDbi ReactomePA clusterProfiler
+#' @import reactome.db AnnotationDbi ReactomePA clusterProfiler DOSE
 #' @importFrom writexl write_xlsx
 #' @author Mireia Ferrer \email{mireia.ferrer.vhir@@gmail.com}
 #' @examples
@@ -28,7 +28,9 @@
 #' @references
 #' @export
 
-abs_gsea_ReactomePAunfilt <- function(listofTopNamed, namescomp, ranking_metric="logFC", col_entrez="EntrezID", readable=TRUE, organism, organism_annot, Reac_minSetSize, Reac_maxSetSize, resultsSummFN="ResultsSummary_ABS-GSEA.txt", saveRda=TRUE, saveGMT=TRUE, label="", outputDir, rdaDir, gmtDir){
+abs_gsea_ReactomePAunfilt <- function(listofTopNamed, namescomp, ranking_metric="logFC", col_entrez="EntrezID", readable=TRUE, organism, organism_annot, Reac_minSetSize=3, Reac_maxSetSize=500, resultsSummFN="ResultsSummary_ABS-GSEA.txt", saveRda=TRUE, saveGMT=TRUE, label="", outputDir, rdaDir, gmtDir){
+    require(annotPackage, character.only=TRUE) #required for GO/Reactome
+    require(organism_annot, character.only=TRUE) #required for GO/Reactome
     #Prepare lists for storing results
     listReactomePAresults <- list()
     listReactomePAgeneFC <- list()

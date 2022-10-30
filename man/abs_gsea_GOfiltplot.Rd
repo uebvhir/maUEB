@@ -2,31 +2,31 @@
 % Please edit documentation in R/abs_gsea_GOfiltplot.R
 \name{abs_gsea_GOfiltplot}
 \alias{abs_gsea_GOfiltplot}
-\title{GO filt}
+\title{GO results Filtering and Plots}
 \usage{
 abs_gsea_GOfiltplot(
   GSEAresGO,
-  GO_pvalcutoff,
-  GO_pAdjustMethod,
-  saveTables,
-  GOPlots,
-  label,
-  resultsSummFN,
+  GO_pvalcutoff = rep(list(c(BP = 0.05, CC = 0.05, MF = 0.05)), length(GSEAresGO)),
+  GO_pAdjustMethod = rep(list(c(BP = "BH", CC = "BH", MF = "BH")), length(GSEAresGO)),
+  saveTables = TRUE,
+  GOPlots = TRUE,
+  label = "",
+  resultsSummFN = "ResultsSummary_ABS-GSEA.txt",
   outputDir
 )
 }
 \arguments{
 \item{GSEAresGO}{Object resulting from the function 'abs_gsea_GOunfilt'}
 
-\item{GO_pvalcutoff}{Thresholds of p-value for GO analysis (in this order: BP, CC, MF)}
+\item{GO_pvalcutoff}{List of p-value thresholds for filtering GO analysis results (in this order: BP, CC, MF) in each comparison}
 
-\item{GO_pAdjustMethod}{Adjustment method for each GO category to analyse (CC, BP, MF) in each comparison}
+\item{GO_pAdjustMethod}{List of pvalue adjustment method for each GO category to analyse (CC, BP, MF) in each comparison (eg. "BH", "bonferroni" or "none")}
 }
 \value{
-Creates dataframes of GO results filtered by pvalue and performs a GO significance analysis, giving some plots with the most enriched GO terms pathways.
+Saves dataframes of GO results filtered by pvalue and plots to visualize the results.
 }
 \description{
-Performs Creates dataframes of GO results filtered by pvalue are obtained and performs a GO significance analysis, giving some plots with the most enriched GO terms pathways.
+Filter GO results according to pvalue threshold and saves a pdf with different plots to visualize the results of enrichment analysis, using clusterProfiler package (dotplot, enrichment map and netplot)
 }
 \references{
 

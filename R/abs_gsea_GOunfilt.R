@@ -1,18 +1,18 @@
-#' GO unfilt
+#' Gene Set Enrichment Analysis (GSEA) over the Gene Ontology (GO) database
 #'
-#' Performs GO analysis for all the comparisons and store unfiltered results (no pvalue threshold) in lists.
+#' Performs GSEA analysis using clusterProfiler package over GO database for the results from differential expression analysis ranked by the specified metric. The unfiltered enrichment results are returned and saved as xls files.
 
 #' @param listofTopNamed Named list of toptables
 #' @param namescomp Name of the comparisons to be analysed, corresponding to names in list of toptables
 #' @param ranking_metric Column from toptable by which features will be ranked
-#' @param geneColname Column from toptable containing feature ID
-#' @param keyType
-#' @param readable
+#' @param geneColname Column from toptable containing feature ID (eg. "EntrezID"). For proteins, the Uniprot accession number may be used.
+#' @param keyType Keytype of geneColname (eg. "ENTREZID"). For protein uniprot accession it may be specified as "UNIPROT"
+#' @param readable Whether features should be converted to gene symbol. Defaults to TRUE.
 #' @param annotPackage Annotation package (Clariom D/S, specific of species; e.g. "clariomdhumantranscriptcluster.db", "clariomshumantranscriptcluster.db", "mta10transcriptcluster.db", "clariomsmousetranscriptcluster.db")
 #' @param organism_annot  Organism annotation package (e.g. "org.Hs.eg.db", "org.Mm.eg.db")
-#' @param GO_categories
-#' @param GO_minSetSize Minimum size of the pathways analysed in the analysis
-#' @param GO_maxSetSize Maximum size of the pathways analysed in the analysis
+#' @param GO_categories Vector of GO categories to analyze(eg. c("BP", "CC", "MF"))
+#' @param GO_minSetSize Minimum size of the pathways analysed in the analysis. Defaults to 3
+#' @param GO_maxSetSize Maximum size of the pathways analysed in the analysis. Defaults to 500
 #' @param resultsSummFN
 #' @param saveRda
 #' @param saveGMT
@@ -30,7 +30,7 @@
 #' @references
 #' @export
 
-abs_gsea_GOunfilt <- function(listofTopNamed, namescomp, ranking_metric="logFC", geneColname="EntrezID", annotPackage, organism_annot, keyType="ENTREZID", readable=TRUE, GO_categories=c("BP","CC","MF"), GO_minSetSize=3, GO_maxSetSize=500, resultsSummFN="ResultsSummary_ABS-GSEA.txt", saveRda=TRUE, saveGMT=TRUE, label="", outputDir, rdaDir, gmtDir){
+abs_gsea_GOunfilt <- function(listofTopNamed, namescomp, ranking_metric="logFC", geneColname="EntrezID", keyType="ENTREZID", readable=TRUE, annotPackage, organism_annot,  GO_categories=c("BP","CC","MF"), GO_minSetSize=3, GO_maxSetSize=500, resultsSummFN="ResultsSummary_ABS-GSEA.txt", saveRda=TRUE, saveGMT=TRUE, label="", outputDir, rdaDir, gmtDir){
   #Prepare lists for storing results
   #Prepare lists for storing results
     require(annotPackage, character.only=TRUE) #required for GO/Reactome

@@ -2,7 +2,7 @@
 % Please edit documentation in R/abs_gsea_ReactomePAfiltplot.R
 \name{abs_gsea_ReactomePAfiltplot}
 \alias{abs_gsea_ReactomePAfiltplot}
-\title{Reactome filt}
+\title{GO results Filtering and Plots}
 \usage{
 abs_gsea_ReactomePAfiltplot(
   GSEAresReac,
@@ -16,21 +16,17 @@ abs_gsea_ReactomePAfiltplot(
 )
 }
 \arguments{
-\item{GSEAresReac}{<-Object resulting from the function 'abs_gsea_ReactomePAunfilt'}
+\item{GSEAresReac}{Object resulting from the function 'abs_gsea_ReactomePAunfilt'}
 
-\item{Reac_pvalcutoff}{<- Thresholds of p-value for GO analysis (in this order: BP, CC, MF)}
+\item{Reac_pvalcutoff}{Numeric vector of p-value thresholds for Reactome Pathway analysis in each comparison. Defaults to 0.05.}
 
-\item{Reac_pAdjustMethod}{<- Adjustment method for each GO category to analyse (CC, BP, MF) in each comparison}
-
-\item{annotPackage}{Annotation package (Clariom D/S, specific of species; e.g. "clariomdhumantranscriptcluster.db", "clariomshumantranscriptcluster.db", "mta10transcriptcluster.db", "clariomsmousetranscriptcluster.db")}
-
-\item{organism_annot}{<- Organism annotation package (e.g. "org.Hs.eg.db", "org.Mm.eg.db")}
+\item{Reac_pAdjustMethod}{Vector of pvalue adjustment method for Reactome Pathway analysis in each comparison (eg. "BH", "bonferroni" or "none")}
 }
 \value{
-Creates dataframes of Reactome results filtered by pvalue and performs a Reactome significance analysis, giving some plots with the most enriched Reactome pathways.
+Saves dataframes of Reactome results filtered by pvalue and plots to visualize the results.
 }
 \description{
-Performs Creates dataframes of Reactome results filtered by pvalue are obtained and performs a Reactome significance analysis, giving some plots with the most enriched Reactome pathways.
+Filter GO results according to pvalue threshold and saves a pdf with different plots to visualize the results of enrichment analysis, using clusterProfiler package (dotplot, enrichment map and netplot)
 }
 \references{
 

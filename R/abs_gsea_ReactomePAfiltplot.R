@@ -1,19 +1,15 @@
-#' Reactome filt
+#' GO results Filtering and Plots
 #'
-#' Performs Creates dataframes of Reactome results filtered by pvalue are obtained and performs a Reactome significance analysis, giving some plots with the most enriched Reactome pathways.
-
-#' @param annotPackage Annotation package (Clariom D/S, specific of species; e.g. "clariomdhumantranscriptcluster.db", "clariomshumantranscriptcluster.db", "mta10transcriptcluster.db", "clariomsmousetranscriptcluster.db")
-#' @param organism_annot  <- Organism annotation package (e.g. "org.Hs.eg.db", "org.Mm.eg.db")
-#' @param Reac_pvalcutoff <- Thresholds of p-value for GO analysis (in this order: BP, CC, MF)
-#' @param Reac_pAdjustMethod <- Adjustment method for each GO category to analyse (CC, BP, MF) in each comparison
-#' @param GSEAresReac <-Object resulting from the function 'abs_gsea_ReactomePAunfilt'
+#' Filter GO results according to pvalue threshold and saves a pdf with different plots to visualize the results of enrichment analysis, using clusterProfiler package (dotplot, enrichment map and netplot)
+#' @param GSEAresReac Object resulting from the function 'abs_gsea_ReactomePAunfilt'
+#' @param Reac_pvalcutoff Numeric vector of p-value thresholds for Reactome Pathway analysis in each comparison. Defaults to 0.05.
+#' @param Reac_pAdjustMethod Vector of pvalue adjustment method for Reactome Pathway analysis in each comparison (eg. "BH", "bonferroni" or "none")
 #' @details
-#' @import DT
-#' @import ggplot2
-#' @import enrichplot
+#' @import DT ggplot2 enrichplot
+#' @importFrom writexl write_xlsx
 #' @author Mireia Ferrer \email{mireia.ferrer.vhir@@gmail.com}
 #' @examples
-#' @return Creates dataframes of Reactome results filtered by pvalue and performs a Reactome significance analysis, giving some plots with the most enriched Reactome pathways.
+#' @return Saves dataframes of Reactome results filtered by pvalue and plots to visualize the results.
 #' @keywords Reactome GSEA plots
 #' @references
 #' @export
@@ -85,33 +81,40 @@ abs_gsea_ReactomePAfiltplot <- function(GSEAresReac, Reac_pvalcutoff, Reac_pAdju
                 geneFC <- listReactomePAgeneFC[[i]]
                 pdf(file = file.path(outputDir, paste0("ReactomePAplotsGSEA.",comparison, label, ".pdf")), width = 14, height = 14)
                 if (as.numeric(R.Version()$major)>=4) {
-                ##Dotplot
-                ifelse (nrow(Reactab.f) < 15, ncateg <- nrow(Reactab.f), ncateg <- 15)
-                print(dotplot(gsea.result, showCategory=ncateg, font.size = 15, size="GeneRatio",
-                              title = paste0("Reactome Pathway Analysis for ", comparison,". Dotplot"), color=pval,
-                              label_format=60, split=".sign") + facet_grid(.~.sign))
-                ##Enrichment map
-                ifelse (nrow(Reactab.f) < 60, ncateg <- nrow(Reactab.f), ncateg <- 60)
-                pt.gsea.result <- pairwise_termsim(gsea.result, method="JC", showCategory=ncateg)
-                print(emapplot(pt.gsea.result, color=pval, showCategory=ncateg, min_edge=0.2, group_category=FALSE, group_legend=TRUE,
-                               node_label="category", label_style="shadowtext", shadowtext=FALSE))
-
-                ##Network
-                print(cnetplot(gsea.result, categorySize = pval, foldChange = geneFC, colorEdge=TRUE,
-                               showCategory = 5, circular = FALSE, cex_label_category=1.3))
+                    ##Dotplot
+                    ifelse (nrow(Reactab.f) < 15, ncateg <- nrow(Reactab.f), ncateg <- 15)
+                    dp <- dotplot(gsea.result, size="GeneRatio", showCategory = ncateg, font.size = 16,label_format=40,
+                                  title = paste0("Reactome Pathway Analysis for ",categn, ":", comparison), color=pval,
+                                  label_format=60, split=".sign") + facet_grid(.~.sign) +
+                        theme(strip.text.x = element_text(size = 16), text=element_text(size=16))
+                    print(dp)
+                    ##Enrichment map
+                    ifelse (nrow(Reactab.f) < 60, ncateg <- nrow(Reactab.f), ncateg <- 60)
+                    pt.gsea.result <- pairwise_termsim(gsea.result, method="JC", showCategory=ncateg)
+                    ep <- emapplot(pt.gsea.result, color=pval, showCategory=ncateg, min_edge=0.2, group_category=FALSE, group_legend=TRUE,
+                                   node_label="category", label_style="shadowtext", shadowtext=FALSE)+ theme(legend.text=element_text(size=15), legend.title=element_text(size=15))
+                    print(ep)
+                    ##Network
+                    cnp <- netplot(gsea.result, categorySize = pval, foldChange = geneFC, colorEdge=TRUE,
+                                   showCategory = 5, circular = FALSE, cex_label_category=1.3)+
+                        theme(legend.text=element_text(size=15), legend.title=element_text(size=15))
+                    print(cnp)
                 } else {
                     ##Dotplot
                     ifelse (nrow(Reactab.f) < 15, ncateg <- nrow(Reactab.f), ncateg <- 15)
-                    print(dotplot(gsea.result, showCategory=ncateg, font.size = 15, size="GeneRatio",
-                                  title = paste0("Reactome Pathway Analysis for ", comparison,". Dotplot"), color=pval,
-                                  split=".sign") + facet_grid(.~.sign))
+                    dp <- dotplot(gsea.result, size="GeneRatio", showCategory = ncateg, font.size = 16,
+                                  title = paste0("Reactome Pathway Analysis for ",categn, ":", comparison), color=pval, split=".sign") + facet_grid(.~.sign)+
+                        theme(strip.text.x = element_text(size = 16), text=element_text(size=16))
+                    print(dp)
                     ##Enrichment map
                     ifelse (nrow(Reactab.f) < 60, ncateg <- nrow(Reactab.f), ncateg <- 60)
-                    print(emapplot(gsea.result, color=pval, showCategory=ncateg))
-
+                    ep <-emapplot(gsea.result, color=pval, showCategory=ncateg)+ theme(legend.text=element_text(size=15), legend.title=element_text(size=15))
+                    print(ep)
                     ##Network
-                    print(cnetplot(gsea.result, categorySize = pval, foldChange = geneFC, colorEdge=TRUE,
-                                   showCategory = 5, circular = FALSE))
+                    cnp <- cnetplot(gsea.result, categorySize = pval, foldChange = geneFC, colorEdge=TRUE,
+                                    showCategory = 5, circular = FALSE)+
+                        theme(legend.text=element_text(size=15), legend.title=element_text(size=15))
+                    print(cnp)
                 }
                 dev.off()
             }
