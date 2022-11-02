@@ -84,7 +84,7 @@ abs_gsea_ReactomePAfiltplot <- function(GSEAresReac, Reac_pvalcutoff, Reac_pAdju
                     ##Dotplot
                     ifelse (nrow(Reactab.f) < 15, ncateg <- nrow(Reactab.f), ncateg <- 15)
                     dp <- dotplot(gsea.result, size="GeneRatio", showCategory = ncateg, font.size = 16,label_format=40,
-                                  title = paste0("Reactome Pathway Analysis for ",categn, ":", comparison), color=pval, split=".sign") + facet_grid(.~.sign) +
+                                  title = paste0("Reactome Pathway Analysis for ", comparison), color=pval, split=".sign") + facet_grid(.~.sign) +
                         theme(strip.text.x = element_text(size = 16), text=element_text(size=16))
                     print(dp)
                     ##Enrichment map
@@ -102,7 +102,7 @@ abs_gsea_ReactomePAfiltplot <- function(GSEAresReac, Reac_pvalcutoff, Reac_pAdju
                     ##Dotplot
                     ifelse (nrow(Reactab.f) < 15, ncateg <- nrow(Reactab.f), ncateg <- 15)
                     dp <- dotplot(gsea.result, size="GeneRatio", showCategory = ncateg, font.size = 16,
-                                  title = paste0("Reactome Pathway Analysis for ",categn, ":", comparison), color=pval, split=".sign") + facet_grid(.~.sign)+
+                                  title = paste0("Reactome Pathway Analysis for ", comparison), color=pval, split=".sign") + facet_grid(.~.sign)+
                         theme(strip.text.x = element_text(size = 16), text=element_text(size=16))
                     print(dp)
                     ##Enrichment map
