@@ -87,8 +87,7 @@ abs_gsea_GOfiltplot <- function(GSEAresGO, GO_pvalcutoff=rep(list(c(BP=0.05, CC=
                     ##Dotplot
                     ifelse (nrow(GOtab.f) < 15, ncateg <- nrow(GOtab.f), ncateg <- 15)
                     dp <- dotplot(gseago.result, size="GeneRatio", showCategory = ncateg, font.size = 16,label_format=40,
-                                  title = paste0("GO Analysis for ",categ, ":", comparison), color=pval,
-                                  label_format=60, split=".sign") + facet_grid(.~.sign) +
+                                  title = paste0("GO Analysis for ",categ, ":", comparison), color=pval, split=".sign") + facet_grid(.~.sign) +
                         theme(strip.text.x = element_text(size = 16), text=element_text(size=16))
                    print(dp)
                      ##Enrichment map
