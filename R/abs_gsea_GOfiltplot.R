@@ -97,7 +97,7 @@ abs_gsea_GOfiltplot <- function(GSEAresGO, GO_pvalcutoff=rep(list(c(BP=0.05, CC=
                                    node_label="category", label_style="shadowtext", shadowtext=FALSE)+ theme(legend.text=element_text(size=15), legend.title=element_text(size=15))
                     print(ep)
                     ##Network
-                    cnp <- netplot(gseago.result, categorySize = pval, foldChange = geneFC, colorEdge=TRUE,
+                    cnp <- cnetplot(gseago.result, categorySize = pval, foldChange = geneFC, colorEdge=TRUE,
                                    showCategory = 5, circular = FALSE, cex_label_category=1.3)+
                         theme(legend.text=element_text(size=15), legend.title=element_text(size=15))
                     print(cnp)

@@ -94,7 +94,7 @@ abs_gsea_ReactomePAfiltplot <- function(GSEAresReac, Reac_pvalcutoff, Reac_pAdju
                                    node_label="category", label_style="shadowtext", shadowtext=FALSE)+ theme(legend.text=element_text(size=15), legend.title=element_text(size=15))
                     print(ep)
                     ##Network
-                    cnp <- netplot(gsea.result, categorySize = pval, foldChange = geneFC, colorEdge=TRUE,
+                    cnp <- cnetplot(gsea.result, categorySize = pval, foldChange = geneFC, colorEdge=TRUE,
                                    showCategory = 5, circular = FALSE, cex_label_category=1.3)+
                         theme(legend.text=element_text(size=15), legend.title=element_text(size=15))
                     print(cnp)
