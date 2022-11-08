@@ -27,22 +27,36 @@ License: `use_gpl3_license()`
 Imports: 
     annaffy,
     annotate,
+    AnnotationDbi,
     arrayQualityMetrics,
     Biobase,
+    clusterProfiler,
+    DT,
+    enrichplot,
     genefilter,
     ggplot2,
     ggrepel,
+    heatmaply,
     htmlwidgets,
     hwriter,
     limma,
     magrittr,
     oligo,
+    pheatmap,
     plotly,
     pvca,
+    reactome.db,
+    ReactomePA,
     ReportingTools,
+    VennDiagram,
+    writexl,
     WriteXLS
 Suggests: 
+    BiocStyle,
+    clariomsmousetranscriptcluster.db,
+    here,
     knitr,
+    pd.clariom.s.mouse.ht,
     rmarkdown
 VignetteBuilder: 
     knitr
