@@ -189,7 +189,7 @@ summary(targets)
 
 Raw data can be read from the cel files or directly loaded from an existing Rda object ("rawData.Rda"). Function `read_celfiles()` reads the cel files listed in targets rownames (and in the same order) that are contained in the `celDir` directory and returns an object of class `ExpressionSet`.
 
-```{r echo=FALSE, message=FALSE}
+```{r}
 if (readcelFiles){
     eset_raw <- read_celfiles(inputDir=celDir, targets=targets)
     } else {if (loadRawData) {load(file.path(dataDir, "rawData.Rda"))}}

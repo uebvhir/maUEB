@@ -12,9 +12,8 @@
 #' @param outputDir Name of the directory where the results summary will be saved
 #' @details
 #' @importFrom limma topTable
-#' @import annotate
-#' @import ReportingTools
-#' @import WriteXLS
+#' @import annotate ReportingTools WriteXLS
+#' @import Biobase
 #' @export dea_toptab
 #' @author Mireia Ferrer \email{mireia.ferrer.vhir@@gmail.com}
 #' @seealso \link[limma]{topTable} \link[ReportingTools]{HTMLReport}
@@ -61,7 +60,7 @@ dea_toptab <- function(listofcoef, fit.main, eset, padjust.method="fdr", html_re
             finish(deReport)
             #if adjust.method="none", the following 'if' modifies name of column from "adjusted pvalue" to "Pvalue" in html file
             if (html_padjust_method[i]=="none"){
-                f <- file.path(resultsDir, paste0("topTab.",listofcoef[i], ".html"))
+                f <- file.path(outputDir, paste0("topTab.",listofcoef[i], ".html"))
                 x <- readLines(f)
                 y <- gsub("Adjusted p-Value", "P.Value", x )
                 cat(y, file=f, sep="\n")

@@ -43,7 +43,7 @@ dea_volcanoplot <- function(listofcsv, listofcoef, volc_logFC=rep(1,length(listo
         pl <- g + theme_bw() +
             ggtitle(paste0("Volcano for: ", listofcoef[i])) +
             theme(plot.title = element_text(lineheight = 0.8, face = "bold", hjust = 0.5, size = 10),
-                  axis.title.x = element_text(size=8), axis.title.y = element_text(size=8), legend.title = element_blank(),
+                  axis.title.x = element_text(size=10), axis.title.y = element_text(size=10), legend.title = element_blank(),
                   legend.key.size = unit(0.5, "cm"), legend.key = element_rect(fill="grey90", size=0.1), legend.text = element_text(size=8),
                   legend.position="top", legend.margin=margin(0,-2,-2,0), legend.box.margin=margin(-2,-8,-8,-6)) +
             geom_vline(xintercept = c(-volc_logFC[i], volc_logFC[i]), linetype = "dotted") +
@@ -53,19 +53,24 @@ dea_volcanoplot <- function(listofcsv, listofcoef, volc_logFC=rep(1,length(listo
         plotes[[i]] <- pl
     }
     ###Saves volcano plots in pdf file in groups of n plots/sheet
-    q <- length(plotes)%/%n #integer part of division: how many groups of 6
+    q <- length(plotes)%/%n #integer part of division: how many groups of n
     r <- length(plotes)%%n #remainder of division
+
     ifelse (r>0, r1<-1, r1<-0)
     i1<-seq(1,length(plotes),by=n)
     i2<-c((1:q)*n,q*n+r)
+    if (r>0) {
+        addplots <- (n * (q+1)) - length(plotes)
+        plotes1 <- c(plotes, rep(list(c()), addplots))
+    } else {plotes1 <- plotes}
     pdf(file.path(outputDir, paste0("Volcanos", label, ".pdf")))
     for (j in 1:(q+r1)){
-        multiplot(plotlist = plotes[i1[j]:i2[j]], cols = cols)
+        multiplot(plotlist = plotes1[i1[j]:(i1[j]+(n-1))], cols = cols)
     }
     dev.off()
     #to print plot in device
     for (j in 1:(q+r1)){
-        multiplot(plotlist = plotes[i1[j]:i2[j]], cols = cols)
+        multiplot(plotlist = plotes1[i1[j]:(i1[j]+(n-1))], cols = cols)
     }
     return(plotes)
 }

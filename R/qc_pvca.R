@@ -40,20 +40,20 @@ qc_pvca <- function(data, factors, targetsPVCA=NULL, pct_threshold=0.6, label=NU
                       ylab = "Weighted average proportion variance",
                       ylim= c(0,1.1),col = c("mediumorchid"), las=2,
                       main="PVCA estimation")
-        axis(1, at = bp, labels = pvcaObj$label, cex.axis = 0.55, las=2)
+        axis(1, at = bp, labels = pvcaObj$label, cex.axis = 1, las=2)
         values = pvcaObj$dat
         new_values = round(values , 3)
-        text(bp,pvcaObj$dat,labels = new_values, pos=3, cex = 0.5)
+        text(bp,pvcaObj$dat,labels = new_values, pos=3, cex = 1)
         #save plot in pdf
         pdf(file.path(outputDir, paste0("PVCA", label, ".pdf")))
         bp <- barplot(pvcaObj$dat, xlab = "Effects",
                       ylab = "Weighted average proportion variance",
                       ylim= c(0,1.1),col = c("mediumorchid"), las=2,
                       main="PVCA estimation")
-        axis(1, at = bp, labels = pvcaObj$label, cex.axis = 0.55, las=2)
+        axis(1, at = bp, labels = pvcaObj$label, cex.axis = 1, las=2)
         values = pvcaObj$dat
         new_values = round(values , 3)
-        text(bp,pvcaObj$dat,labels = new_values, pos=3, cex = 0.5)
+        text(bp,pvcaObj$dat,labels = new_values, pos=3, cex = 1)
         dev.off()
         return(pvcaObj)
     } else {return(pvcaOutmessage)}
