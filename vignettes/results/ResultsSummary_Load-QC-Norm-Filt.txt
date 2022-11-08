@@ -178,3 +178,169 @@ NON-SPECIFIC FILTERING
   numDupsRemoved numRemoved.ENTREZID
 1            135                8698
 
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+[1] "Error in pvcaBatchAssess(data, factors, pct_threshold) : \n  could not find function \"pvcaBatchAssess\"\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in pvcaBatchAssess(data, factors, pct_threshold): could not find function "pvcaBatchAssess">
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: FALSE 
+-Number of features before filtering: 29129 
+-Number of features after filtering: 20296 
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: FALSE 
+-Number of features before filtering: 29129 
+-Number of features after filtering: 20296 
+  numDupsRemoved numRemoved.ENTREZID
+1            135                8698
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+PVCA:
+$dat
+           [,1]      [,2]       [,3]      [,4]
+[1,] 0.04757598 0.2911197 0.01818642 0.6431179
+
+$label
+[1] "Group:Batch" "Group"       "Batch"       "resid"      
+
+
+
+NON-SPECIFIC FILTERING
+-Feature filtering: ^AFFX 
+-Filtering by Annotation: TRUE 
+-Filtering by Variance: FALSE 
+-Number of features before filtering: 29129 
+-Number of features after filtering: 20296 
+  numDupsRemoved numRemoved.ENTREZID
+1            135                8698
+

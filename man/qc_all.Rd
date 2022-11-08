@@ -11,13 +11,15 @@ qc_all(
   samplenames,
   factors,
   factorspvca,
+  targetsPVCA = NULL,
   pca_scale,
   colorlist,
   batchRemove,
   batchFactors,
-  hc.method,
+  hc.method = "average",
   hc.numclusters = 2,
-  label,
+  label = "",
+  inputDir = NULL,
   outputDir,
   summaryFN,
   doboxplot = TRUE,
@@ -40,6 +42,8 @@ qc_all(
 
 \item{factorspvca}{A vector with the names of factor variables contained in targets to be used in pvca}
 
+\item{targetsPVCA}{If a different targets (phenoData) is to be used for PVCA, the name of the new targets csv file from inputDir should be specified here. Defaults to NULL (not different from pData). See 'Details'.}
+
 \item{pca_scale}{a logical value indicating whether the variables in PCA should be scaled to have unit variance before the analysis takes place.}
 
 \item{colorlist}{Vector of RGB colors to be used for factor variables specified in 'factors' other than Group. If is NULL (default), a default colorlist will be used.}
@@ -53,6 +57,8 @@ qc_all(
 \item{hc.numclusters}{Number of main clusters to highlight by rect}
 
 \item{label}{A string to be included in the file name to be saved}
+
+\item{inputDir}{Name of the directory from where the targetsPVCA csv file should be loaded, if specified.}
 
 \item{outputDir}{Name of the directory where the plot will be saved}
 

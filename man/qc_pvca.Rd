@@ -16,11 +16,11 @@ qc_pvca(
 )
 }
 \arguments{
-\item{data}{An instance of ExpressionSet.}
+\item{data}{ExpressionSet}
 
-\item{factors}{A vector with the names of factor variables to be assessed}
+\item{factors}{A vector with the names of factor variables to be used in PVCA, as defined in phenoData or targetsPVCA file.}
 
-\item{targetsPVCA}{If a different targets is to be used for PVCA, the name of the new targets csv file should be specified here. See 'Details'.}
+\item{targetsPVCA}{If a different targets (phenoData) is to be used for PVCA, the name of the new targets csv file from inputDir should be specified here. Defaults to NULL (not different from pData). See 'Details'.}
 
 \item{pct_threshold}{The percentile value of the minimum amount of the variabilities that the selected principal components need to explain}
 

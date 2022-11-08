@@ -130,3 +130,35 @@
 -logFC: 1, 1
 -Column clustering: TRUE ; dist= euclidian ; method= complete
 -Row clustering by correlation distance: TRUE
+
+-----------------------Heatmap settings---------------------------
+-Sets for comparison: EffectTreatment, EffectPD1
+-pvalue type: adj.P.Val, P.Value
+-pvalue thr: 0.05, 0.05
+-logFC: 1, 1
+-Column clustering: TRUE ; dist= euclidian ; method= complete
+-Row clustering by correlation distance: TRUE
+
+-----------------------Heatmap settings---------------------------
+-Sets for comparison: EffectTreatment, EffectPD1
+-pvalue type: adj.P.Val, P.Value
+-pvalue thr: 0.05, 0.05
+-logFC: 1, 1
+-Column clustering: TRUE ; dist= euclidian ; method= complete
+-Row clustering by correlation distance: TRUE
+
+-----------------------Heatmap settings---------------------------
+-Sets for comparison: EffectTreatment, EffectPD1
+-pvalue type: adj.P.Val, P.Value
+-pvalue thr: 0.05, 0.05
+-logFC: 1, 1
+-Column clustering: TRUE ; dist= euclidian ; method= complete
+-Row clustering by correlation distance: TRUE
+
+-----------------------Heatmap settings---------------------------
+-Sets for comparison: EffectTreatment, EffectPD1
+-pvalue type: adj.P.Val, P.Value
+-pvalue thr: 0.05, 0.05
+-logFC: 1, 1
+-Column clustering: TRUE ; dist= euclidian ; method= complete
+-Row clustering by correlation distance: TRUE

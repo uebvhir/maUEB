@@ -345,7 +345,7 @@ The PVCA approach can be used as a screening tool to determine which sources of 
 
 ```{r message=FALSE}
 if (pvcaNormData){
-    qc_pvca(data=eset_norm, factors=pvcaNormData.fact, targets=targets.pvcaFN, pct_threshold=pct_threshold, label="NormData", outputDir=resultsDir, summaryFN=resultsSummFN)
+    qc_pvca(data=eset_norm, factors=pvcaNormData.fact, targetsPVCA=targets.pvcaFN, pct_threshold=pct_threshold, label="NormData", outputDir=resultsDir, summaryFN=resultsSummFN)
 }
 ```
 

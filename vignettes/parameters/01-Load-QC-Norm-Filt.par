@@ -18,7 +18,7 @@ colorlist <- c("firebrick1", "blue", "darkgoldenrod1", "darkorchid1", "lightblue
 ##For Clariom S Human: "clariomshumantranscriptcluster.db"
 ##For Clariom D Mouse, transcript level: "mta10transcriptcluster.db"
 ##For Clariom S Mouse: "clariomsmousetranscriptcluster.db"
-annotPackage <- "clariomsmousetranscriptcluster.db"  
+annotPackage <- "clariomsmousetranscriptcluster.db"
 
 #Samples to remove
 samplestoremove <- "CMP.2"
@@ -42,7 +42,7 @@ pct_threshold <- 0.6
 pvcaNormData.fact <- targets.fact # Variables (min 2) for PVCA calculation (eg. c("Group", "Batch"), or the same as targets.fact)
 ## Note: # For each variable num of levels must be < num of samples/level, if not it gives an error
 ## To overcome this issue you can create a simplified version of targets file with less levels just to create the pvca
-targets.pvcaFN <- targetsFN #Name of 'targets' file (csv2) for pvca (usually is targetsFN)
+targets.pvcaFN <- NULL #Name of 'targets' file (csv2) for pvca (defaults to NULL if is the same as targetsFN)
 
 #Hierarchical clustering
 hclustRawData.method <- "average" # Hierarchical clustering method (eg. "average")

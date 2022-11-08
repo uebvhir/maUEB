@@ -80,14 +80,14 @@ mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval=0.
         if (pltR) {grid.draw(venn.plot)}
 
         #save summary of venn results
-        sink(file.path(outputDir, resultsSummFN), split = FALSE, append = TRUE)
-        cat("\n--------------------Venn settings:--------------------\n")
-        cat("-Sets for comparison:", paste(venn_comparNames, collapse=", "))
-        cat("\n-pvalue type:", paste(colPval, collapse=", "))
-        cat("\n-pvalue thr:", paste(pval, collapse=", "))
-        cat("\n-logFC:", paste(FC, collapse=", "))
-        cat("\n")
-        sink()
+        # sink(file.path(outputDir, resultsSummFN), split = FALSE, append = TRUE)
+        # cat("\n--------------------Venn settings:--------------------\n")
+        # cat("-Sets for comparison:", paste(venn_comparNames, collapse=", "))
+        # cat("\n-pvalue type:", paste(colPval, collapse=", "))
+        # cat("\n-pvalue thr:", paste(pval, collapse=", "))
+        # cat("\n-logFC:", paste(FC, collapse=", "))
+        # cat("\n")
+        # sink()
     }
 
     ## Creating Euler Diagram

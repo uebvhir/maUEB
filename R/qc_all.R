@@ -33,7 +33,7 @@
 #' @keywords Quality control
 #' @references
 
-qc_all <- function(data, group, group.color, samplenames, factors, factorspvca, pca_scale, colorlist, batchRemove, batchFactors, hc.method, hc.numclusters=2, label, outputDir, summaryFN, doboxplot=TRUE, dopca=TRUE, dopvca=FALSE, dohc=TRUE, doarrayQMreport=FALSE) { ### ES DEFINEIX UNA VARIABLE DIFERENT PER PCA I PVCA (factorspca, factorspvca)
+qc_all <- function(data, group, group.color, samplenames, factors, factorspvca, targetsPVCA=NULL, pca_scale, colorlist, batchRemove, batchFactors, hc.method="average", hc.numclusters=2, label="", inputDir=NULL, outputDir, summaryFN, doboxplot=TRUE, dopca=TRUE, dopvca=FALSE, dohc=TRUE, doarrayQMreport=FALSE) { ### ES DEFINEIX UNA VARIABLE DIFERENT PER PCA I PVCA (factorspca, factorspvca)
     targets <- pData(data)
     if (doboxplot) {qc_boxplot(data=data, group=group, group.color=group.color, samplenames=samplenames, outputDir=outputDir, bp.main="Boxplot for array intensity", label, cex.axis=0.5, bp.ylab="log2 intensity", cex.lab=0.7, las=2, bp.legend=TRUE, bp.legend.posx=10, bp.legend.posy=13, bp.legend.cex=0.6)}
     if (dohc) {qc_hc(data=exprs(data), hclust.method=hc.method, names=targets[,samplenames], cexRow = 0.6, cexCol = 0.6, rect=TRUE, numclusters=hc.numclusters, outputDir=outputDir, label=label)}
@@ -42,5 +42,5 @@ qc_all <- function(data, group, group.color, samplenames, factors, factorspvca, 
         arrayQualityMetrics(data, outdir = file.path(outputDir, paste0("QCDir.", label)), force=TRUE, intgroup=factors)
     }
     if (dopca) {qc_pca1(data=exprs(data), scale=pca_scale, pca2D_factors=factors, targets=targets, col.group=group.color, colorlist=colorlist, names=targets[,samplenames], outputDir=outputDir, label=label)}
-    if (dopvca) {qc_pvca(data=data, factors=factorspvca,label=label, outputDir=resultsDir, summaryFN=summaryFN)}
+    if (dopvca) {qc_pvca(data=data, factors=factorspvca, targetsPVCA=targetsPVCA, label=label, inputDir=inputDir, outputDir=resultsDir, summaryFN=summaryFN)}
 }
