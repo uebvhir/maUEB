@@ -165,8 +165,8 @@ mc_venn_upset <- function(listofcsv, namescomp, label, colFeat, colPval, pval=0.
         sharedElements.stack <- merge(sharedElements.stack, listofcsv_comp[,c(colFeat, colFC, colPval)], by=1, all.x=TRUE)
       }
       colnames(sharedElements.stack)[1:2] <- c(colFeat, "Venn.subset")
-      colnames(sharedElements.stack)[grep(paste0("^",colFC), colnames(sharedElements.stack))] <- paste0(colFC,".", comparison)
-      colnames(sharedElements.stack)[grep(paste0("^",colPval), colnames(sharedElements.stack))] <- paste0(colPval,".", comparison)
+      colnames(sharedElements.stack)[grep(paste0("^",colFC), colnames(sharedElements.stack))] <- paste0(colFC,".", namescomp)
+      colnames(sharedElements.stack)[grep(paste0("^",colPval), colnames(sharedElements.stack))] <- paste0(colPval,".", namescomp)
       if ((nrow(sharedElements.stack)<=65535) & (ncol(sharedElements.stack)<=256)){
         writexl::write_xlsx(sharedElements.stack,
                  file.path(outputDir, paste0("sharedElements.", include, ".", label, ".", colPval, pval,".",colFC,".",FC,".extended.xlsx")))
